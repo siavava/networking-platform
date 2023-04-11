@@ -2,9 +2,7 @@ import $ from 'jquery';
 import './style.scss';
 
 let num = 0;
-/*
-eslint linebreak-style: ["error", "windows"]
-*/
+
 $('#main').html('You\'ve been on this page for 0 seconds.');
 
 setInterval(() => {
