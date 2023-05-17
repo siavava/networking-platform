@@ -1,24 +1,42 @@
-# Project Name
+# goloco
 
 ![Team Photo](Insert a Team Photo URL here)
-[*how?*](https://help.github.com/articles/about-readmes/#relative-links-and-image-paths-in-readme-files)
-
-TODO: short project description, some sample screenshots or mockups
+We are building a networking web app that helps organize contacts, email reminders, and call notes into one simple website. Gone are the days of messy spreadsheets and nested folder Google drives full of call notes which are unintuitive, difficult to maintain, and full of loopholes.
 
 ## Architecture
 
-TODO:  descriptions of code organization and tools and libraries used
+Code:
+- Use the Redux starter pack for the frontend
+- Use the Kahoot/API starter pack for the backend in the Project API Goloco Repo
+
+Libraries:
+Front end:
+- React
+- Redux
+- Framer Motion
+Back end:
+- Mongoose
+- Express
 
 ## Setup
 
-TODO: how to get the project dev environment up and running, npm install etc
+Npm install for both the API and the front end
+Npm start on a separate console for back end to start the API (until we have a steady back end on Atlas)
 
 ## Deployment
 
-TODO: how to deploy the project
+Deploy front end on OnRender
+Deploy Backend on OnRender similar to the Kahoot SA, see https://brunchlabs.notion.site/SA6-Kahoot-API-f9e5bbc269654c918a14b0860ab510b7
+Create a cloud database on Atlas
 
 ## Authors
 
-TODO: list of authors
+| ---: | --- :|
+| [Amittai Wekesa](@siavava) | React |
+| [Bansharee Ireen](@banshee56) | React |
+| [Cindy Wang](@cindylwang) | CSS |
+| [Johan Cruz Hernandez](@CrypticMatter) | Redux |
+| [Yizhen Zhen](@zhenyiplusone) |  API |
 
 ## Acknowledgments
+
