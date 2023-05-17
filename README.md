@@ -7,15 +7,18 @@ We are building a networking web app that helps organize contacts, email reminde
 ## Architecture
 
 Code:
+
 - Use the Redux starter pack for the frontend
 - Use the Kahoot/API starter pack for the backend in the Project API Goloco Repo
 
 Frontend Libraries:
+
 - React
 - Redux
 - Framer Motion
 
 Backend Libraries:
+
 - Mongoose
 - Express
 
@@ -39,4 +42,3 @@ Backend Libraries:
 - [Yizhen Zhen](@zhenyiplusone) |  API
 
 ## Acknowledgments
-
