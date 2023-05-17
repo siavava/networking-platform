@@ -4,8 +4,6 @@ import React from 'react';
 import {
   BrowserRouter, Routes, Route, NavLink, useParams,
 } from 'react-router-dom';
-import Counter from './counter';
-import Controls from './controls';
 
 function App(props) {
   return (
@@ -24,7 +22,7 @@ function App(props) {
 }
 
 const About = (props) => <div> All there is to know about me </div>;
-const Welcome = (props) => <div>Welcome, <Counter /><Controls /></div>;
+const Welcome = (props) => <div>Hello World!</div>;
 
 const Nav = (props) => (
   <nav>
@@ -42,6 +40,6 @@ const Test = (props) => {
   return <div> ID: {id} </div>;
 };
 
-const FallBack = (props) => <div>URL Not Found</div>;
+const FallBack = (props) => <div>Not Found</div>;
 
 export default App;
