@@ -31,7 +31,6 @@ Create a cloud database on Atlas
 
 ## Authors
 
-| ---: | --- :|
 | [Amittai Wekesa](@siavava) | React |
 | [Bansharee Ireen](@banshee56) | React |
 | [Cindy Wang](@cindylwang) | CSS |
