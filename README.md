@@ -3,6 +3,8 @@
 ![Team Photo](Insert a Team Photo URL here)
 We are building a networking web app that helps organize contacts, email reminders, and call notes into one simple website. Gone are the days of messy spreadsheets and nested folder Google drives full of call notes which are unintuitive, difficult to maintain, and full of loopholes.
 
+<img width="550" alt="Screen Shot 2023-05-17 at 2 42 15 PM" src="https://github.com/dartmouth-cs52-23s/project-goloco/assets/91350296/51d98427-1c8f-470a-89fb-33be274fbdc6">
+
 ## Architecture
 
 Code:
