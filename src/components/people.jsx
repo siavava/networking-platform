@@ -3,7 +3,7 @@ import React, { useCallback, useState, useEffect } from 'react';
 import '../companies.style.scss';
 import debounce from '../modules/debounce';
 
-export default function Companies() {
+export default function People() {
   const [searchTerm, setSearchTerm] = useState('');
   const search = (term) => {
     console.log(term);
@@ -15,44 +15,51 @@ export default function Companies() {
     debouncedSearch(searchTerm);
   }, [searchTerm]);
 
-  const companies = [
+  const people = [
     {
-      companyID: 1,
-      name: 'Google',
-      bio: 'search engine company that does a lot of stuff.',
-      logo: 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+      id: 1,
+      name: 'Swati',
+      company: 'Google',
+      photo: 'https://source.unsplash.com/random/100x100/?img=1',
+      connection: 'College Alumni',
     },
     {
-      companyID: 2,
-      name: 'Apple',
-      bio: 'iPhone company that does a lot of stuff.',
-      logo: 'https://www.apple.com/ac/structured-data/images/knowledge_graph_logo.png?202106030101',
+      id: 2,
+      name: 'Nilufar',
+      company: 'Amazon',
+      photo: 'https://source.unsplash.com/random/100x100/?img=1',
+      connection: 'Coworker',
     },
     {
-      companyID: 3,
-      name: 'Jane Street',
-      bio: 'trading company that does a lot of stuff.',
-      logo: 'https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_170,w_170,f_auto,b_white,q_auto:eco,dpr_1/v1490162034/isj6uhveo26gw837zr0m.png',
+      id: 3,
+      name: 'Annie',
+      company: 'Amazon',
+      photo: 'https://source.unsplash.com/random/100x100/?img=1',
+      connection: 'College Alumni',
     },
     {
-      companyID: 4,
-      name: 'Citadel',
-      bio: 'trading company that does a lot of stuff.',
-      logo: 'https://www.citadel.com/wp-content/uploads/2022/12/Citadel-Logo.png',
+      id: 4,
+      name: 'Hampter',
+      company: 'Meta',
+      photo: 'https://source.unsplash.com/random/100x100/?img=1',
+      connection: 'College Alumni',
     },
     {
-      companyID: 5,
-      name: 'McKinsey',
-      bio: 'consulting company that does a lot of stuff.',
-      logo: 'https://1000logos.net/wp-content/uploads/2021/09/McKinsey-Logo-768x483.png',
+      id: 5,
+      name: 'Sigma',
+      company: 'Meta',
+      photo: 'https://source.unsplash.com/random/100x100/?img=1',
+      connection: 'College Alumni',
     },
     {
-      companyID: 6,
-      name: 'Meta',
-      bio: 'social media company that does a lot of stuff.',
-      logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Facebook_Home_logo_old.svg/1200px-Facebook_Home_logo_old.svg.png',
+      id: 6,
+      name: 'Genji',
+      company: 'Google',
+      photo: 'https://source.unsplash.com/random/100x100/?img=1',
+      connection: 'Coworker',
     },
   ];
+
   return (
     <div className="companies">
 
@@ -78,17 +85,20 @@ export default function Companies() {
       {/* main panel -- contains list of companies */}
       <div className="companies-main-panel">
         <ul className="companies-list">
-          { companies.map((company) => (
-            <li key={company.id} className="companies-list-item">
-              <div className="companies-list-item-logo">
-                <img src={company.logo} alt="company logo" />
+          { people.map((person) => (
+            <li key={person.id} className="companies-list-item">
+              <div className="companies-list-item-photo">
+                <img src={person.photo} alt="profile" />
               </div>
               <div className="companies-list-item-info">
                 <div className="companies-list-item-name">
-                  {company.name}
+                  {person.name}
                 </div>
-                <div className="companies-list-item-bio">
-                  {company.bio}
+                <div className="companies-list-item-company">
+                  {person.company}
+                </div>
+                <div className="companies-list-item-company">
+                  {person.connection}
                 </div>
                 <button className="companies-list-item-button" type="button">
                   to see full page
