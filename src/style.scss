@@ -1,6 +1,7 @@
 body, html {
   font-family: "Roboto", sans-serif;
-  background: linear-gradient(to bottom, #dbd9c7 0%,#b7c2c6 40%,#7d7e7e 100%);
+  background: #A4BCA1;
+  // color: white;
   height: 100%;
 }
 
@@ -10,4 +11,24 @@ body, html {
 
 li {
   list-style: none;
+}
+
+ul.navbar {
+  list-style: none;
+  text-decoration: none;
+  display: flex;
+  justify-content: space-between;
+
+  .inner-navbar {
+    display: flex;
+    gap: 1em;
+  }
+}
+
+
+.modal {
+  background-color: white;
+  color: #A4BCA1;
+  width: 40vw;
+  height: 40vh;
 }
