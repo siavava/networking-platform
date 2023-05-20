@@ -9,7 +9,6 @@ export default function PersonProfile() {
     company: 'Google',
     email: 'giga.chad@dartmouth.edu',
     connectionType: 'homie',
-    // "# THIS IS A GRIM BABY\n\n* very soft\n* very cute\n* i want himb"
     notes: '# Notes About Chad III:\n- chad works at meta\n- loves beer\n- enjoys a solid workout',
   };
 
