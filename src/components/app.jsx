@@ -5,13 +5,15 @@ import {
   BrowserRouter, Routes, Route, NavLink, useParams,
 } from 'react-router-dom';
 
+import HomePage from './homepage';
+
 function App(props) {
   return (
     <BrowserRouter>
       <div>
         <Nav />
         <Routes>
-          <Route path="/" element={<Welcome />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<About />} />
           <Route path="/test/:id" element={<Test />} />;
           <Route path="*" element={<FallBack />} />
