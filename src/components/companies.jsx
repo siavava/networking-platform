@@ -1,8 +1,10 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import '../companies.style.scss';
+import { useNavigate } from 'react-router';
 import debounce from '../modules/debounce';
 
 export default function Companies() {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const search = (term) => {
     console.log(term);
@@ -89,7 +91,11 @@ export default function Companies() {
                 <div className="companies-list-item-bio">
                   {company.bio}
                 </div>
-                <button className="companies-list-item-button" type="button">
+                <button
+                  className="companies-list-item-button"
+                  type="button"
+                  onClick={() => navigate(`${company.companyID}`)}
+                >
                   to see full page
                 </button>
               </div>
