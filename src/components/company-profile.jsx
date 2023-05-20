@@ -1,9 +1,9 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 import '../company-profile.style.scss';
 
 export default function CompanyProfile() {
-  const { companyID } = useParams();
+  // const { companyID } = useParams();
   const company = {
     name: 'Google',
     logo: 'https://source.unsplash.com/random/200x200/?img=1',
