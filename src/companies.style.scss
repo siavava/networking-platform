@@ -1,0 +1,145 @@
+/**
+ * style associated with the companies page.
+ * Feel free to refactor to another location
+ * as you add in proper styling!
+ */
+
+.companies {
+  background: red;
+  // max-width: 1080px;
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+  gap: 20px;
+
+  padding: 20px;
+
+
+  .companies-top-panel {
+    width: 100%;
+    max-width: 1080px;
+
+    display: flex;
+    background: yellow;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+
+    .companies-search-bar {
+      width: 100%;
+      max-width: 500px;
+
+      & > input {
+        width: 100%;
+        height: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+        outline: none;
+      }
+    }
+
+    .companies-list-grid-toggle {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+      padding: 0 10px;
+
+      & > button {
+        line-height: 2rem;
+        border-radius: 5px;
+        border: none;
+        outline: none;
+        background-color: #A4BCA1;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .companies-main-panel {
+    width: 100%;
+    max-width: 1080px;
+    background: green;
+
+    .companies-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 50px;
+      background: orange;
+      padding: 10px;
+
+      .companies-list-item {
+        background: white;
+        aspect-ratio: 1/1;
+        display: flex;
+        flex-direction: row;
+        place-items: flex-start;
+        padding: 20px;
+        gap: 20px;
+
+        .companies-list-item-logo {
+          width: 30%;
+          aspect-ratio: 1/1;
+          background: maroon;
+
+          & > img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+          }
+        }
+
+        .companies-list-item-info {
+          width: 70%;
+          height: 100%;
+          background: orange;
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+
+          .companies-list-item-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+          }
+
+          .companies-list-item-bio {
+            font-size: 1rem;
+            margin-bottom: 10px;
+          }
+
+          .companies-list-item-button {
+            width: fit-content;
+            background: none;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 2;
+            place-self: flex-end;
+            background: red;
+            margin-top: auto;         // move to bottom of container
+
+            &:after {
+              content: "\2192";
+              margin-left: 10px;
+              transition: all 0.2s ease-in-out;
+            }
+
+            &:hover{
+              color: #A4BCA1;
+
+              &::after {
+                // do hover state here...
+                transform: translateX(10px);
+              }
+            }
+          }
+
+        }
+      }
+    }
+  }
+}

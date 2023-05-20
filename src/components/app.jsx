@@ -6,8 +6,8 @@ import Landing from './landing';
 import SignUp from './signup';
 import LogIn from './login';
 import Nav from './navbar';
-
 import HomePage from './homepage';
+import Companies from './companies';
 
 function App() {
   return (
@@ -19,7 +19,8 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<LogIn />} />
-          <Route path="/test/:id" element={<Test />} />;
+          <Route path="/test/:id" element={<Test />} />
+          <Route path="/:id/companies" element={<Companies />} />
           <Route path="*" element={<FallBack />} />
         </Routes>
       </div>
