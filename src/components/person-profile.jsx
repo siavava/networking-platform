@@ -13,14 +13,14 @@ export default function PersonProfile() {
   };
 
   const tasks = [
-    { task: 'Follow up email with my homie' },
-    { task: 'Send him my resume!' },
-    { task: 'Set up call' },
+    { id: 0, task: 'Follow up email with my homie' },
+    { id: 1, task: 'Send him my resume!' },
+    { id: 2, task: 'Set up call' },
   ];
 
   const emails = [
-    { title: 'Meeting?', details: 'When do you think you have time to meet?...' },
-    { title: 'Working at Google', details: 'How are you liking it there so far?...' },
+    { id: 0, title: 'Meeting?', details: 'When do you think you have time to meet?...' },
+    { id: 1, title: 'Working at Google', details: 'How are you liking it there so far?...' },
   ];
 
   return (
@@ -38,7 +38,7 @@ export default function PersonProfile() {
           <h1>Tasks/To Dos</h1>
 
           {tasks.map((e) => (
-            <div className="task">{e.task}</div>
+            <div className="task" key={e.id}>{e.task}</div>
           ))}
         </div>
       </div>
@@ -46,22 +46,11 @@ export default function PersonProfile() {
       <div className="email-container">
         <h1>Email Interactions</h1>
         {emails.map((email) => (
-          <div className="email-interaction">
+          <div className="email-interaction" key={email.id}>
             <h2>{email.title}</h2>
             <h3>{email.details}</h3>
           </div>
         ))}
-        {/* <div className="email-interaction">
-          <h1>email title 1</h1>
-          <h2>email person</h2>
-          <h3>email details</h3>
-        </div>
-
-        <div className="email-interaction">
-          <h1>email title 2</h1>
-          <h2>email person</h2>
-          <h3>email details</h3>
-        </div> */}
       </div>
     </div>
   );
