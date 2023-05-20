@@ -23,7 +23,7 @@ export default function Nav() {
   return (
     <nav>
       <ul className="navbar">
-        <li><NavLink to="/">Goloco</NavLink></li>
+        <li><NavLink to="/:id/homepage">Goloco</NavLink></li>
 
         <div className="inner-navbar">
           <li><NavLink to="/companies">Companies</NavLink></li>
