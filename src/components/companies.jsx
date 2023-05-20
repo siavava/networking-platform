@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useCallback, useState, useEffect } from 'react';
 import '../companies.style.scss';
 import { useNavigate } from 'react-router';
