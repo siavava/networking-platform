@@ -1,8 +1,16 @@
 body, html {
   font-family: "Roboto", sans-serif;
   background: #A4BCA1;
-  color: white;
+  // color: white;
   height: 100%;
+}
+
+* {
+  box-sizing: border-box;;
+}
+
+li {
+  list-style: none;
 }
 
 ul.navbar {

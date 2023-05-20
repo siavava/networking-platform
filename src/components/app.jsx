@@ -7,12 +7,15 @@ import SignUp from './signup';
 import LogIn from './login';
 import Nav from './navbar';
 
+import HomePage from './homepage';
+
 function App() {
   return (
     <BrowserRouter>
       <div>
         <Nav />
         <Routes>
+          <Route path="/:id/homepage" element={<HomePage />} />
           <Route path="/" element={<Landing />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<LogIn />} />
