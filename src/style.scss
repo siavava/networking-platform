@@ -32,3 +32,30 @@ ul.navbar {
   width: 40vw;
   height: 40vh;
 }
+
+// people profile stuff
+.person-profile {
+  .first-row {
+  display: flex;
+
+  .basic-info, .todos {
+    background-color: white;
+    margin: 1em;
+    width: 50vw;
+    min-height: 50vh;
+    }
+  }
+
+
+ .email-container {
+    background-color: white;
+    padding: 1em;
+    margin: 1em;
+  }
+
+  .task, .email-interaction {
+      background-color: grey;
+      color: white;
+      margin: 1em;
+    }
+}
