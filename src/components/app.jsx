@@ -2,12 +2,14 @@ import React from 'react';
 import {
   BrowserRouter, Routes, Route, useParams,
 } from 'react-router-dom';
+
+import Companies from './companies';
+import HomePage from './homepage';
 import Landing from './landing';
-import SignUp from './signup';
 import LogIn from './login';
 import Nav from './navbar';
-import HomePage from './homepage';
-import Companies from './companies';
+import PersonProfile from './person-profile';
+import SignUp from './signup';
 
 function App() {
   return (
@@ -16,6 +18,7 @@ function App() {
         <Nav />
         <Routes>
           <Route path="/:id/homepage" element={<HomePage />} />
+          <Route path="/:id/:otherId" element={<PersonProfile />} />
           <Route path="/" element={<Landing />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<LogIn />} />
