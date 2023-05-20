@@ -4,7 +4,7 @@ import {
 } from 'react-router-dom';
 import Landing from './landing';
 import SignUp from './signup';
-// import LogIn from './login';
+import LogIn from './login';
 import Nav from './navabr';
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/signup" element={<SignUp />} />
-          {/* <Route path="/login" element={<LogIn />} /> */}
+          <Route path="/login" element={<LogIn />} />
           <Route path="/test/:id" element={<Test />} />;
           <Route path="*" element={<FallBack />} />
         </Routes>
