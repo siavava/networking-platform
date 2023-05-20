@@ -5,7 +5,7 @@ import {
 import Landing from './landing';
 import SignUp from './signup';
 import LogIn from './login';
-import Nav from './navabr';
+import Nav from './navbar';
 
 function App() {
   return (
