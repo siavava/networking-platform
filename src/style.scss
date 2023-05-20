@@ -46,15 +46,16 @@ ul.navbar {
     }
   }
 
+
  .email-container {
     background-color: white;
     padding: 1em;
     margin: 1em;
-
-    .email-interaction {
-      margin: 1em;
-      background-color: grey;
-    }
   }
 
+  .task, .email-interaction {
+      background-color: grey;
+      color: white;
+      margin: 1em;
+    }
 }
