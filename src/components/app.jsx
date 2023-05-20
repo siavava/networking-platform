@@ -1,18 +1,17 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/function-component-definition */
 import React from 'react';
 import {
-  BrowserRouter, Routes, Route, NavLink, useParams,
+  BrowserRouter, Routes, Route, useParams,
 } from 'react-router-dom';
+import Landing from './landing';
+import Nav from './navabr';
 
-function App(props) {
+function App() {
   return (
     <BrowserRouter>
       <div>
         <Nav />
         <Routes>
-          <Route path="/" element={<Welcome />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/" element={<Landing />} />
           <Route path="/test/:id" element={<Test />} />;
           <Route path="*" element={<FallBack />} />
         </Routes>
@@ -21,25 +20,13 @@ function App(props) {
   );
 }
 
-const About = (props) => <div> All there is to know about me </div>;
-const Welcome = (props) => <div>Hello World!</div>;
-
-const Nav = (props) => (
-  <nav>
-    <ul>
-      <li><NavLink to="/">Home</NavLink></li>
-      <li><NavLink to="/about">About</NavLink></li>
-      <li><NavLink to="/test/id1">test id1</NavLink></li>
-      <li><NavLink to="/test/id2">test id2</NavLink></li>
-    </ul>
-  </nav>
-);
-
-const Test = (props) => {
+function Test() {
   const { id } = useParams();
   return <div> ID: {id} </div>;
-};
+}
 
-const FallBack = (props) => <div>Not Found</div>;
+function FallBack() {
+  return <div>Not Found</div>;
+}
 
 export default App;
