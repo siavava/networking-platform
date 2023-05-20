@@ -4,6 +4,7 @@ import {
 } from 'react-router-dom';
 
 import Companies from './companies';
+import CompanyProfile from './company-profile';
 import People from './people';
 import HomePage from './homepage';
 import Landing from './landing';
@@ -25,6 +26,7 @@ function App() {
           <Route path="/login" element={<LogIn />} />
           <Route path="/test/:id" element={<Test />} />
           <Route path="/:id/companies" element={<Companies />} />
+          <Route path="/:id/companies/:companyId" element={<CompanyProfile />} />
           <Route path="/:id/people" element={<People />} />
           <Route path="*" element={<FallBack />} />
         </Routes>
