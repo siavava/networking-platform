@@ -8,6 +8,7 @@ import LogIn from './login';
 import Nav from './navbar';
 
 import HomePage from './homepage';
+import PersonProfile from './person-profile';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Nav />
         <Routes>
           <Route path="/:id/homepage" element={<HomePage />} />
+          <Route path="/:id/:otherId" element={<PersonProfile />} />
           <Route path="/" element={<Landing />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<LogIn />} />
