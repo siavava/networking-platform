@@ -33,19 +33,23 @@ ul.navbar {
   height: 40vh;
 }
 
+button {
+  border: none;
+  outline: none;
+}
+
 // people profile stuff
 .person-profile {
   .first-row {
-  display: flex;
+    display: flex;
 
-  .basic-info, .todos {
-    background-color: white;
-    margin: 1em;
-    width: 50vw;
-    min-height: 50vh;
+    .basic-info, .todos {
+      background-color: white;
+      margin: 1em;
+      width: 50vw;
+      min-height: 50vh;
     }
   }
-
 
  .email-container {
     background-color: white;
@@ -54,8 +58,8 @@ ul.navbar {
   }
 
   .task, .email-interaction {
-      background-color: grey;
-      color: white;
-      margin: 1em;
-    }
+    background-color: grey;
+    color: white;
+    margin: 1em;
+  }
 }
