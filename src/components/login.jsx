@@ -13,20 +13,20 @@ export default function LogIn() {
   return (
     <div className="login-modal">
       <h1>Welcome!</h1>
-      <NavLink to="/">x</NavLink>
+      <NavLink to="/" className="close-button">x</NavLink>
       <br />
       <label htmlFor="username">
-        username:
+        Username:
         <input id="username" type="text" />
       </label>
       <br />
       <label htmlFor="password">
-        password:
+        Password:
         <input id="password" type="text" />
       </label>
 
       <br />
-      <input id="submit" type="button" value="sign in" onClick={handleSubmit} />
+      <input id="submit" type="button" value="Sign In" onClick={handleSubmit} />
 
     </div>
   );
