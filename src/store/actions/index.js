@@ -1,3 +1,10 @@
+/* eslint-disable no-console */
+import axios from 'axios';
+
+const ROOT_URL = 'https://plushiedexapi.onrender.com/api';
+// const ROOT_URL = 'http://localhost:9090/api';
+const API_KEY = '';
+
 // keys for actiontypes
 export const ActionTypes = {
   COMPANY: {
@@ -82,17 +89,34 @@ export function updateCompany() {
   };
 }
 
-export function createTask() {
-  return {
-    type: ActionTypes.TASK.CREATE_TASK,
-    payload: null,
+export function createTask(taskFields, navigate) {
+  const fields = {
+    title: taskFields.title,
+    description: taskFields.description,
+    tags: taskFields.tags,
+    dueDate: taskFields.dueDate,
+    associatedCompany: taskFields.associatedCompany,
+    associatedPerson: taskFields.associatedPerson,
+  };
+
+  return async () => {
+    try {
+      await axios.post(`${ROOT_URL}/tasks${API_KEY}`, fields);
+      navigate('/user/user1'); // navigate to Posts page
+    } catch (error) {
+      console.log(error);
+    }
   };
 }
 
 export function getTasks() {
-  return {
-    type: ActionTypes.TASK.GET_TASKS,
-    payload: null,
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`${ROOT_URL}/tasks${API_KEY}`);
+      dispatch({ type: ActionTypes.TASK.GET_TASKS, payload: response.data });
+    } catch (error) {
+      console.log(error);
+    }
   };
 }
 
@@ -103,23 +127,49 @@ export function findTasks() {
   };
 }
 
-export function getTask() {
-  return {
-    type: ActionTypes.TASK.GET_TASK,
-    payload: null,
+export function getTask(id) {
+  return async (dispatch) => {
+    // get
+    try {
+      const result = await axios.get(`${ROOT_URL}/tasks/${id}${API_KEY}`);
+      dispatch({
+        type: ActionTypes.TASK.GET_TASK,
+        payload: result.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 }
 
-export function deleteTask() {
-  return {
-    type: ActionTypes.TASK.DELETE_TASK,
+export function deleteTask(id, navigate) {
+  return async () => {
+    // delete
+    await axios.delete(`${ROOT_URL}/posts/${id}${API_KEY}`);
+    navigate('/user/user'); // navigate to Posts page
   };
 }
 
-export function updateTask() {
-  return {
-    type: ActionTypes.TASK.UPDATE_TASK,
-    payload: null,
+export function updateTask(taskFields, id) {
+  const fields = {
+    title: taskFields.title,
+    description: taskFields.description,
+    tags: taskFields.tags,
+    dueDate: taskFields.dueDate,
+    associatedCompany: taskFields.associatedCompany,
+    associatedPerson: taskFields.associatedPerson,
+  };
+
+  return async (dispatch) => {
+    try {
+      await axios.put(`${ROOT_URL}/posts/${id}${API_KEY}`, fields);
+      dispatch({
+        type: ActionTypes.TASK.UPDATE_TASK,
+        payload: fields,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 }
 
