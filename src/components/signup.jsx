@@ -19,7 +19,7 @@ export default function SignUp() {
   };
 
   return (
-    <div className="modal">
+    <div className="signup-modal">
       <h1>Create An Account</h1>
       <NavLink to="/">x</NavLink>
       <br />

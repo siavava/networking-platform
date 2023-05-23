@@ -1,7 +1,9 @@
+$header: #A4BCA1;
+$background: #F6F8F5;
+$text: #000000;
+
 body, html {
   font-family: "Roboto", sans-serif;
-  background: #A4BCA1;
-  // color: white;
   height: 100%;
 }
 
@@ -9,56 +11,108 @@ body, html {
   box-sizing: border-box;;
 }
 
-li {
-  list-style: none;
-}
-
-ul.navbar {
-  list-style: none;
-  text-decoration: none;
+.navbar {
   display: flex;
   justify-content: space-between;
-
-  .inner-navbar {
-    display: flex;
-    gap: 1em;
-  }
+  align-items: center;
+  background-color: $header;
+  padding: 10px;
 }
 
-.modal {
-  background-color: white;
-  color: #A4BCA1;
-  width: 40vw;
-  height: 40vh;
+.navbar li {
+  list-style: none;
+  margin-right: 10px;
 }
 
-button {
-  border: none;
-  outline: none;
+.navbar li a {
+  text-decoration: none;
+  color: $text;
+  padding: 5px;
 }
 
-// people profile stuff
-.person-profile {
-  .first-row {
-    display: flex;
-
-    .basic-info, .todos {
-      background-color: white;
-      margin: 1em;
-      width: 50vw;
-      min-height: 50vh;
-    }
-  }
-
- .email-container {
-    background-color: white;
-    padding: 1em;
-    margin: 1em;
-  }
-
-  .task, .email-interaction {
-    background-color: grey;
-    color: white;
-    margin: 1em;
-  }
+.navbar li a:hover {
+  color: #555353;
 }
+
+.inner-navbar {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+}
+
+.inner-navbar li {
+  margin-right: 10px;
+}
+
+.inner-navbar li a {
+  text-decoration: none;
+  color: $text;
+  padding: 10px;
+}
+
+.inner-navbar li a:hover {
+  color: #555353;
+}
+
+.login-modal {
+  background-color: #EAEEE8;
+  color: $text;
+  width: 500px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.signup-modal {
+  background-color: #EAEEE8;
+  color: $text;
+  width: 500px;
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+// .modal {
+//   background-color: white;
+//   color: #A4BCA1;
+//   width: 40vw;
+//   height: 40vh;
+// }
+
+// // people profile stuff
+// .person-profile {
+//   .first-row {
+//     display: flex;
+
+//     .basic-info, .todos {
+//       background-color: white;
+//       margin: 1em;
+//       width: 50vw;
+//       min-height: 50vh;
+//     }
+//   }
+
+//  .email-container {
+//     background-color: white;
+//     padding: 1em;
+//     margin: 1em;
+//   }
+
+//   .task, .email-interaction {
+//     background-color: grey;
+//     color: white;
+//     margin: 1em;
+//   }
+// }

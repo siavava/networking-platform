@@ -11,7 +11,7 @@ export default function LogIn() {
   };
 
   return (
-    <div className="modal">
+    <div className="login-modal">
       <h1>Welcome!</h1>
       <NavLink to="/">x</NavLink>
       <br />
