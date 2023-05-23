@@ -30,7 +30,7 @@ export default function CompanyProfile() {
       connection: 'College Alumni',
     },
     {
-      name: 'Chad IV',
+      name: 'Chad V',
       image: 'https://source.unsplash.com/random/200x200/?img=3',
       connection: 'Friend',
     },
@@ -42,13 +42,14 @@ export default function CompanyProfile() {
         <div className="company-profile-left-panel">
           <h1 className="company-profile-name">{`${company.name}: full profile`}</h1>
           <img className="company-profile-image" src={company.logo} alt="company logo" />
-
-          <div className="company-profile-links">
-            <a href={company.website}>Website</a>
-            <a href={company.linkedin}>LinkedIn</a>
-          </div>
-          <div className="company-profile-extended-bio">
-            <p>{extendedBio}</p>
+          <div className="company-profile-bottom">
+            <div className="company-profile-links">
+              <a href={company.website}>Website</a>
+              <a href={company.linkedin}>LinkedIn</a>
+            </div>
+            <div className="company-profile-extended-bio">
+              <p>{extendedBio}</p>
+            </div>
           </div>
         </div>
         <div className="company-profile-right-panel">
