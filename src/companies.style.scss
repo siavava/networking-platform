@@ -1,26 +1,19 @@
-/**
- * style associated with the companies page.
- * Feel free to refactor to another location
- * as you add in proper styling!
- */
+$header: #A4BCA1;
+$background: #F6F8F5;
+$text: #000000;
 
 .companies {
-  background: red;
-  // max-width: 1080px;
+  background: $background;
   display: flex;
   flex-direction: column;
   place-items: center;
   gap: 20px;
-
   padding: 20px;
 
-
   .companies-top-panel {
-    width: 100%;
-    max-width: 1080px;
-
+    width: 1250px;
     display: flex;
-    background: yellow;
+    background: $background;
     justify-content: space-between;
     align-items: center;
     padding: 20px;
@@ -33,7 +26,6 @@
         width: 100%;
         height: 100%;
         padding: 10px;
-        border-radius: 5px;
         border: none;
         outline: none;
       }
@@ -60,15 +52,14 @@
   }
 
   .companies-main-panel {
-    width: 100%;
-    max-width: 1080px;
-    background: green;
+    width: 1200px;
+    background: $background;
 
     .companies-list {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 50px;
-      background: orange;
+      background: $background;
       padding: 10px;
 
       .companies-list-item {
@@ -83,7 +74,10 @@
         .companies-list-item-logo {
           width: 30%;
           aspect-ratio: 1/1;
-          background: maroon;
+          background: #FFFFFF;
+          margin-top: 5px;
+          margin-left: 10px;
+          margin-right: 20px;
 
           & > img {
             width: 100%;
@@ -95,7 +89,7 @@
         .companies-list-item-info {
           width: 70%;
           height: 100%;
-          background: orange;
+          background: #FFFFFF;
           display: flex;
           flex-direction: column;
           gap: 20px;
@@ -103,6 +97,7 @@
           .companies-list-item-name {
             font-size: 1.5rem;
             font-weight: bold;
+            margin-top: 15px;
             margin-bottom: 10px;
           }
 
@@ -119,8 +114,8 @@
             cursor: pointer;
             line-height: 2;
             place-self: flex-end;
-            background: red;
-            margin-top: auto;         // move to bottom of container
+            background: $header;
+            margin-top: auto;
 
             &:after {
               content: "\2192";
@@ -129,10 +124,9 @@
             }
 
             &:hover{
-              color: #A4BCA1;
+              color: #c0d6bd;
 
               &::after {
-                // do hover state here...
                 transform: translateX(10px);
               }
             }
