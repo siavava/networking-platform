@@ -1,24 +1,103 @@
+$header: #A4BCA1;
+$background: #F6F8F5;
+$text: #000000;
+
 .person-profile {
   .first-row {
     display: flex;
-
-    .basic-info, .todos {
-      background-color: white;
-      margin: 1em;
-      width: 50vw;
-      min-height: 50vh;
-    }
   }
 
- .email-container {
-    background-color: white;
-    padding: 1em;
+  .basic-info {
+    display: flex;
+    background-color: #FFFFFF;
     margin: 1em;
+    width: 600px;
+    height: 500px;
+  }
+  
+  .profile-pic {
+    flex: 0 0 auto;
+    padding: 25px;
+    margin-right: 10px;
+  }
+  
+  .info-text {
+    flex: 1 1 auto;
+    width: 325px;
   }
 
-  .task, .email-interaction {
-    background-color: grey;
-    color: white;
-    margin: 1em;
+  .info-text h1 {
+    font-size: 30px;
+  }
+
+  .info-text p {
+    font-size: 13px;
+  }
+
+  .person-notes {
+    margin-right: 10px;
+    margin-top: 275px;
+  }
+
+  .notes-content {
+    background-color: #EBEBEB;
+    font-size: 15px;
+    padding: 15px;
+    width: 600px;
+    margin: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    flex-grow: 1;
+  }
+
+  .todos {
+    background-color: #FFFFFF;
+    width: 700px;
+    height: 500px;
+    padding: 20px;
+    margin: 15px;
+  }
+
+  .todos h1 {
+    padding: 10px;
+    font-size: 30px;
+  }
+
+  .task {
+    background-color: #EBEBEB;
+    color: $text;
+    margin: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 15px;
+  }
+
+  .email-container {
+    background-color: #FFFFFF;
+    padding: 20px;
+    margin: 15px;
+  }
+
+  .email-container h1 {
+    color: $text;
+    font-size: 30px;
+  }
+
+  .email-interaction {
+    background-color: #EBEBEB;
+    margin: 10px;
+    margin-left: 15px;
+  }
+
+  .email-interaction h2 {
+    color: $text;
+    font-size: 20px;
+    padding: 5px;
+  }
+
+  .email-interaction h3 {
+    color: $text;
+    font-size: 15px;
+    padding: 5px;
   }
 }
