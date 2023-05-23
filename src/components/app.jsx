@@ -8,10 +8,10 @@ import CompanyProfile from './company-profile';
 import People from './people';
 import HomePage from './homepage';
 import Landing from './landing';
-import LogIn from './login';
+import SignUp from './signup';
 import Nav from './navbar';
 import PersonProfile from './person-profile';
-import SignUp from './signup';
+import LogIn from './login';
 
 function App() {
   return (
