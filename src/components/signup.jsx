@@ -21,7 +21,7 @@ export default function SignUp() {
   return (
     <div className="signup-modal">
       <h1>Create An Account</h1>
-      <NavLink to="/">x</NavLink>
+      <NavLink to="/" className="close-button">x</NavLink>
       <br />
 
       <label htmlFor="first-name">
@@ -55,12 +55,12 @@ export default function SignUp() {
       <br />
 
       <label htmlFor="confirm-password">
-        Confirm password:
+        Confirm Password:
         <input id="confirm-password" type="text" />
       </label>
       <br />
 
-      <input id="submit" type="button" value="create" onClick={handleSubmit} />
+      <input id="submit" type="button" value="Create" onClick={handleSubmit} />
 
     </div>
   );
