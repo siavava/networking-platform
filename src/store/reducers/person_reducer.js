@@ -7,6 +7,7 @@ import { ActionTypes } from '../actions';
 const initialState = {
   name: '',
   title: '',
+  imageUrl: '',
   email: '',
   linkedin: '',
   description: '',
@@ -25,6 +26,7 @@ const PersonReducer = produce((draftState, action = {}) => {
       draftState.name = action.payload.name;
       draftState.title = action.payload.title;
       draftState.email = action.payload.email;
+      draftState.imageUrl = action.payload.imageUrl;
       draftState.linkedin = action.payload.linkedin;
       draftState.description = action.payload.description;
       draftState.location = action.payload.location;
@@ -37,16 +39,17 @@ const PersonReducer = produce((draftState, action = {}) => {
     // GET_PERSON
     // we can  probably get this from the people array...
     case ActionTypes.PERSON.GET_PERSON:
-      draftState.name = action.payload.data.name;
-      draftState.title = action.payload.data.title;
-      draftState.email = action.payload.data.email;
-      draftState.linkedin = action.payload.data.linkedin;
-      draftState.description = action.payload.data.description;
-      draftState.location = action.payload.data.location;
-      draftState.associatedCompany = action.payload.data.associatedCompany;
-      draftState.notes = action.payload.data.notes;
-      draftState.tags = action.payload.data.tags;
-      draftState.tasks = action.payload.data.tasks;
+      draftState.name = action.payload.name;
+      draftState.title = action.payload.title;
+      draftState.email = action.payload.email;
+      draftState.linkedin = action.payload.linkedin;
+      draftState.description = action.payload.description;
+      draftState.imageUrl = action.payload.imageUrl;
+      draftState.location = action.payload.location;
+      draftState.associatedCompany = action.payload.associatedCompany;
+      draftState.notes = action.payload.notes;
+      draftState.tags = action.payload.tags;
+      draftState.tasks = action.payload.tasks;
       return draftState;
 
     // UPDATE_PERSON
@@ -57,6 +60,7 @@ const PersonReducer = produce((draftState, action = {}) => {
       draftState.linkedin = action.payload.linkedin;
       draftState.description = action.payload.description;
       draftState.location = action.payload.location;
+      draftState.imageUrl = action.payload.imageUrl;
       draftState.associatedCompany = action.payload.associatedCompany;
       draftState.notes = action.payload.notes;
       draftState.tags = action.payload.tags;
