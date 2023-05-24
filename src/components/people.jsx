@@ -6,6 +6,10 @@ import { connect } from 'react-redux';
 import debounce from '../modules/debounce';
 
 export default function People() {
+  const [newName, setNewName] = useState('');
+  const [newEmail, setNewEmail] = useState('');
+  const [newlinkedIn, setNewlinkedIn] = useState('');
+  const [newDescription, setNewDescription] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -19,15 +23,35 @@ export default function People() {
     debouncedSearch(searchTerm);
   }, [searchTerm]);
 
+  const handleOnChange = (event) => {
+    switch (event.target.id) {
+      case 'connection-name':
+        setNewName(event.target.value);
+        break;
+      case 'email':
+        setNewEmail(event.target.value);
+        break;
+      case 'linkedIn':
+        setNewlinkedIn(event.target.value);
+        break;
+      case 'description':
+        setNewDescription(event.target.value);
+        break;
+      default:
+        // pass
+    }
+  };
+
   const handleSubmit = () => {
-    const connectionName = document.getElementById('connection-name').value;
-    const connectionCompany = document.getElementById('connection-company').value;
-    const email = document.getElementById('email').value;
-    const connectionType = document.getElementById('connection-type').value;
-    console.log(connectionName);
-    console.log(connectionCompany);
-    console.log(email);
-    console.log(connectionType);
+    const fields = {
+      name: newName,
+      email: newEmail,
+      linkedIn: newlinkedIn,
+      description: newDescription,
+    };
+    console.log(fields);
+    // dispatch(createCompany(fields));
+    // eslint-disable-next-line no-use-before-define
 
     // eslint-disable-next-line no-use-before-define
     closeModal();
@@ -141,27 +165,27 @@ export default function People() {
         <div className="modal-content">
           {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
           <span className="close" onClick={closeModal}>&times;</span>
-          <label htmlFor="company-name">
+          <label htmlFor="connection-name">
             Connection Name:
-            <input id="connection-name" type="text" />
-          </label>
-          <br />
-
-          <label htmlFor="last-name">
-            Connection Company:
-            <input id="connection-company" type="text" />
+            <input id="connection-name" type="text" onChange={handleOnChange} value={newName} />
           </label>
           <br />
 
           <label htmlFor="email">
             Connection Email:
-            <input id="email" type="text" />
+            <input id="email" type="text" onChange={handleOnChange} value={newEmail} />
           </label>
           <br />
 
-          <label htmlFor="username">
-            Connection Type:
-            <input id="connection-type" type="text" />
+          <label htmlFor="linkedIn">
+            Connection linkedIn:
+            <input id="linkedIn" type="text" onChange={handleOnChange} value={newlinkedIn} />
+          </label>
+          <br />
+
+          <label htmlFor="description">
+            Connection Description:
+            <input id="description" type="text" onChange={handleOnChange} value={newDescription} />
           </label>
           <br />
 
