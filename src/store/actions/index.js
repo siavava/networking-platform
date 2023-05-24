@@ -87,7 +87,7 @@ export function updateCompany() {
   };
 }
 
-export function createTask(taskFields, navigate) {
+export function createTask(taskFields) {
   const fields = {
     title: taskFields.title,
     description: taskFields.description,
@@ -100,7 +100,6 @@ export function createTask(taskFields, navigate) {
   return async () => {
     try {
       await axios.post(`${ROOT_URL}/tasks${API_KEY}`, fields);
-      navigate('/user/user1'); // navigate to Posts page
     } catch (error) {
       console.log(error);
     }
@@ -118,6 +117,7 @@ export function getTasks() {
   };
 }
 
+// not done yet
 export function findTasks() {
   return {
     type: ActionTypes.TASK.FIND_TASKS,
@@ -140,11 +140,10 @@ export function getTask(id) {
   };
 }
 
-export function deleteTask(id, navigate) {
+export function deleteTask(id) {
   return async () => {
     // delete
     await axios.delete(`${ROOT_URL}/posts/${id}${API_KEY}`);
-    navigate('/user/user'); // navigate to Posts page
   };
 }
 
