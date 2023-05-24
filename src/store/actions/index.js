@@ -43,6 +43,10 @@ export const ActionTypes = {
     DELETE_PERSON: 'DELETE_PERSON',
     UPDATE_PERSON: 'UPDATE_PERSON',
   },
+  USER: {
+    LOGIN: 'LOGIN',
+    SIGNUP: 'SIGNUP',
+  },
 };
 
 export function createCompany() {
@@ -302,5 +306,32 @@ export function persondDeleteFromExistingAssociatedCompany() {
   return {
     type: ActionTypes.DELETE_FROM_EXISTING_ASSOCIATED_COMPANY,
     payload: null,
+  };
+}
+
+export function signup({ email, password }) {
+  return async (dispatch, navigate) => {
+    try {
+      const response = await axios.post(`${ROOT_URL}/signup`, { email, password });
+      dispatch({ type: ActionTypes.AUTH.SIGNUP, payload: response.data });
+      navigate(`/${response.data.id}`);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+}
+
+export function signin({ email, password }) {
+  return async (dispatch, navigate) => {
+    try {
+      const response = await axios.post(`${ROOT_URL}/signin`, { email, password });
+      dispatch({ type: ActionTypes.AUTH.SIGNIN, payload: response.data });
+      // localStorage.setItem('id', response.data.id);
+      // localStorage.setItem('email', response.data.email);
+      // localStorage.setItem('token', response.data.token);
+      navigate(`/${response.data.id}`);
+    } catch (error) {
+      console.error(error);
+    }
   };
 }
