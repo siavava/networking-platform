@@ -3,16 +3,16 @@
 import { combineReducers } from '@reduxjs/toolkit';
 
 import UserReducer from './user_reducer';
-import CompanyReducer from './company_reducer';
+// import CompanyReducer from './company_reducer';
 import TaskReducer from './task_reducer';
-import NoteReducer from './note_reducer';
+// import NoteReducer from './note_reducer';
 import PersonReducer from './person_reducer';
 
 const rootReducer = combineReducers({
   user: UserReducer,
-  company: CompanyReducer,
+  // company: CompanyReducer,
   task: TaskReducer,
-  note: NoteReducer,
+  // note: NoteReducer,
   person: PersonReducer,
 });
 

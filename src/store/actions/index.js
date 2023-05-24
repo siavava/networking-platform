@@ -309,10 +309,14 @@ export function persondDeleteFromExistingAssociatedCompany() {
   };
 }
 
-export function signup({ email, password }) {
+export function signup({
+  email, fname, lname, username, password,
+}) {
   return async (dispatch, navigate) => {
     try {
-      const response = await axios.post(`${ROOT_URL}/signup`, { email, password });
+      const response = await axios.post(`${ROOT_URL}/signup`, {
+        email, fname, lname, username, password,
+      });
       dispatch({ type: ActionTypes.AUTH.SIGNUP, payload: response.data });
       navigate(`/${response.data.id}`);
     } catch (error) {
@@ -321,10 +325,14 @@ export function signup({ email, password }) {
   };
 }
 
-export function signin({ email, password }) {
+export function signin({
+  email, fname, lname, username, password,
+}) {
   return async (dispatch, navigate) => {
     try {
-      const response = await axios.post(`${ROOT_URL}/signin`, { email, password });
+      const response = await axios.post(`${ROOT_URL}/signin`, {
+        email, fname, lname, username, password,
+      });
       dispatch({ type: ActionTypes.AUTH.SIGNIN, payload: response.data });
       // localStorage.setItem('id', response.data.id);
       // localStorage.setItem('email', response.data.email);
