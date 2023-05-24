@@ -7,6 +7,8 @@ import debounce from '../modules/debounce';
 export default function Companies() {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const search = (term) => {
     console.log(term);
   };
@@ -16,6 +18,20 @@ export default function Companies() {
   useEffect(() => {
     debouncedSearch(searchTerm);
   }, [searchTerm]);
+
+  const handleSubmit = () => {
+    const companyName = document.getElementById('company-name').value;
+    const websiteLink = document.getElementById('website-link').value;
+    const linkedIn = document.getElementById('linkedIn').value;
+    const descriptionBio = document.getElementById('description').value;
+    console.log(companyName);
+    console.log(websiteLink);
+    console.log(linkedIn);
+    console.log(descriptionBio);
+
+    // eslint-disable-next-line no-use-before-define
+    closeModal();
+  };
 
   const companies = [
     {
@@ -55,6 +71,15 @@ export default function Companies() {
       logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Facebook_Home_logo_old.svg/1200px-Facebook_Home_logo_old.svg.png',
     },
   ];
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div className="companies">
 
@@ -72,6 +97,7 @@ export default function Companies() {
 
         {/* list vs. grid view toggle */}
         <div className="companies-list-grid-toggle">
+          <button type="button" onClick={openModal}>Create</button>
           <button type="button"> List </button>
           <button type="button"> Grid </button>
         </div>
@@ -104,6 +130,40 @@ export default function Companies() {
           ))}
         </ul>
       </div>
+
+      {isModalOpen && (
+      <div className="modal">
+        <div className="modal-content">
+          {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+          <span className="close" onClick={closeModal}>&times;</span>
+          <label htmlFor="company-name">
+            Company Name:
+            <input id="company-name" type="text" />
+          </label>
+          <br />
+
+          <label htmlFor="last-name">
+            Website Link:
+            <input id="website-link" type="text" />
+          </label>
+          <br />
+
+          <label htmlFor="email">
+            LinkedIn URL:
+            <input id="linkedIn" type="text" />
+          </label>
+          <br />
+
+          <label htmlFor="username">
+            Company Description:
+            <input id="description" type="text" />
+          </label>
+          <br />
+
+          <input id="submit" type="button" value="Create" onClick={handleSubmit} />
+        </div>
+      </div>
+      )}
     </div>
   );
 }
