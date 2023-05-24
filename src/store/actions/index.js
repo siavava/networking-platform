@@ -70,7 +70,6 @@ export function getCompany(companyId) {
   return async (dispatch) => {
     try {
       const response = await axios.get(`${ROOT_URL}/api/companies/${companyId}`);
-      console.log(response.data);
       dispatch({ type: ActionTypes.COMPANY.GET_COMPANY, payload: response.data });
     } catch (error) {
       console.error(error);
@@ -138,7 +137,7 @@ export function createTask(taskFields) {
     try {
       await axios.post(`${ROOT_URL}/tasks${API_KEY}`, fields);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 }
@@ -149,7 +148,7 @@ export function getTasks() {
       const response = await axios.get(`${ROOT_URL}/tasks${API_KEY}`);
       dispatch({ type: ActionTypes.TASK.GET_TASKS, payload: response.data });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 }
@@ -172,7 +171,7 @@ export function getTask(id) {
         payload: result.data,
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 }
@@ -202,7 +201,7 @@ export function updateTask(taskFields, id) {
         payload: fields,
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 }
@@ -221,7 +220,7 @@ export function createNote(noteFields) {
     try {
       await axios.post(`${ROOT_URL}/notes/${API_KEY}`, fields);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 }
@@ -232,7 +231,7 @@ export function getNotes() {
       const response = await axios.get(`${ROOT_URL}/notes/${API_KEY}`);
       dispatch({ type: ActionTypes.NOTE.GET_NOTES, payload: response.data });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 }
@@ -247,7 +246,7 @@ export function getNote(id) {
         payload: result.data,
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 }
@@ -277,7 +276,7 @@ export function updateNote(noteFields, id) {
         payload: fields,
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 }
@@ -327,7 +326,7 @@ export function createPerson(personParams) {
 export function getPerson(personId) {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`${ROOT_URL}/api/${API_KEY}/people/${personId}`);
+      const response = await axios.get(`${ROOT_URL}/api/people/${personId}`);
       dispatch({ type: ActionTypes.PERSON.GET_PERSON, payload: response.data });
     } catch (error) {
       console.error(error);
@@ -338,7 +337,7 @@ export function getPerson(personId) {
 export function getPeople() {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`${ROOT_URL}/people${API_KEY}`);
+      const response = await axios.get(`${ROOT_URL}/api/people`);
       dispatch({ type: ActionTypes.PERSON.GET_PEOPLE, payload: response.data });
     } catch (error) {
       console.error(error);

@@ -69,7 +69,7 @@ const PersonReducer = produce((draftState, action = {}) => {
 
     // GET_PEOPLE
     case ActionTypes.PERSON.GET_PEOPLE:
-      draftState.people = action.payload.people;
+      draftState.people = action.payload;
       break;
 
     // FIND_PEOPLE
