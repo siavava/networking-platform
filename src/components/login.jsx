@@ -1,13 +1,22 @@
 /* eslint-disable no-console */
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
+import { signin } from '../store/actions';
 
 export default function LogIn() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [email, setEmail] = useState('amittaijoel@outlook.com');
+  const [password, setPassword] = useState('test');
+
   const handleSubmit = () => {
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-    console.log(username);
-    console.log(password);
+    const validate = () => email !== '' && password !== '';
+
+    if (validate()) {
+      signin({ email, password })(dispatch, navigate);
+    }
   };
 
   return (
@@ -17,12 +26,12 @@ export default function LogIn() {
       <br />
       <label htmlFor="username">
         Username:
-        <input id="username" type="text" />
+        <input id="username" type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
       </label>
       <br />
       <label htmlFor="password">
         Password:
-        <input id="password" type="text" />
+        <input id="password" type="text" value={password} onChange={(e) => setPassword(e.target.value)} />
       </label>
 
       <br />

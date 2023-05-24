@@ -9,24 +9,17 @@ import { signup } from '../store/actions';
 export default function SignUp() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [fname, setFname] = useState('');
-  const [lname, setLname] = useState('');
-  const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
-  const [confirm, setConfirm] = useState('');
-  const [password, setPassword] = useState('');
+  const [fname, setFname] = useState('Amittai');
+  const [lname, setLname] = useState('Siavava');
+  const [email, setEmail] = useState('amittaijoel@outlook.com');
+  const [username, setUsername] = useState('siavava');
+  const [confirm, setConfirm] = useState('test');
+  const [password, setPassword] = useState('test');
   const handleSubmit = () => {
-    console.log(fname);
-    console.log(lname);
-    console.log(email);
-    console.log(username);
-    console.log(password);
-    console.log(confirm);
-
-    const validate = () => username !== '' && password !== '' && confirm !== '' && password === confirm;
+    const validate = () => username !== '' && password !== '' && password === confirm;
 
     if (validate()) {
-      signup(username, password, email, fname, lname)(dispatch, navigate);
+      signup({ email, password })(dispatch, navigate);
     }
   };
 
