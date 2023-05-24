@@ -2,7 +2,7 @@ $header: #A4BCA1;
 $background: #F6F8F5;
 $text: #000000;
 
-.companies {
+.people {
   background: $background;
   display: flex;
   flex-direction: column;
@@ -10,7 +10,7 @@ $text: #000000;
   gap: 20px;
   padding: 20px;
 
-  .companies-top-panel {
+  .people-top-panel {
     width: 1250px;
     display: flex;
     background: $background;
@@ -18,7 +18,7 @@ $text: #000000;
     align-items: center;
     padding: 20px;
 
-    .companies-search-bar {
+    .people-search-bar {
       width: 100%;
       max-width: 500px;
 
@@ -31,7 +31,7 @@ $text: #000000;
       }
     }
 
-    .companies-list-grid-toggle {
+    .people-list-grid-toggle {
       display: flex;
       gap: 10px;
       align-items: center;
@@ -51,18 +51,18 @@ $text: #000000;
     }
   }
 
-  .companies-main-panel {
+  .people-main-panel {
     width: 1200px;
     background: $background;
 
-    .companies-list {
+    .people-list {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 50px;
       background: $background;
       padding: 10px;
 
-      .companies-list-item {
+      .people-list-item {
         background: white;
         aspect-ratio: 1/1;
         display: flex;
@@ -71,7 +71,7 @@ $text: #000000;
         padding: 20px;
         gap: 20px;
 
-        .companies-list-item-logo {
+        .people-list-item-logo {
           width: 30%;
           aspect-ratio: 1/1;
           background: #FFFFFF;
@@ -86,7 +86,7 @@ $text: #000000;
           }
         }
 
-        .companies-list-item-info {
+        .people-list-item-info {
           width: 70%;
           height: 100%;
           background: #FFFFFF;
@@ -94,19 +94,19 @@ $text: #000000;
           flex-direction: column;
           gap: 20px;
 
-          .companies-list-item-name {
+          .people-list-item-name {
             font-size: 1.5rem;
             font-weight: bold;
             margin-top: 15px;
             margin-bottom: 10px;
           }
 
-          .companies-list-item-bio {
+          .people-list-item-bio {
             font-size: 1rem;
             margin-bottom: 10px;
           }
 
-          .companies-list-item-button {
+          .people-list-item-button {
             width: fit-content;
             background: none;
             color: white;
