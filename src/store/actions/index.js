@@ -1,6 +1,8 @@
 /* eslint-disable no-console */
 import axios from 'axios';
 
+// const ROOT_URL = 'https://plushiedexapi.onrender.com/api';
+
 const ROOT_URL = 'https://api-goloco.onrender.com';
 // const ROOT_URL = 'http://localhost:9090/api';
 const API_KEY = '';
@@ -59,7 +61,7 @@ export function createCompany(companyParams) {
       // navigate to new company page
       navigate(`/companies/${response.data.id}`);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 }
@@ -386,27 +388,32 @@ export function persondDeleteFromExistingAssociatedCompany() {
   };
 }
 
-export function signup({ email, password }) {
+export function signup({
+  email, password,
+}) {
   return async (dispatch, navigate) => {
     try {
-      const response = await axios.post(`${ROOT_URL}/signup`, { email, password });
-      dispatch({ type: ActionTypes.AUTH.SIGNUP, payload: response.data });
-      navigate(`/${response.data.id}`);
+      const response = await axios.post(`${ROOT_URL}/api/signup`, {
+        email, password,
+      });
+      dispatch({ type: ActionTypes.USER.SIGNUP, payload: response.data });
+      navigate(`/${response.data.id}/homepage`);
     } catch (error) {
       console.error(error);
     }
   };
 }
 
-export function signin({ email, password }) {
+export function signin({
+  email, password,
+}) {
   return async (dispatch, navigate) => {
     try {
-      const response = await axios.post(`${ROOT_URL}/signin`, { email, password });
-      dispatch({ type: ActionTypes.AUTH.SIGNIN, payload: response.data });
-      // localStorage.setItem('id', response.data.id);
-      // localStorage.setItem('email', response.data.email);
-      // localStorage.setItem('token', response.data.token);
-      navigate(`/${response.data.id}`);
+      const response = await axios.post(`${ROOT_URL}/api/signin`, {
+        email, password,
+      });
+      dispatch({ type: ActionTypes.USER.LOGIN, payload: response.data });
+      navigate(`/${response.data.id}/homepage`);
     } catch (error) {
       console.error(error);
     }
