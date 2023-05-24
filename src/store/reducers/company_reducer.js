@@ -11,7 +11,7 @@ const initialState = {
   linkedin: '',
   description: '',
   location: '',
-  tags: '',
+  tags: [],
   notes: [],
   author: '',
   associatedPeople: [],
@@ -19,6 +19,7 @@ const initialState = {
 };
 
 const CompanyReducer = produce((draftState, action = {}) => {
+  console.log(action.type === ActionTypes.COMPANY.GET_COMPANY);
   switch (action.type) {
     // CREATE_COMPANY
     case ActionTypes.COMPANY.CREATE_COMPANY:
@@ -39,17 +40,17 @@ const CompanyReducer = produce((draftState, action = {}) => {
       return draftState;
       // GET_COMPANY
     case ActionTypes.COMPANY.GET_COMPANY:
-      draftState.name = action.payload.data.name;
-      draftState.website = action.payload.data.website;
-      draftState.imageUrl = action.payload.data.imageUrl;
-      draftState.linkedin = action.payload.data.linkedin;
-      draftState.description = action.payload.data.description;
-      draftState.location = action.payload.data.location;
-      draftState.tags = action.payload.payload.data.tags;
-      draftState.notes = action.payload.payload.data.notes;
-      draftState.author = action.payload.payload.data.author;
-      draftState.associatedPeople = action.payload.data.associatedPeolpe;
-      draftState.companies = action.payload.data.companies;
+      draftState.name = action.payload.name;
+      draftState.website = action.payload.website;
+      draftState.imageUrl = action.payload.imageUrl;
+      draftState.linkedin = action.payload.linkedin;
+      draftState.description = action.payload.description;
+      draftState.location = action.payload.location;
+      draftState.tags = action.payload.tags;
+      draftState.notes = action.payload.notes;
+      draftState.author = action.payload.author;
+      draftState.associatedPeople = action.payload.associatedPeolpe;
+      draftState.companies = action.payload.companies;
       return draftState;
       // UPDATE_COMPANY
     case ActionTypes.COMPANY.UPDATE_COMPANY:
