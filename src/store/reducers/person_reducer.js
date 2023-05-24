@@ -35,6 +35,7 @@ const PersonReducer = produce((draftState, action = {}) => {
       return draftState;
 
     // GET_PERSON
+    // we can  probably get this from the people array...
     case ActionTypes.PERSON.GET_PERSON:
       draftState.name = action.payload.data.name;
       draftState.title = action.payload.data.title;
