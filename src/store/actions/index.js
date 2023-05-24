@@ -49,15 +49,15 @@ export const ActionTypes = {
   },
 };
 
-export function createCompany(companyParams) {
-  return async (dispatch, navigate) => {
+export function createCompany(companyParams, navigate) {
+  return async (dispatch) => {
     try {
       // check that response is correct
-      const response = await axios.post(`${ROOT_URL}/${API_KEY}/companies`, companyParams);
+      const response = await axios.post(`${ROOT_URL}${API_KEY}companies`, companyParams);
       dispatch({ type: ActionTypes.COMPANY.CREATE_COMPANY, payload: response.data });
 
       // navigate to new company page
-      navigate(`/companies/${response.data.id}`);
+      navigate('/companies');
     } catch (error) {
       console.log(error);
     }

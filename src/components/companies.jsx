@@ -65,7 +65,7 @@ export default function Companies() {
       description: newDescription,
     };
     console.log(fields);
-    dispatch(createCompany(fields));
+    dispatch(createCompany(fields, navigate));
     // eslint-disable-next-line no-use-before-define
     closeModal();
   };
