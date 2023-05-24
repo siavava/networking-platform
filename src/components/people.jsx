@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import React, { useCallback, useState, useEffect } from 'react';
-import '../companies.style.scss';
+import '../people.style.scss';
 import debounce from '../modules/debounce';
 
 export default function People() {
@@ -18,7 +18,7 @@ export default function People() {
   const people = [
     {
       id: 1,
-      name: 'Swati',
+      name: 'Amy',
       company: 'Google',
       photo: 'https://source.unsplash.com/random/100x100/?img=1',
       connection: 'College Alumni',
@@ -32,8 +32,8 @@ export default function People() {
     },
     {
       id: 3,
-      name: 'Annie',
-      company: 'Amazon',
+      name: 'Stacy',
+      company: 'Jane Street',
       photo: 'https://source.unsplash.com/random/100x100/?img=1',
       connection: 'College Alumni',
     },
@@ -53,7 +53,7 @@ export default function People() {
     },
     {
       id: 6,
-      name: 'Genji',
+      name: 'Mark',
       company: 'Google',
       photo: 'https://source.unsplash.com/random/100x100/?img=1',
       connection: 'Coworker',
@@ -61,12 +61,12 @@ export default function People() {
   ];
 
   return (
-    <div className="companies">
+    <div className="people">
 
       {/* top panel -- contains search-bar and toggle */}
-      <div className="companies-top-panel">
+      <div className="people-top-panel">
         {/* search bar */}
-        <div className="companies-search-bar">
+        <div className="people-search-bar">
           <input
             type="text"
             placeholder="Search..."
@@ -76,31 +76,31 @@ export default function People() {
         </div>
 
         {/* list vs. grid view toggle */}
-        <div className="companies-list-grid-toggle">
+        <div className="people-list-grid-toggle">
           <button type="button"> List </button>
           <button type="button"> Grid </button>
         </div>
       </div>
 
-      {/* main panel -- contains list of companies */}
-      <div className="companies-main-panel">
-        <ul className="companies-list">
+      {/* main panel -- contains list of people */}
+      <div className="people-main-panel">
+        <ul className="people-list">
           { people.map((person) => (
-            <li key={person.id} className="companies-list-item">
-              <div className="companies-list-item-photo">
+            <li key={person.id} className="people-list-item">
+              <div className="people-list-item-photo">
                 <img src={person.photo} alt="profile" />
               </div>
-              <div className="companies-list-item-info">
-                <div className="companies-list-item-name">
+              <div className="people-list-item-info">
+                <div className="people-list-item-name">
                   {person.name}
                 </div>
-                <div className="companies-list-item-company">
+                <div className="people-list-item-company">
                   {person.company}
                 </div>
-                <div className="companies-list-item-company">
+                <div className="people-list-item-company">
                   {person.connection}
                 </div>
-                <button className="companies-list-item-button" type="button">
+                <button className="people-list-item-button" type="button">
                   to see full page
                 </button>
               </div>
