@@ -53,7 +53,7 @@ export default function CompanyProfile() {
           </div>
         </div>
         <div className="company-profile-right-panel">
-          <h1>people you may want to connect with</h1>
+          <h1>People Associated With Company</h1>
           {people.map((person) => (
             <div className="company-profile-person" key={person.name}>
               <img src={person.image} alt="person" />
