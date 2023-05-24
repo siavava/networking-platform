@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // const ROOT_URL = 'https://plushiedexapi.onrender.com/api';
 
-const ROOT_URL = 'https://api-goloco.onrender.com/api';
+const ROOT_URL = 'https://api-goloco.onrender.com';
 // const ROOT_URL = 'http://localhost:9090/api';
 const API_KEY = '';
 
@@ -55,11 +55,11 @@ export function createCompany(companyParams) {
   return async (dispatch, navigate) => {
     try {
       // check that response is correct
-      const response = await axios.post(`${ROOT_URL}/api/${API_KEY}/company`, companyParams);
+      const response = await axios.post(`${ROOT_URL}/api/${API_KEY}/companies`, companyParams);
       dispatch({ type: ActionTypes.COMPANY.CREATE_COMPANY, payload: response.data });
 
       // navigate to new company page
-      navigate(`/company/${response.data.id}`);
+      navigate(`/companies/${response.data.id}`);
     } catch (error) {
       console.error(error);
     }
@@ -69,7 +69,8 @@ export function createCompany(companyParams) {
 export function getCompany(companyId) {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`${ROOT_URL}/api/${API_KEY}/company/${companyId}`);
+      const response = await axios.get(`${ROOT_URL}/api/companies/${companyId}`);
+      console.log(response.data);
       dispatch({ type: ActionTypes.COMPANY.GET_COMPANY, payload: response.data });
     } catch (error) {
       console.error(error);
@@ -80,7 +81,7 @@ export function getCompany(companyId) {
 export function findCompanies(query) {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`${ROOT_URL}/api/${API_KEY}/company/find?q=${query}`);
+      const response = await axios.get(`${ROOT_URL}/api/${API_KEY}/companies/find?q=${query}`);
       dispatch({ type: ActionTypes.COMPANY.FIND_COMPANIES, payload: response.data });
     } catch (error) {
       console.error(error);
@@ -91,8 +92,8 @@ export function findCompanies(query) {
 export function getCompanies() {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`${ROOT_URL}/company${API_KEY}`);
-      dispatch({ type: ActionTypes.COMPANY.GET_COMPANY, payload: response.data });
+      const response = await axios.get(`${ROOT_URL}/companies${API_KEY}`);
+      dispatch({ type: ActionTypes.COMPANY.GET_COMPANIES, payload: response.data });
     } catch (error) {
       console.error(error);
     }
@@ -102,10 +103,10 @@ export function getCompanies() {
 export function deleteCompany(companyId) {
   return async (dispatch, navigate) => {
     try {
-      await axios.delete(`${ROOT_URL}/api/${API_KEY}/company/${companyId}`);
+      await axios.delete(`${ROOT_URL}/api/companies/${companyId}`);
 
       // navigate to people page
-      navigate('/company');
+      navigate('/companies');
     } catch (error) {
       console.error(error);
     }
@@ -115,7 +116,7 @@ export function deleteCompany(companyId) {
 export function updateCompany(updates) {
   return async (dispatch) => {
     try {
-      const response = await axios.put(`${ROOT_URL}/api/${API_KEY}/company/${updates.id}`, updates);
+      const response = await axios.put(`${ROOT_URL}/api/${API_KEY}/companies/${updates.id}`, updates);
       dispatch({ type: ActionTypes.COMPANY.UPDATE_COMPANY, payload: response.data });
     } catch (error) {
       console.error(error);
@@ -392,7 +393,7 @@ export function signup({
 }) {
   return async (dispatch, navigate) => {
     try {
-      const response = await axios.post(`${ROOT_URL}/signup`, {
+      const response = await axios.post(`${ROOT_URL}/api/signup`, {
         email, password,
       });
       dispatch({ type: ActionTypes.USER.SIGNUP, payload: response.data });
@@ -408,7 +409,7 @@ export function signin({
 }) {
   return async (dispatch, navigate) => {
     try {
-      const response = await axios.post(`${ROOT_URL}/signin`, {
+      const response = await axios.post(`${ROOT_URL}/api/signin`, {
         email, password,
       });
       dispatch({ type: ActionTypes.USER.LOGIN, payload: response.data });
