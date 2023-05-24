@@ -7,6 +7,8 @@ import debounce from '../modules/debounce';
 export default function Companies() {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const search = (term) => {
     console.log(term);
   };
@@ -19,17 +21,16 @@ export default function Companies() {
 
   const handleSubmit = () => {
     const companyName = document.getElementById('company-name').value;
-    const lname = document.getElementById('last-name').value;
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    const username = document.getElementById('username').value;
-    const confirm = document.getElementById('confirm-password').value;
+    const websiteLink = document.getElementById('website-link').value;
+    const linkedIn = document.getElementById('linkedIn').value;
+    const descriptionBio = document.getElementById('description').value;
     console.log(companyName);
-    console.log(lname);
-    console.log(email);
-    console.log(username);
-    console.log(password);
-    console.log(confirm);
+    console.log(websiteLink);
+    console.log(linkedIn);
+    console.log(descriptionBio);
+
+    // eslint-disable-next-line no-use-before-define
+    closeModal();
   };
 
   const companies = [
@@ -71,6 +72,14 @@ export default function Companies() {
     },
   ];
 
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div className="companies">
 
@@ -88,7 +97,7 @@ export default function Companies() {
 
         {/* list vs. grid view toggle */}
         <div className="companies-list-grid-toggle">
-          <button type="button" id="openModalBtn">Create</button>
+          <button type="button" onClick={openModal}>Create</button>
           <button type="button"> List </button>
           <button type="button"> Grid </button>
         </div>
@@ -122,9 +131,11 @@ export default function Companies() {
         </ul>
       </div>
 
+      {isModalOpen && (
       <div className="modal">
         <div className="modal-content">
-          <span className="close">&times;</span>
+          {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+          <span className="close" onClick={closeModal}>&times;</span>
           <label htmlFor="company-name">
             Company Name:
             <input id="company-name" type="text" />
@@ -132,38 +143,27 @@ export default function Companies() {
           <br />
 
           <label htmlFor="last-name">
-            Last Name:
-            <input id="last-name" type="text" />
+            Website Link:
+            <input id="website-link" type="text" />
           </label>
           <br />
 
           <label htmlFor="email">
-            Email:
-            <input id="email" type="text" />
+            LinkedIn URL:
+            <input id="linkedIn" type="text" />
           </label>
           <br />
 
           <label htmlFor="username">
-            Username:
-            <input id="username" type="text" />
-          </label>
-          <br />
-
-          <label htmlFor="password">
-            Password:
-            <input id="password" type="text" />
-          </label>
-          <br />
-
-          <label htmlFor="confirm-password">
-            Confirm Password:
-            <input id="confirm-password" type="text" />
+            Company Description:
+            <input id="description" type="text" />
           </label>
           <br />
 
           <input id="submit" type="button" value="Create" onClick={handleSubmit} />
         </div>
       </div>
+      )}
     </div>
   );
 }
