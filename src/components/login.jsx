@@ -8,8 +8,8 @@ import { signin } from '../store/actions';
 export default function LogIn() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [email, setEmail] = useState('amittaijoel@outlook.com');
-  const [password, setPassword] = useState('test');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSubmit = () => {
     const validate = () => email !== '' && password !== '';
