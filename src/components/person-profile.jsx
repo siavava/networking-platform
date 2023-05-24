@@ -28,14 +28,16 @@ export default function PersonProfile() {
     <div className="person-profile">
       <div className="first-row">
         <div className="basic-info">
-          <div className="profile-pic">
-            <img src={user.photo} alt="profile" />
-          </div>
-          <div className="info-text">
-            <h1>{`${user.fname} ${user.lname}`}</h1>
-            <p>{user.company}</p>
-            <p>{user.email}</p>
-            <p>{`Connection Type: ${user.connectionType}`}</p>
+          <div className="person-bio">
+            <div className="profile-pic">
+              <img src={user.photo} alt="profile" />
+            </div>
+            <div className="info-text">
+              <h1>{`${user.fname} ${user.lname}`}</h1>
+              <p>{user.company}</p>
+              <p>{user.email}</p>
+              <p>{`Connection Type: ${user.connectionType}`}</p>
+            </div>
           </div>
           <div className="person-notes">
             <ReactMarkdown className="notes-content">{user.notes}</ReactMarkdown>
@@ -43,7 +45,6 @@ export default function PersonProfile() {
         </div>
         <div className="todos">
           <h1>Tasks/To Dos</h1>
-
           {tasks.map((e) => (
             <div className="task" key={e.id}>{e.task}</div>
           ))}
