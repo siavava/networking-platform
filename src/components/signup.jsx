@@ -16,12 +16,6 @@ export default function SignUp() {
   const [confirm, setConfirm] = useState('');
   const [password, setPassword] = useState('');
   const handleSubmit = () => {
-    // const fname = document.getElementById('first-name').value;
-    // const lname = document.getElementById('last-name').value;
-    // const email = document.getElementById('email').value;
-    // const password = document.getElementById('password').value;
-    // const username = document.getElementById('username').value;
-    // const confirm = document.getElementById('confirm-password').value;
     console.log(fname);
     console.log(lname);
     console.log(email);
