@@ -1,15 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 // import { useParams } from 'react-router-dom';
 import '../company-profile.style.scss';
+import { useLocation } from 'react-router-dom';
+import { getCompany } from '../store/actions';
 
 export default function CompanyProfile() {
-  // const { companyID } = useParams();
-  const company = {
-    name: 'Google',
-    logo: 'https://source.unsplash.com/random/200x200/?img=1',
-    website: 'https://www.google.com/',
-    linkedin: 'https://www.linkedin.com/company/google/',
-  };
+  const dispatch = useDispatch();
+  const { pathname } = useLocation();
+  const companyId = pathname.split('/companies/')[1];
+
+  useEffect(() => {
+    dispatch(getCompany(companyId));
+  }, [dispatch, companyId]);
+
+  const company = useSelector((state) => state.company);
 
   const extendedBio = `
     Lorem ipsum dolor sit amet.
@@ -41,7 +46,7 @@ export default function CompanyProfile() {
       <div className="company-profile">
         <div className="company-profile-left-panel">
           <h1 className="company-profile-name">{`${company.name}: full profile`}</h1>
-          <img className="company-profile-image" src={company.logo} alt="company logo" />
+          <img className="company-profile-image" src={company.imageUrl} alt="company logo" />
           <div className="company-profile-bottom">
             <div className="company-profile-links">
               <a href={company.website}>Website</a>
