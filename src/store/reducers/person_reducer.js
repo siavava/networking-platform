@@ -32,7 +32,7 @@ const PersonReducer = produce((draftState, action = {}) => {
       draftState.notes = action.payload.notes;
       draftState.tags = action.payload.tags;
       draftState.tasks = action.payload.tasks;
-      break;
+      return draftState;
 
     // GET_PERSON
     case ActionTypes.PERSON.GET_PERSON:
@@ -46,11 +46,7 @@ const PersonReducer = produce((draftState, action = {}) => {
       draftState.notes = action.payload.data.notes;
       draftState.tags = action.payload.data.tags;
       draftState.tasks = action.payload.data.tasks;
-      break;
-
-      // DELETE_PERSON
-      // case ActionTypes.PERSON.DELETE_PERSON:
-      //   break;
+      return draftState;
 
     // UPDATE_PERSON
     case ActionTypes.PERSON.UPDATE_PERSON:
@@ -64,7 +60,7 @@ const PersonReducer = produce((draftState, action = {}) => {
       draftState.notes = action.payload.notes;
       draftState.tags = action.payload.tags;
       draftState.tasks = action.payload.tasks;
-      break;
+      return draftState;
 
     // GET_PEOPLE
     case ActionTypes.PERSON.GET_PEOPLE:
@@ -74,7 +70,7 @@ const PersonReducer = produce((draftState, action = {}) => {
     // FIND_PEOPLE
     case ActionTypes.PERSON.FIND_PEOPLE:
       draftState.people = action.payload.people;
-      break;
+      return draftState;
 
     default:
       return draftState;
