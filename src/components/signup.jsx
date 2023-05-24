@@ -1,21 +1,26 @@
 /* eslint-disable no-console */
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
+// import actions
+import { signup } from '../store/actions';
 
 export default function SignUp() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [fname, setFname] = useState('Amittai');
+  const [lname, setLname] = useState('Siavava');
+  const [email, setEmail] = useState('amittaijoel@outlook.com');
+  const [username, setUsername] = useState('siavava');
+  const [confirm, setConfirm] = useState('test');
+  const [password, setPassword] = useState('test');
   const handleSubmit = () => {
-    const fname = document.getElementById('first-name').value;
-    const lname = document.getElementById('last-name').value;
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    const username = document.getElementById('username').value;
-    const confirm = document.getElementById('confirm-password').value;
-    console.log(fname);
-    console.log(lname);
-    console.log(email);
-    console.log(username);
-    console.log(password);
-    console.log(confirm);
+    const validate = () => username !== '' && password !== '' && password === confirm;
+
+    if (validate()) {
+      signup({ email, password })(dispatch, navigate);
+    }
   };
 
   return (
@@ -26,37 +31,37 @@ export default function SignUp() {
 
       <label htmlFor="first-name">
         First Name:
-        <input id="first-name" type="text" />
+        <input id="first-name" type="text" value={fname} onChange={(e) => setFname(e.target.value)} />
       </label>
       <br />
 
       <label htmlFor="last-name">
         Last Name:
-        <input id="last-name" type="text" />
+        <input id="last-name" type="text" value={lname} onChange={(e) => setLname(e.target.value)} />
       </label>
       <br />
 
       <label htmlFor="email">
         Email:
-        <input id="email" type="text" />
+        <input id="email" type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
       </label>
       <br />
 
       <label htmlFor="username">
         Username:
-        <input id="username" type="text" />
+        <input id="username" type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
       </label>
       <br />
 
       <label htmlFor="password">
         Password:
-        <input id="password" type="text" />
+        <input id="password" type="text" value={password} onChange={(e) => setPassword(e.target.value)} />
       </label>
       <br />
 
       <label htmlFor="confirm-password">
         Confirm Password:
-        <input id="confirm-password" type="text" />
+        <input id="confirm-password" type="text" value={confirm} onChange={(e) => setConfirm(e.target.value)} />
       </label>
       <br />
 

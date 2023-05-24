@@ -21,11 +21,12 @@ export default function Nav() {
   return (
     <nav>
       <ul className="navbar">
-        <li><NavLink to="/:id/homepage">Goloco</NavLink></li>
+        <li><NavLink to="/homepage">Goloco</NavLink></li>
 
         <div className="inner-navbar">
-          <li><NavLink to="/:id/companies">Companies</NavLink></li>
-          <li><NavLink to="/:id/people">People</NavLink></li>
+          <li><NavLink to="/companies">Companies</NavLink></li>
+          <li><NavLink to="/people">People</NavLink></li>
+          <li><NavLink to="/profile">Profile Photo</NavLink></li>
         </div>
       </ul>
     </nav>

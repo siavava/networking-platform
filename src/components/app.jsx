@@ -24,9 +24,9 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<LogIn />} />
           <Route path="/test/:id" element={<Test />} />
-          <Route path="companies" element={<Companies />} />
-          <Route path="companies/:companyId" element={<CompanyProfile />} />
-          <Route path="people" element={<People />} />
+          <Route path="/companies" element={<Companies />} />
+          <Route path="/companies/:companyId" element={<CompanyProfile />} />
+          <Route path="/people" element={<People />} />
           <Route path="/people/:id" element={<PersonProfile />} />
           <Route path="*" element={<FallBack />} />
         </Routes>

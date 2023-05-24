@@ -1,6 +1,8 @@
 /* eslint-disable no-console */
 import axios from 'axios';
 
+// const ROOT_URL = 'https://plushiedexapi.onrender.com/api';
+
 const ROOT_URL = 'https://api-goloco.onrender.com';
 // const ROOT_URL = 'http://localhost:9090/api';
 const API_KEY = '';
@@ -49,17 +51,17 @@ export const ActionTypes = {
   },
 };
 
-export function createCompany(companyParams) {
-  return async (dispatch, navigate) => {
+export function createCompany(companyParams, navigate) {
+  return async (dispatch) => {
     try {
       // check that response is correct
-      const response = await axios.post(`${ROOT_URL}/api/${API_KEY}/companies`, companyParams);
+      const response = await axios.post(`${ROOT_URL}/api/companies`, companyParams);
       dispatch({ type: ActionTypes.COMPANY.CREATE_COMPANY, payload: response.data });
 
       // navigate to new company page
-      navigate(`/companies/${response.data.id}`);
+      navigate('/companies');
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 }
@@ -79,7 +81,7 @@ export function getCompany(companyId) {
 export function findCompanies(query) {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`${ROOT_URL}/api/${API_KEY}/companies/find?q=${query}`);
+      const response = await axios.get(`${ROOT_URL}/api/companies/find?q=${query}`);
       dispatch({ type: ActionTypes.COMPANY.FIND_COMPANIES, payload: response.data });
     } catch (error) {
       console.error(error);
@@ -90,7 +92,7 @@ export function findCompanies(query) {
 export function getCompanies() {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`${ROOT_URL}/companies${API_KEY}`);
+      const response = await axios.get(`${ROOT_URL}/api/companies/${API_KEY}`);
       dispatch({ type: ActionTypes.COMPANY.GET_COMPANIES, payload: response.data });
     } catch (error) {
       console.error(error);
@@ -114,7 +116,7 @@ export function deleteCompany(companyId) {
 export function updateCompany(updates) {
   return async (dispatch) => {
     try {
-      const response = await axios.put(`${ROOT_URL}/api/${API_KEY}/companies/${updates.id}`, updates);
+      const response = await axios.put(`${ROOT_URL}/${API_KEY}/companies/${updates.id}`, updates);
       dispatch({ type: ActionTypes.COMPANY.UPDATE_COMPANY, payload: response.data });
     } catch (error) {
       console.error(error);
@@ -386,27 +388,32 @@ export function persondDeleteFromExistingAssociatedCompany() {
   };
 }
 
-export function signup({ email, password }) {
+export function signup({
+  email, password,
+}) {
   return async (dispatch, navigate) => {
     try {
-      const response = await axios.post(`${ROOT_URL}/signup`, { email, password });
-      dispatch({ type: ActionTypes.AUTH.SIGNUP, payload: response.data });
-      navigate(`/${response.data.id}`);
+      const response = await axios.post(`${ROOT_URL}/api/signup`, {
+        email, password,
+      });
+      dispatch({ type: ActionTypes.USER.SIGNUP, payload: response.data });
+      navigate(`/${response.data.id}/homepage`);
     } catch (error) {
       console.error(error);
     }
   };
 }
 
-export function signin({ email, password }) {
+export function signin({
+  email, password,
+}) {
   return async (dispatch, navigate) => {
     try {
-      const response = await axios.post(`${ROOT_URL}/signin`, { email, password });
-      dispatch({ type: ActionTypes.AUTH.SIGNIN, payload: response.data });
-      // localStorage.setItem('id', response.data.id);
-      // localStorage.setItem('email', response.data.email);
-      // localStorage.setItem('token', response.data.token);
-      navigate(`/${response.data.id}`);
+      const response = await axios.post(`${ROOT_URL}/api/signin`, {
+        email, password,
+      });
+      dispatch({ type: ActionTypes.USER.LOGIN, payload: response.data });
+      navigate(`/${response.data.id}/homepage`);
     } catch (error) {
       console.error(error);
     }
