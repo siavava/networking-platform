@@ -397,7 +397,7 @@ export function signup({
         email, password,
       });
       dispatch({ type: ActionTypes.USER.SIGNUP, payload: response.data });
-      navigate(`/${response.data.id}/homepage`);
+      navigate('/homepage');
     } catch (error) {
       console.error(error);
     }
@@ -413,7 +413,7 @@ export function signin({
         email, password,
       });
       dispatch({ type: ActionTypes.USER.LOGIN, payload: response.data });
-      navigate(`/${response.data.id}/homepage`);
+      navigate('/homepage');
     } catch (error) {
       console.error(error);
     }
