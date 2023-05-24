@@ -6,6 +6,10 @@ import debounce from '../modules/debounce';
 
 export default function Companies() {
   const navigate = useNavigate();
+  const [newCompanyName, setNewCompanyName] = useState('');
+  const [newWebsite, setNewWebsite] = useState('');
+  const [newlinkedIn, setNewlinkedIn] = useState('');
+  const [newDescription, setNewDescription] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -19,16 +23,36 @@ export default function Companies() {
     debouncedSearch(searchTerm);
   }, [searchTerm]);
 
-  const handleSubmit = () => {
-    const companyName = document.getElementById('company-name').value;
-    const websiteLink = document.getElementById('website-link').value;
-    const linkedIn = document.getElementById('linkedIn').value;
-    const descriptionBio = document.getElementById('description').value;
-    console.log(companyName);
-    console.log(websiteLink);
-    console.log(linkedIn);
-    console.log(descriptionBio);
+  const handleOnChange = (event) => {
+    console.log(event.target.id);
+    switch (event.target.id) {
+      case 'company-name':
+        setNewCompanyName(event.target.value);
+        break;
+      case 'website-link':
+        setNewWebsite(event.target.value);
+        break;
+      case 'linkedIn':
+        setNewlinkedIn(event.target.value);
+        console.log('hi');
+        break;
+      case 'description':
+        setNewDescription(event.target.value);
+        break;
+      default:
+        // pass
+    }
+  };
 
+  const handleSubmit = () => {
+    const fields = {
+      name: newCompanyName,
+      website: newWebsite,
+      linkedIn: newlinkedIn,
+      description: newDescription,
+    };
+    console.log(fields);
+    // dispatch(createCompany(fields));
     // eslint-disable-next-line no-use-before-define
     closeModal();
   };
@@ -138,25 +162,25 @@ export default function Companies() {
           <span className="close" onClick={closeModal}>&times;</span>
           <label htmlFor="company-name">
             Company Name:
-            <input id="company-name" type="text" />
+            <input id="company-name" type="text" onChange={handleOnChange} value={newCompanyName} />
           </label>
           <br />
 
-          <label htmlFor="last-name">
+          <label htmlFor="company-website">
             Website Link:
-            <input id="website-link" type="text" />
+            <input id="website-link" type="text" onChange={handleOnChange} value={newWebsite} />
           </label>
           <br />
 
-          <label htmlFor="email">
-            LinkedIn URL:
-            <input id="linkedIn" type="text" />
+          <label htmlFor="company-linkedIn">
+            linkedIn URL:
+            <input id="linkedIn" type="text" onChange={handleOnChange} value={newlinkedIn} />
           </label>
           <br />
 
-          <label htmlFor="username">
+          <label htmlFor="company-description">
             Company Description:
-            <input id="description" type="text" />
+            <input id="description" type="text" onChange={handleOnChange} value={newDescription} />
           </label>
           <br />
 
