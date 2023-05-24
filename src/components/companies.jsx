@@ -17,6 +17,21 @@ export default function Companies() {
     debouncedSearch(searchTerm);
   }, [searchTerm]);
 
+  const handleSubmit = () => {
+    const companyName = document.getElementById('company-name').value;
+    const lname = document.getElementById('last-name').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const username = document.getElementById('username').value;
+    const confirm = document.getElementById('confirm-password').value;
+    console.log(companyName);
+    console.log(lname);
+    console.log(email);
+    console.log(username);
+    console.log(password);
+    console.log(confirm);
+  };
+
   const companies = [
     {
       companyID: 1,
@@ -55,6 +70,7 @@ export default function Companies() {
       logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Facebook_Home_logo_old.svg/1200px-Facebook_Home_logo_old.svg.png',
     },
   ];
+
   return (
     <div className="companies">
 
@@ -72,6 +88,7 @@ export default function Companies() {
 
         {/* list vs. grid view toggle */}
         <div className="companies-list-grid-toggle">
+          <button type="button" id="openModalBtn">Create</button>
           <button type="button"> List </button>
           <button type="button"> Grid </button>
         </div>
@@ -103,6 +120,49 @@ export default function Companies() {
             </li>
           ))}
         </ul>
+      </div>
+
+      <div className="modal">
+        <div className="modal-content">
+          <span className="close">&times;</span>
+          <label htmlFor="company-name">
+            Company Name:
+            <input id="company-name" type="text" />
+          </label>
+          <br />
+
+          <label htmlFor="last-name">
+            Last Name:
+            <input id="last-name" type="text" />
+          </label>
+          <br />
+
+          <label htmlFor="email">
+            Email:
+            <input id="email" type="text" />
+          </label>
+          <br />
+
+          <label htmlFor="username">
+            Username:
+            <input id="username" type="text" />
+          </label>
+          <br />
+
+          <label htmlFor="password">
+            Password:
+            <input id="password" type="text" />
+          </label>
+          <br />
+
+          <label htmlFor="confirm-password">
+            Confirm Password:
+            <input id="confirm-password" type="text" />
+          </label>
+          <br />
+
+          <input id="submit" type="button" value="Create" onClick={handleSubmit} />
+        </div>
       </div>
     </div>
   );

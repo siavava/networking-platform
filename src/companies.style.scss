@@ -116,6 +116,8 @@ $text: #000000;
             place-self: flex-end;
             background: $header;
             margin-top: auto;
+            border: none;
+            outline: none;
 
             &:after {
               content: "\2192";
