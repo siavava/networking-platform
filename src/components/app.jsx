@@ -19,15 +19,15 @@ function App() {
       <div>
         <Nav />
         <Routes>
-          <Route path="/:id/homepage" element={<HomePage />} />
-          <Route path="/:id/:otherId" element={<PersonProfile />} />
+          <Route path="homepage" element={<HomePage />} />
           <Route path="/" element={<Landing />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<LogIn />} />
           <Route path="/test/:id" element={<Test />} />
-          <Route path="/:id/companies" element={<Companies />} />
-          <Route path="/:id/companies/:companyId" element={<CompanyProfile />} />
-          <Route path="/:id/people" element={<People />} />
+          <Route path="companies" element={<Companies />} />
+          <Route path="companies/:companyId" element={<CompanyProfile />} />
+          <Route path="people" element={<People />} />
+          <Route path="/people/:id" element={<PersonProfile />} />
           <Route path="*" element={<FallBack />} />
         </Routes>
       </div>

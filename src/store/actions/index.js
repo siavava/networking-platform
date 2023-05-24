@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import axios from 'axios';
 
-const ROOT_URL = 'https://api-goloco.onrender.com/api/';
+const ROOT_URL = 'https://api-goloco.onrender.com';
 // const ROOT_URL = 'http://localhost:9090/api';
 const API_KEY = '';
 
@@ -67,7 +67,8 @@ export function createCompany(companyParams, navigate) {
 export function getCompany(companyId) {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`${ROOT_URL}/${API_KEY}/companies/${companyId}`);
+      const response = await axios.get(`${ROOT_URL}/api/companies/${companyId}`);
+      console.log(response.data);
       dispatch({ type: ActionTypes.COMPANY.GET_COMPANY, payload: response.data });
     } catch (error) {
       console.error(error);
@@ -100,7 +101,7 @@ export function getCompanies() {
 export function deleteCompany(companyId) {
   return async (dispatch, navigate) => {
     try {
-      await axios.delete(`${ROOT_URL}/${API_KEY}/companies/${companyId}`);
+      await axios.delete(`${ROOT_URL}/api/companies/${companyId}`);
 
       // navigate to people page
       navigate('/companies');
