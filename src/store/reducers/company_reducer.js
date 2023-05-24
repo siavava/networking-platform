@@ -63,6 +63,9 @@ const CompanyReducer = produce((draftState, action = {}) => {
       draftState.notes = action.payload.notes;
       draftState.author = action.payload.author;
       draftState.associatedPeople = action.payload.associatedPeople;
+      return draftState;
+    default:
+      return draftState;
   }
 }, initialState);
 
