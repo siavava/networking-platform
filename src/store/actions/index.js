@@ -51,15 +51,15 @@ export const ActionTypes = {
   },
 };
 
-export function createCompany(companyParams) {
-  return async (dispatch, navigate) => {
+export function createCompany(companyParams, navigate) {
+  return async (dispatch) => {
     try {
       // check that response is correct
-      const response = await axios.post(`${ROOT_URL}/api/${API_KEY}/companies`, companyParams);
+      const response = await axios.post(`${ROOT_URL}/api/companies`, companyParams);
       dispatch({ type: ActionTypes.COMPANY.CREATE_COMPANY, payload: response.data });
 
       // navigate to new company page
-      navigate(`/companies/${response.data.id}`);
+      navigate('/companies');
     } catch (error) {
       console.error(error);
     }
@@ -81,7 +81,7 @@ export function getCompany(companyId) {
 export function findCompanies(query) {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`${ROOT_URL}/api/${API_KEY}/companies/find?q=${query}`);
+      const response = await axios.get(`${ROOT_URL}/api/companies/find?q=${query}`);
       dispatch({ type: ActionTypes.COMPANY.FIND_COMPANIES, payload: response.data });
     } catch (error) {
       console.error(error);
@@ -92,7 +92,7 @@ export function findCompanies(query) {
 export function getCompanies() {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`${ROOT_URL}/companies${API_KEY}`);
+      const response = await axios.get(`${ROOT_URL}/api/companies/${API_KEY}`);
       dispatch({ type: ActionTypes.COMPANY.GET_COMPANIES, payload: response.data });
     } catch (error) {
       console.error(error);
@@ -116,7 +116,7 @@ export function deleteCompany(companyId) {
 export function updateCompany(updates) {
   return async (dispatch) => {
     try {
-      const response = await axios.put(`${ROOT_URL}/api/${API_KEY}/companies/${updates.id}`, updates);
+      const response = await axios.put(`${ROOT_URL}/${API_KEY}/companies/${updates.id}`, updates);
       dispatch({ type: ActionTypes.COMPANY.UPDATE_COMPANY, payload: response.data });
     } catch (error) {
       console.error(error);
