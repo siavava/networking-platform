@@ -35,7 +35,7 @@ const CompanyReducer = produce((draftState, action = {}) => {
       return draftState;
       // GET_COMPANIES
     case ActionTypes.COMPANY.GET_COMPANIES:
-      draftState.companies = action.payload.companies;
+      draftState.companies = action.payload;
       return draftState;
       // GET_COMPANY
     case ActionTypes.COMPANY.GET_COMPANY:
