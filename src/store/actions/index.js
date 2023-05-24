@@ -42,8 +42,6 @@ export const ActionTypes = {
     GET_PERSON: 'GET_PERSON',
     DELETE_PERSON: 'DELETE_PERSON',
     UPDATE_PERSON: 'UPDATE_PERSON',
-    ADD_TO_ASSCIATED_COMPANY: 'ADD_TO_ASSOCIATED_COMPANY',
-    DELETE_FROM_EXISTING_ASSOCOATED_COMPANY: 'DELETE_FROM_EXISTING_ASSOCIATED_COMPANY',
   },
 };
 
@@ -229,31 +227,74 @@ export function deleteFromExistingAssociatedPerson() {
   };
 }
 
-export function createPerson() {
-  return {
-    type: ActionTypes.CREATE_PERSON,
-    payload: null,
+export function createPerson(personParams) {
+  return async (dispatch, navigate) => {
+    try {
+      const response = await axios.post(`${ROOT_URL}/api/${API_KEY}/people`, personParams);
+      dispatch({ type: ActionTypes.PERSON.CREATE_PERSON, payload: response.data });
+
+      // navigate to new person's page
+      navigate(`/people/${response.data.id}`);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+}
+
+export function getPerson(personId) {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`${ROOT_URL}/api/${API_KEY}/people/${personId}`);
+      dispatch({ type: ActionTypes.PERSON.GET_PERSON, payload: response.data });
+    } catch (error) {
+      console.error(error);
+    }
   };
 }
 
 export function getPeople() {
-  return {
-    type: ActionTypes.GET_PEOPLE,
-    payload: null,
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`${ROOT_URL}/people${API_KEY}`);
+      dispatch({ type: ActionTypes.PERSON.GET_PEOPLE, payload: response.data });
+    } catch (error) {
+      console.error(error);
+    }
   };
 }
 
-export function deletePerson() {
-  return {
-    type: ActionTypes.DELETE_PERSON,
-    payload: null,
+export function deletePerson(personId) {
+  return async (dispatch, navigate) => {
+    try {
+      await axios.delete(`${ROOT_URL}/api/${API_KEY}/people/${personId}`);
+
+      // navigate to people page
+      navigate('/people');
+    } catch (error) {
+      console.error(error);
+    }
   };
 }
 
-export function updatePerson() {
-  return {
-    type: ActionTypes.UPDATE_PERSON,
-    payload: null,
+export function updatePerson(updates) {
+  return async (dispatch) => {
+    try {
+      const response = await axios.put(`${ROOT_URL}/api/${API_KEY}/people/${updates.id}`, updates);
+      dispatch({ type: ActionTypes.PERSON.UPDATE_PERSON, payload: response.data });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+}
+
+export function findPeople(query) {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`${ROOT_URL}/api/${API_KEY}/people/find?q=${query}`);
+      dispatch({ type: ActionTypes.PERSON.FIND_PEOPLE, payload: response.data });
+    } catch (error) {
+      console.error(error);
+    }
   };
 }
 
