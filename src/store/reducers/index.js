@@ -2,10 +2,18 @@
 // this defines what your store state will look like
 import { combineReducers } from '@reduxjs/toolkit';
 
-import CountReducer from './count-reducer';
+import UserReducer from './user_reducer';
+import CompanyReducer from './company_reducer';
+import TaskReducer from './task_reducer';
+import NoteReducer from './note_reducer';
+import PersonReducer from './person_reducer';
 
 const rootReducer = combineReducers({
-  count: CountReducer,
+  user: UserReducer,
+  company: CompanyReducer,
+  task: TaskReducer,
+  note: NoteReducer,
+  person: PersonReducer,
 });
 
 export default rootReducer;
