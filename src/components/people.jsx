@@ -2,10 +2,14 @@
 /* eslint-disable no-console */
 import React, { useCallback, useState, useEffect } from 'react';
 import '../people.style.scss';
-import { connect } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import debounce from '../modules/debounce';
+import { createPerson, getPeople } from '../store/actions';
 
 export default function People() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [newName, setNewName] = useState('');
   const [newEmail, setNewEmail] = useState('');
   const [newlinkedIn, setNewlinkedIn] = useState('');
@@ -49,58 +53,65 @@ export default function People() {
       linkedIn: newlinkedIn,
       description: newDescription,
     };
-    console.log(fields);
-    // dispatch(createCompany(fields));
+    createPerson(fields)(dispatch, navigate);
+
     // eslint-disable-next-line no-use-before-define
 
     // eslint-disable-next-line no-use-before-define
     closeModal();
   };
 
-  const people = [
-    {
-      id: 1,
-      name: 'Amy',
-      company: 'Google',
-      photo: 'https://source.unsplash.com/random/100x100/?img=1',
-      connection: 'College Alumni',
-    },
-    {
-      id: 2,
-      name: 'Nilufar',
-      company: 'Amazon',
-      photo: 'https://source.unsplash.com/random/100x100/?img=1',
-      connection: 'Coworker',
-    },
-    {
-      id: 3,
-      name: 'Stacy',
-      company: 'Jane Street',
-      photo: 'https://source.unsplash.com/random/100x100/?img=1',
-      connection: 'College Alumni',
-    },
-    {
-      id: 4,
-      name: 'Hampter',
-      company: 'Meta',
-      photo: 'https://source.unsplash.com/random/100x100/?img=1',
-      connection: 'College Alumni',
-    },
-    {
-      id: 5,
-      name: 'Sigma',
-      company: 'Meta',
-      photo: 'https://source.unsplash.com/random/100x100/?img=1',
-      connection: 'College Alumni',
-    },
-    {
-      id: 6,
-      name: 'Mark',
-      company: 'Google',
-      photo: 'https://source.unsplash.com/random/100x100/?img=1',
-      connection: 'Coworker',
-    },
-  ];
+  // const people = [
+  //   {
+  //     id: 1,
+  //     name: 'Amy',
+  //     company: 'Google',
+  //     photo: 'https://source.unsplash.com/random/100x100/?img=1',
+  //     connection: 'College Alumni',
+  //   },
+  //   {
+  //     id: 2,
+  //     name: 'Nilufar',
+  //     company: 'Amazon',
+  //     photo: 'https://source.unsplash.com/random/100x100/?img=1',
+  //     connection: 'Coworker',
+  //   },
+  //   {
+  //     id: 3,
+  //     name: 'Stacy',
+  //     company: 'Jane Street',
+  //     photo: 'https://source.unsplash.com/random/100x100/?img=1',
+  //     connection: 'College Alumni',
+  //   },
+  //   {
+  //     id: 4,
+  //     name: 'Hampter',
+  //     company: 'Meta',
+  //     photo: 'https://source.unsplash.com/random/100x100/?img=1',
+  //     connection: 'College Alumni',
+  //   },
+  //   {
+  //     id: 5,
+  //     name: 'Sigma',
+  //     company: 'Meta',
+  //     photo: 'https://source.unsplash.com/random/100x100/?img=1',
+  //     connection: 'College Alumni',
+  //   },
+  //   {
+  //     id: 6,
+  //     name: 'Mark',
+  //     company: 'Google',
+  //     photo: 'https://source.unsplash.com/random/100x100/?img=1',
+  //     connection: 'Coworker',
+  //   },
+  // ];
+
+  // get people from redux instead
+  const people = useSelector((state) => state.person.people);
+
+  useEffect(() => {
+    getPeople()(dispatch);
+  }, []);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -108,6 +119,10 @@ export default function People() {
 
   const closeModal = () => {
     setIsModalOpen(false);
+  };
+
+  const handleShowPerson = (id) => {
+    navigate(`/people/${id}`);
   };
 
   return (
@@ -151,7 +166,7 @@ export default function People() {
                 <div className="people-list-item-company">
                   {person.connection}
                 </div>
-                <button className="people-list-item-button" type="button">
+                <button className="people-list-item-button" type="button" onClick={() => handleShowPerson(person.id)}>
                   to see full page
                 </button>
               </div>
