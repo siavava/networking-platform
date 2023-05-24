@@ -143,7 +143,7 @@ export function getTask(id) {
 export function deleteTask(id) {
   return async () => {
     // delete
-    await axios.delete(`${ROOT_URL}/posts/${id}${API_KEY}`);
+    await axios.delete(`${ROOT_URL}/tasks/${id}${API_KEY}`);
   };
 }
 
@@ -159,7 +159,7 @@ export function updateTask(taskFields, id) {
 
   return async (dispatch) => {
     try {
-      await axios.put(`${ROOT_URL}/posts/${id}${API_KEY}`, fields);
+      await axios.put(`${ROOT_URL}/tasks/${id}${API_KEY}`, fields);
       dispatch({
         type: ActionTypes.TASK.UPDATE_TASK,
         payload: fields,
@@ -170,31 +170,78 @@ export function updateTask(taskFields, id) {
   };
 }
 
-export function createNote() {
-  return {
-    type: ActionTypes.TASK.CREATE_NOTE,
-    payload: null,
+export function createNote(noteFields) {
+  const fields = {
+    title: noteFields.title,
+    content: noteFields.content,
+    tags: noteFields.tags,
+    associatedCompany: noteFields.associatedCompany,
+    associatedPerson: noteFields.associatedPerson,
+    author: noteFields.author,
+  };
+
+  return async () => {
+    try {
+      await axios.post(`${ROOT_URL}/notes/${API_KEY}`, fields);
+    } catch (error) {
+      console.log(error);
+    }
   };
 }
 
-export function getNote() {
-  return {
-    type: ActionTypes.GET_NOTE,
-    payload: null,
+export function getNotes() {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`${ROOT_URL}/notes/${API_KEY}`);
+      dispatch({ type: ActionTypes.NOTE.GET_NOTES, payload: response.data });
+    } catch (error) {
+      console.log(error);
+    }
   };
 }
 
-export function deleteNote() {
-  return {
-    type: ActionTypes.DELETE_NOTE,
-    payload: null,
+export function getNote(id) {
+  return async (dispatch) => {
+    // get
+    try {
+      const result = await axios.get(`${ROOT_URL}/notes/${id}${API_KEY}`);
+      dispatch({
+        type: ActionTypes.NOTE.GET_NOTE,
+        payload: result.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 }
 
-export function updateNote() {
-  return {
-    type: ActionTypes.UPDATE_NOTE,
-    payload: null,
+export function deleteNote(id) {
+  return async () => {
+    // delete
+    await axios.delete(`${ROOT_URL}/notes/${id}${API_KEY}`);
+  };
+}
+
+export function updateNote(noteFields, id) {
+  const fields = {
+    title: noteFields.title,
+    content: noteFields.content,
+    tags: noteFields.tags,
+    associatedCompany: noteFields.associatedCompany,
+    associatedPerson: noteFields.associatedPerson,
+    author: noteFields.author,
+  };
+
+  return async (dispatch) => {
+    try {
+      await axios.put(`${ROOT_URL}/notes/${id}${API_KEY}`, fields);
+      dispatch({
+        type: ActionTypes.NOTE.UPDATE_NOTE,
+        payload: fields,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 }
 
