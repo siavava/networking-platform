@@ -10,10 +10,10 @@ import { createPerson, getPeople } from '../store/actions';
 export default function People() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [newName, setNewName] = useState('Yizhen');
-  const [newEmail, setNewEmail] = useState('yizhen@yizhen.com');
-  const [newlinkedIn, setNewlinkedIn] = useState('https://test.com');
-  const [newDescription, setNewDescription] = useState('Team Mate');
+  const [newName, setNewName] = useState('');
+  const [newEmail, setNewEmail] = useState('');
+  const [newlinkedIn, setNewlinkedIn] = useState('');
+  const [newDescription, setNewDescription] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
 
