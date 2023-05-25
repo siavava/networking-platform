@@ -18,6 +18,7 @@ export default function People() {
   const [newEmail, setNewEmail] = useState('');
   const [newlinkedIn, setNewlinkedIn] = useState('');
   const [newDescription, setNewDescription] = useState('');
+  const [newPic, setNewPic] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -45,8 +46,10 @@ export default function People() {
       case 'description':
         setNewDescription(event.target.value);
         break;
+      case 'profile-pic':
+        setNewPic(event.target.value);
+        break;
       default:
-        // pass
     }
   };
 
@@ -58,11 +61,9 @@ export default function People() {
       description: newDescription,
       associatedCompany: selectedCompany.value,
       tags: selectedTags.map((tag) => tag.value),
+      picture: newPic,
     };
     createPerson(fields)(dispatch, navigate);
-
-    // eslint-disable-next-line no-use-before-define
-
     // eslint-disable-next-line no-use-before-define
     closeModal();
   };
@@ -152,7 +153,7 @@ export default function People() {
       <div className="modal">
         <div className="modal-content">
           {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
-          <span className="close" onClick={closeModal}>&times;</span>
+          <span className="close" onClick={closeModal}>x</span>
           <label htmlFor="connection-name">
             Connection Name:
             <input id="connection-name" type="text" onChange={handleOnChange} value={newName} />
@@ -178,7 +179,7 @@ export default function People() {
           <br />
 
           <label htmlFor="linkedIn">
-            Connection linkedIn:
+            Connection LinkedIn:
             <input id="linkedIn" type="text" onChange={handleOnChange} value={newlinkedIn} />
           </label>
           <br />
@@ -200,6 +201,12 @@ export default function People() {
           <label htmlFor="description">
             Connection Description:
             <input id="description" type="text" onChange={handleOnChange} value={newDescription} />
+          </label>
+          <br />
+
+          <label htmlFor="profile-pic">
+            Connection Picture URL:
+            <input id="profile-pic" type="text" onChange={handleOnChange} value={newPic} />
           </label>
           <br />
 
