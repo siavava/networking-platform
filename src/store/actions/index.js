@@ -3,8 +3,8 @@ import axios from 'axios';
 
 // const ROOT_URL = 'https://plushiedexapi.onrender.com/api';
 
-const ROOT_URL = 'https://api-goloco.onrender.com';
-// const ROOT_URL = 'http://localhost:9090';
+// const ROOT_URL = 'https://api-goloco.onrender.com';
+const ROOT_URL = 'http://localhost:9090';
 const API_KEY = '';
 
 // keys for actiontypes
@@ -88,7 +88,7 @@ export function findCompanies(query) {
 export function getCompanies() {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`${ROOT_URL}/api/companies/${API_KEY}`, { headers: { authorization: localStorage.getItem('token') } });
+      const response = await axios.get(`${ROOT_URL}/api/companies`, { headers: { authorization: localStorage.getItem('token') } });
       dispatch({ type: ActionTypes.COMPANY.GET_COMPANIES, payload: response.data });
     } catch (error) {
       console.error(error);
@@ -112,7 +112,7 @@ export function deleteCompany(companyId) {
 export function updateCompany(updates) {
   return async (dispatch) => {
     try {
-      const response = await axios.put(`${ROOT_URL}/${API_KEY}/companies/${updates.id}`, updates, { headers: { authorization: localStorage.getItem('token') } });
+      const response = await axios.put(`${ROOT_URL}/companies/${updates.id}`, updates, { headers: { authorization: localStorage.getItem('token') } });
       dispatch({ type: ActionTypes.COMPANY.UPDATE_COMPANY, payload: response.data });
     } catch (error) {
       console.error(error);
@@ -215,7 +215,7 @@ export function createNote(noteFields) {
 
   return async () => {
     try {
-      await axios.post(`${ROOT_URL}/notes/${API_KEY}`, fields, { headers: { authorization: localStorage.getItem('token') } });
+      await axios.post(`${ROOT_URL}/notes`, fields, { headers: { authorization: localStorage.getItem('token') } });
     } catch (error) {
       console.error(error);
     }
@@ -225,7 +225,7 @@ export function createNote(noteFields) {
 export function getNotes() {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`${ROOT_URL}/notes/${API_KEY}`, { headers: { authorization: localStorage.getItem('token') } });
+      const response = await axios.get(`${ROOT_URL}/notes`, { headers: { authorization: localStorage.getItem('token') } });
       dispatch({ type: ActionTypes.NOTE.GET_NOTES, payload: response.data });
     } catch (error) {
       console.error(error);
@@ -281,7 +281,7 @@ export function updateNote(noteFields, id) {
 export function createPerson(personParams) {
   return async (dispatch, navigate) => {
     try {
-      const response = await axios.post(`${ROOT_URL}/api/${API_KEY}/people`, personParams, { headers: { authorization: localStorage.getItem('token') } });
+      const response = await axios.post(`${ROOT_URL}/api/people`, personParams, { headers: { authorization: localStorage.getItem('token') } });
       dispatch({ type: ActionTypes.PERSON.CREATE_PERSON, payload: response.data });
 
       // navigate to new person's page
@@ -317,7 +317,7 @@ export function getPeople() {
 export function deletePerson(personId) {
   return async (dispatch, navigate) => {
     try {
-      await axios.delete(`${ROOT_URL}/api/${API_KEY}/people/${personId}`, { headers: { authorization: localStorage.getItem('token') } });
+      await axios.delete(`${ROOT_URL}/api/people/${personId}`, { headers: { authorization: localStorage.getItem('token') } });
 
       // navigate to people page
       navigate('/people');
@@ -330,7 +330,7 @@ export function deletePerson(personId) {
 export function updatePerson(updates) {
   return async (dispatch) => {
     try {
-      const response = await axios.put(`${ROOT_URL}/api/${API_KEY}/people/${updates.id}`, updates, { headers: { authorization: localStorage.getItem('token') } });
+      const response = await axios.put(`${ROOT_URL}/api/people/${updates.id}`, updates, { headers: { authorization: localStorage.getItem('token') } });
       dispatch({ type: ActionTypes.PERSON.UPDATE_PERSON, payload: response.data });
     } catch (error) {
       console.error(error);
@@ -341,7 +341,7 @@ export function updatePerson(updates) {
 export function findPeople(query) {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`${ROOT_URL}/api/${API_KEY}/people/find?q=${query}`, { headers: { authorization: localStorage.getItem('token') } });
+      const response = await axios.get(`${ROOT_URL}/api/people/find?q=${query}`, { headers: { authorization: localStorage.getItem('token') } });
       dispatch({ type: ActionTypes.PERSON.FIND_PEOPLE, payload: response.data });
     } catch (error) {
       console.error(error);
