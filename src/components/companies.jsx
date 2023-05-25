@@ -14,6 +14,7 @@ export default function Companies() {
   const [newWebsite, setNewWebsite] = useState('');
   const [newlinkedIn, setNewlinkedIn] = useState('');
   const [newDescription, setNewDescription] = useState('');
+  const [newPic, setNewPic] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -42,15 +43,20 @@ export default function Companies() {
       case 'company-name':
         setNewCompanyName(event.target.value);
         break;
+      case 'company-location':
+        setNewDescription(event.target.value);
+        break;
       case 'website-link':
         setNewWebsite(event.target.value);
         break;
       case 'linkedIn':
         setNewlinkedIn(event.target.value);
-        console.log('hi');
         break;
       case 'description':
         setNewDescription(event.target.value);
+        break;
+      case 'imageURL':
+        setNewPic(event.target.value);
         break;
       default:
         // pass
@@ -63,9 +69,11 @@ export default function Companies() {
       website: newWebsite,
       linkedIn: newlinkedIn,
       description: newDescription,
+      picture: newPic,
     };
     console.log(fields);
     dispatch(createCompany(fields, navigate));
+
     // eslint-disable-next-line no-use-before-define
     closeModal();
   };
@@ -172,10 +180,16 @@ export default function Companies() {
       <div className="modal">
         <div className="modal-content">
           {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
-          <span className="close" onClick={closeModal}>&times;</span>
+          <span className="close" onClick={closeModal}>x</span>
           <label htmlFor="company-name">
             Company Name:
             <input id="company-name" type="text" onChange={handleOnChange} value={newCompanyName} />
+          </label>
+          <br />
+
+          <label htmlFor="company-location">
+            Company Location:
+            <input id="company-location" type="text" onChange={handleOnChange} value={newCompanyName} />
           </label>
           <br />
 
@@ -186,7 +200,7 @@ export default function Companies() {
           <br />
 
           <label htmlFor="company-linkedIn">
-            linkedIn URL:
+            LinkedIn URL:
             <input id="linkedIn" type="text" onChange={handleOnChange} value={newlinkedIn} />
           </label>
           <br />
@@ -194,6 +208,12 @@ export default function Companies() {
           <label htmlFor="company-description">
             Company Description:
             <input id="description" type="text" onChange={handleOnChange} value={newDescription} />
+          </label>
+          <br />
+
+          <label htmlFor="company-description">
+            Company Logo Image URL:
+            <input id="imageURL" type="text" onChange={handleOnChange} value={newDescription} />
           </label>
           <br />
 
