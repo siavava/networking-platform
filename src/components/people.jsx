@@ -7,12 +7,13 @@ import '../people.style.scss';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import debounce from '../modules/debounce';
-import { createPerson, getPeople, findCompanies } from '../store/actions';
+import { createPerson, getPeople, getCompanies } from '../store/actions';
 
 export default function People() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedCompany, setSelectedCompany] = useState(null);
+  const [selectedTags, setSelectedTags] = useState([]);
   const [newName, setNewName] = useState('');
   const [newEmail, setNewEmail] = useState('');
   const [newlinkedIn, setNewlinkedIn] = useState('');
@@ -55,6 +56,8 @@ export default function People() {
       email: newEmail,
       linkedIn: newlinkedIn,
       description: newDescription,
+      associatedCompany: selectedCompany.value,
+      tags: selectedTags.map((tag) => tag.value),
     };
     createPerson(fields)(dispatch, navigate);
 
@@ -64,76 +67,13 @@ export default function People() {
     closeModal();
   };
 
-  const searchAndSelect = (event) => {
-    setSelectedOption(event.target.value);
-    /*
-    const companies = useSelector((state) => state.company.companies);
-
-    const fetch = async () => {
-      await dispatch(findCompanies());
-    };
-    fetch();
-
-    console.log(companies);
-    */
-  };
-
-  const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' },
-  ];
-
-  // const people = [
-  //   {
-  //     id: 1,
-  //     name: 'Amy',
-  //     company: 'Google',
-  //     photo: 'https://source.unsplash.com/random/100x100/?img=1',
-  //     connection: 'College Alumni',
-  //   },
-  //   {
-  //     id: 2,
-  //     name: 'Nilufar',
-  //     company: 'Amazon',
-  //     photo: 'https://source.unsplash.com/random/100x100/?img=1',
-  //     connection: 'Coworker',
-  //   },
-  //   {
-  //     id: 3,
-  //     name: 'Stacy',
-  //     company: 'Jane Street',
-  //     photo: 'https://source.unsplash.com/random/100x100/?img=1',
-  //     connection: 'College Alumni',
-  //   },
-  //   {
-  //     id: 4,
-  //     name: 'Hampter',
-  //     company: 'Meta',
-  //     photo: 'https://source.unsplash.com/random/100x100/?img=1',
-  //     connection: 'College Alumni',
-  //   },
-  //   {
-  //     id: 5,
-  //     name: 'Sigma',
-  //     company: 'Meta',
-  //     photo: 'https://source.unsplash.com/random/100x100/?img=1',
-  //     connection: 'College Alumni',
-  //   },
-  //   {
-  //     id: 6,
-  //     name: 'Mark',
-  //     company: 'Google',
-  //     photo: 'https://source.unsplash.com/random/100x100/?img=1',
-  //     connection: 'Coworker',
-  //   },
-  // ];
-
   // get people from redux instead
   const people = useSelector((state) => state.person.people);
+  const companies = useSelector((state) => state.company.companies);
 
   useEffect(() => {
     getPeople()(dispatch);
+    getCompanies()(dispatch);
   }, []);
 
   const openModal = () => {
@@ -143,6 +83,16 @@ export default function People() {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
+  const companyOptions = companies.map((company) => ({ value: company.id, label: company.name }));
+
+  const peopleTagOptions = [
+    { value: 'alumni', label: 'Alumni' },
+    { value: 'coworker', label: 'Coworker' },
+    { value: 'friend', label: 'Friend' },
+    { value: 'family', label: 'Family' },
+    { value: 'other', label: 'Other' },
+  ];
 
   const handleShowPerson = (id) => {
     navigate(`/people/${id}`);
@@ -212,11 +162,10 @@ export default function People() {
           <div>
             <label>
               Connection Company:
-              <Select
-                id="connection-company"
-                defaultValue={selectedOption}
-                onChange={searchAndSelect}
-                options={options}
+              <Select id="connection-company"
+                value={selectedCompany}
+                onChange={setSelectedCompany}
+                options={companyOptions}
               />
             </label>
             <br />
@@ -233,6 +182,20 @@ export default function People() {
             <input id="linkedIn" type="text" onChange={handleOnChange} value={newlinkedIn} />
           </label>
           <br />
+
+          <div>
+            <label>
+              Connection Tags:
+              <Select
+                id="connection-tags"
+                isMulti
+                options={peopleTagOptions}
+                value={selectedTags}
+                onChange={setSelectedTags}
+              />
+            </label>
+            <br />
+          </div>
 
           <label htmlFor="description">
             Connection Description:
