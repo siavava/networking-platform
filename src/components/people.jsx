@@ -1,15 +1,18 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 import React, { useCallback, useState, useEffect } from 'react';
+import Select from 'react-select';
 import '../people.style.scss';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import debounce from '../modules/debounce';
-import { createPerson, getPeople } from '../store/actions';
+import { createPerson, getPeople, findCompanies } from '../store/actions';
 
 export default function People() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [selectedOption, setSelectedOption] = useState(null);
   const [newName, setNewName] = useState('');
   const [newEmail, setNewEmail] = useState('');
   const [newlinkedIn, setNewlinkedIn] = useState('');
@@ -60,6 +63,26 @@ export default function People() {
     // eslint-disable-next-line no-use-before-define
     closeModal();
   };
+
+  const searchAndSelect = (event) => {
+    setSelectedOption(event.target.value);
+    /*
+    const companies = useSelector((state) => state.company.companies);
+
+    const fetch = async () => {
+      await dispatch(findCompanies());
+    };
+    fetch();
+
+    console.log(companies);
+    */
+  };
+
+  const options = [
+    { value: 'chocolate', label: 'Chocolate' },
+    { value: 'strawberry', label: 'Strawberry' },
+    { value: 'vanilla', label: 'Vanilla' },
+  ];
 
   // const people = [
   //   {
@@ -185,6 +208,19 @@ export default function People() {
             <input id="connection-name" type="text" onChange={handleOnChange} value={newName} />
           </label>
           <br />
+
+          <div>
+            <label>
+              Connection Company:
+              <Select
+                id="connection-company"
+                defaultValue={selectedOption}
+                onChange={searchAndSelect}
+                options={options}
+              />
+            </label>
+            <br />
+          </div>
 
           <label htmlFor="email">
             Connection Email:

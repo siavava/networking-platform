@@ -16,8 +16,7 @@ export default function SignUp() {
   const [confirm, setConfirm] = useState('');
   const [password, setPassword] = useState('');
   const handleSubmit = () => {
-    const validate = () => username !== '' && password !== '' && password === confirm;
-
+    const validate = () => email !== '' && password !== '' && password === confirm;
     if (validate()) {
       signup({ email, password })(dispatch, navigate);
     }
