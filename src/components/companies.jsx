@@ -158,7 +158,7 @@ export default function Companies() {
                 <button
                   className="companies-list-item-button"
                   type="button"
-                  onClick={() => navigate(`${company.companyID}`)}
+                  onClick={() => navigate(`${company.id}`)}
                 >
                   to see full page
                 </button>
