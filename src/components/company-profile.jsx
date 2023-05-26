@@ -38,7 +38,6 @@ export default function CompanyProfile() {
     };
 
     getComp();
-
     if (company && company.associatedPeople) {
       const ids = company.associatedPeople;
       let idStr = '';
@@ -52,43 +51,50 @@ export default function CompanyProfile() {
     }
   }, [companyId]);
 
-  return (
-    <div className="company-profile-container">
-      <div className="company-profile">
-        <div className="company-profile-left-panel">
-          <h1 className="company-profile-name">{`${company.name}: full profile`}</h1>
-          <img className="company-profile-image" src={company.imageUrl} alt="company logo" />
-          <div className="company-profile-bottom">
-            <div className="company-profile-links">
-              <a href={company.website}>Website</a>
-              <a href={company.linkedin}>LinkedIn</a>
-            </div>
-            <div className="company-profile-extended-bio">
-              <p>{extendedBio}</p>
-            </div>
-          </div>
-        </div>
-        <div className="company-profile-right-panel">
-          <h1>People Associated With Company</h1>
-          <button type="submit" className="add-people" onClick={openModal}>+</button>
-
-          {people.map((person) => (person === null ? '' : (
-            <div className="company-profile-person" key={person.id}>
-              <img src={person.image} alt="person" />
-              <div className="company-profile-person-information">
-                <h2>{person.name}</h2>
-                <p>{person.connection}</p>
+  if (company.name !== '') {
+    return (
+      <div className="company-profile-container">
+        <div className="company-profile">
+          <div className="company-profile-left-panel">
+            <h1 className="company-profile-name">{`${company.name}: full profile`}</h1>
+            <img className="company-profile-image" src={company.imageUrl} alt="company logo" />
+            <div className="company-profile-bottom">
+              <div className="company-profile-links">
+                <a href={company.website}>Website</a>
+                <a href={company.linkedin}>LinkedIn</a>
+              </div>
+              <div className="company-profile-extended-bio">
+                <p>{extendedBio}</p>
               </div>
             </div>
-          )))}
+          </div>
+          <div className="company-profile-right-panel">
+            <h1>People Associated With Company</h1>
+            <button type="submit" className="add-people" onClick={openModal}>+</button>
+            {console.log(company.associatedPeople)}
+            {console.log(people)}
+            {people.map((person) => (company.associatedPeople.includes(person.id) ? (
+              <div className="company-profile-person" key={person.id}>
+                <img src={person.image} alt="person" />
+                <div className="company-profile-person-information">
+                  <h2>{person.name}</h2>
+                  <p>{person.connection}</p>
+                </div>
+              </div>
+            ) : null))}
+          </div>
         </div>
+        {isModalOpen && (
+          <CreatePersonModal
+            value={{ value: companyId, label: company.name }}
+            closeModal={closeModal}
+          />
+        )}
       </div>
-      {isModalOpen && (
-        <CreatePersonModal
-          value={{ value: companyId, label: company.name }}
-          closeModal={closeModal}
-        />
-      )}
-    </div>
+    );
+  }
+
+  return (
+    <div>Loading...</div>
   );
 }
