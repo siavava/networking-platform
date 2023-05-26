@@ -133,7 +133,7 @@ export function createTask(taskFields) {
 
   return async () => {
     try {
-      await axios.post(`${ROOT_URL}/tasks${API_KEY}`, fields, { headers: { authorization: localStorage.getItem('token') } });
+      await axios.post(`${ROOT_URL}/api/tasks${API_KEY}`, fields, { headers: { authorization: localStorage.getItem('token') } });
     } catch (error) {
       console.error(error);
     }
@@ -143,7 +143,7 @@ export function createTask(taskFields) {
 export function getTasks() {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`${ROOT_URL}/tasks${API_KEY}`, { headers: { authorization: localStorage.getItem('token') } });
+      const response = await axios.get(`${ROOT_URL}/api/tasks${API_KEY}`, { headers: { authorization: localStorage.getItem('token') } });
       dispatch({ type: ActionTypes.TASK.GET_TASKS, payload: response.data });
     } catch (error) {
       console.error(error);

@@ -1,10 +1,22 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+/* eslint-disable jsx-a11y/label-has-associated-control */
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import Select from 'react-select';
+import { createTask, getCompanies, getPeople } from '../store/actions';
 
-export default function Modal() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+export default function Modal(props) {
+  // const [isModalOpen, setIsModalOpen] = useState(false);
   const [newTask, setNewTask] = useState('');
+  const { closeModal, person } = props;
+  const [selectedPeople, setSelectedPeople] = useState([]);
+  const [selectedCompany, setSelectedCompany] = useState(null);
+  // const [peopleTagOptions, setPeopleTagOptions] = useState([]);
+  const peopleTagOptions = person.people.map((p) => ({ value: p.id, label: p.name }));
 
+  const companies = useSelector((state) => state.company.companies) || [];
+  const companyTagOptions = companies.map((c) => ({ value: c.id, label: c.name }));
+  const dispatch = useDispatch();
   const handleOnChange = (event) => {
     switch (event.target.id) {
       case 'task-item':
@@ -14,41 +26,63 @@ export default function Modal() {
     }
   };
 
+  useEffect(() => {
+    getPeople()(dispatch);
+    getCompanies()(dispatch);
+  }, []);
+
   const handleSubmit = () => {
     const fields = {
-      task: newTask,
+      title: newTask,
+      associatedPeople: selectedPeople.map((p) => p.value),
+      associatedCompany: selectedCompany.value,
     };
-    // eslint-disable-next-line no-use-before-define
+
+    createTask(fields)(dispatch);
     closeModal();
-  };
-
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
   };
 
   return (
     <div>
-      <button type="button" className="create-task" onClick={openModal}>Create</button>
+      <div className="modal">
+        <div className="modal-content">
+          <button className="close" type="submit" onClick={closeModal}>x</button>
+          <label htmlFor="task-item">
+            New Task:
+            <input id="task-item" type="text" onChange={handleOnChange} value={newTask} />
+          </label>
+          <br />
 
-      {isModalOpen && (
-        <div className="modal">
-          <div className="modal-content">
-            {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
-            <span className="close" onClick={closeModal}>x</span>
-            <label htmlFor="task-item">
-              New Task:
-              <input id="task-item" type="text" onChange={handleOnChange} value={newTask} />
+          <div>
+            <label htmlFor="task-people">
+              Associated People:
+              <Select
+                id="task-people"
+                isMulti
+                options={peopleTagOptions}
+                value={selectedPeople}
+                onChange={setSelectedPeople}
+              />
             </label>
             <br />
-
-            <input id="submit" type="button" value="Create" onClick={handleSubmit} />
           </div>
+
+          <div>
+            <label htmlFor="task-companies">
+              <div>Associated Companies:</div>
+              <Select
+                id="task-companies"
+                options={companyTagOptions}
+                value={selectedCompany}
+                onChange={setSelectedCompany}
+              />
+            </label>
+            <br />
+          </div>
+
+          <input id="submit" type="button" value="Create" onClick={handleSubmit} />
         </div>
-      )};
+      </div>
     </div>
   );
 }
