@@ -1,11 +1,14 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 import '../create-person-modal.style.scss';
 import { createPerson, getCompanies } from '../store/actions';
 
 export default function CreatePersonModal(props) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [selectedCompany, setSelectedCompany] = useState(null);
   const [selectedTags, setSelectedTags] = useState([]);
   const [newName, setNewName] = useState('');
@@ -41,7 +44,7 @@ export default function CreatePersonModal(props) {
       associatedCompany: selectedCompany.value,
       tags: selectedTags.map((tag) => tag.value),
     };
-    createPerson(fields)(props.dispatch, props.navigate);
+    createPerson(fields)(dispatch, navigate);
 
     // eslint-disable-next-line no-use-before-define
 
@@ -52,13 +55,12 @@ export default function CreatePersonModal(props) {
   const companies = useSelector((state) => state.company.companies);
 
   useEffect(() => {
-    const fetchData = async () => {
-      await getCompanies()(props.dispatch);
-    };
-    fetchData();
+    getCompanies()(dispatch);
   }, []);
 
-  const companyOptions = companies.map((company) => ({ value: company.id, label: company.name }));
+  const companyOptions = companies
+    ? companies.map((company) => ({ value: company.id, label: company.name }))
+    : [];
 
   const peopleTagOptions = [
     { value: 'alumni', label: 'Alumni' },
