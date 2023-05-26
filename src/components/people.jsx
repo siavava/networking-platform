@@ -94,8 +94,6 @@ export default function People() {
 
       {isModalOpen && (
         <CreatePersonModal
-          dispatch={dispatch}
-          navigate={navigate}
           closeModal={closeModal}
         />
       )}
