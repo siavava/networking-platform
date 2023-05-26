@@ -15,7 +15,6 @@ export default function PersonProfile() {
   }, [dispatch, personId]);
 
   const person = useSelector((state) => state.person);
-  console.log(person);
   /*
   const person = {
     fname: 'Chad',

@@ -54,6 +54,20 @@ body, html {
           flex-direction: column;
           width: 30%;
         }
+
+        .create-task-button {
+          background-color: #D6E8D4;
+          color: $text;
+          font-size: 20px;
+          font-weight: bold;
+          padding: 10px 20px;
+          border: none;
+          cursor: pointer;
+        }
+        
+        .create-task-button:hover {
+          background-color: darken($header, 10%);
+        }
       }
 
       .homepage-tasks-table {
@@ -62,6 +76,7 @@ body, html {
         gap: 20px;
         width: 100%;
         padding: 10px;
+        position: relative;
 
         .homepage-tasks-table-header {
           display: flex;
@@ -92,41 +107,9 @@ body, html {
             width: 30%;
             margin: 0 10px;
             text-transform: capitalize;
+            position: static;
           }
         }
-      }
-    }
-  }
-
-  .side-panel {
-    background: #FFFFFF;
-    display: flex;
-    flex-direction: column;
-    width: 200px;
-    gap: 10px;
-
-    .side-panel-title {
-      font-size: 20px;
-      text-align: center;
-      font-weight: bold;
-      background: #D6E8D4;
-      padding: 20px;
-      margin-bottom: 0;
-    }
-
-    .side-panel-suggestions {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      padding: 10px;
-
-      .side-panel-suggestions-item {
-        display: flex;
-        flex-direction: row;
-        gap: 10px;
-        background: #F6F6F6;
-        padding: 15px;
-        margin-bottom: 5px;
       }
     }
   }
