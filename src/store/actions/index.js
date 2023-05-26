@@ -66,6 +66,7 @@ export function getCompany(companyId) {
   return async (dispatch) => {
     try {
       const response = await axios.get(`${ROOT_URL}/api/companies/${companyId}`, { headers: { authorization: localStorage.getItem('token') } });
+      console.log(response);
       dispatch({ type: ActionTypes.COMPANY.GET_COMPANY, payload: response.data });
     } catch (error) {
       console.error(error);
@@ -85,7 +86,6 @@ export function findCompanies(query) {
 }
 
 export function getCompanies() {
-  console.log('hi 1');
   return async (dispatch) => {
     try {
       const response = await axios.get(`${ROOT_URL}/api/companies`, { headers: { authorization: localStorage.getItem('token') } });

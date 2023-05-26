@@ -15,6 +15,7 @@ export default function CreatePersonModal(props) {
   const [newEmail, setNewEmail] = useState('');
   const [newlinkedIn, setNewlinkedIn] = useState('');
   const [newDescription, setNewDescription] = useState('');
+  const [newImageUrl, setNewImageUrl] = useState('');
 
   const handleOnChange = (event) => {
     switch (event.target.id) {
@@ -30,6 +31,9 @@ export default function CreatePersonModal(props) {
       case 'description':
         setNewDescription(event.target.value);
         break;
+      case 'imageURL':
+        setNewImageUrl(event.target.value);
+        break;
       default:
         // pass
     }
@@ -42,6 +46,7 @@ export default function CreatePersonModal(props) {
       linkedIn: newlinkedIn,
       description: newDescription,
       associatedCompany: selectedCompany.value,
+      imageUrl: newImageUrl,
       tags: selectedTags.map((tag) => tag.value),
     };
     createPerson(fields)(dispatch, navigate);
@@ -125,6 +130,12 @@ export default function CreatePersonModal(props) {
         <label htmlFor="description">
           Connection Description:
           <input id="description" type="text" onChange={handleOnChange} value={newDescription} />
+        </label>
+        <br />
+
+        <label htmlFor="imageUrl">
+          Connection Image URL:
+          <input id="imageUrl" type="text" onChange={handleOnChange} value={newImageUrl} />
         </label>
         <br />
 

@@ -71,7 +71,7 @@ export default function People() {
           { people.map((person) => (
             <li key={person.id} className="people-list-item">
               <div className="people-list-item-photo">
-                <img src={person.photo} alt="profile" />
+                <img src={person.imageUrl} alt="profile" />
               </div>
               <div className="people-list-item-info">
                 <div className="people-list-item-name">

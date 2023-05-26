@@ -71,7 +71,7 @@ $text: #000000;
         padding: 20px;
         gap: 20px;
 
-        .people-list-item-logo {
+        .people-list-item-photo {
           width: 30%;
           aspect-ratio: 1/1;
           background: #FFFFFF;
@@ -82,7 +82,7 @@ $text: #000000;
           & > img {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: cover;
           }
         }
 

@@ -25,7 +25,7 @@ export default function CompanyProfile() {
   };
 
   const company = useSelector((state) => state.company);
-
+  console.log(company);
   const extendedBio = `
     Lorem ipsum dolor sit amet.
     Lorem ipsum dolor sit amet.
