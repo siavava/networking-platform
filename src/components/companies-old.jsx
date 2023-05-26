@@ -1,19 +1,16 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 import React, { useCallback, useState, useEffect } from 'react';
-import '../people.style.scss';
-import { useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import '../companies.style.scss';
+import { useNavigate } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
 import debounce from '../modules/debounce';
-import {
-  getCompanies, createCompany,
-} from '../store/actions';
+import { createCompany, getCompanies } from '../store/actions';
 
 export default function Companies() {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [newCompanyName, setNewCompanyName] = useState('');
-  const [newCompanyLocation, setNewCompanyLocation] = useState('');
   const [newWebsite, setNewWebsite] = useState('');
   const [newlinkedIn, setNewlinkedIn] = useState('');
   const [newDescription, setNewDescription] = useState('');
@@ -31,17 +28,14 @@ export default function Companies() {
     debouncedSearch(searchTerm);
   }, [searchTerm]);
 
-  useEffect(() => {
-    getCompanies()(dispatch);
-  }, []);
-
   const handleOnChange = (event) => {
+    console.log(event.target.id);
     switch (event.target.id) {
       case 'company-name':
         setNewCompanyName(event.target.value);
         break;
       case 'company-location':
-        setNewCompanyLocation(event.target.value);
+        setNewDescription(event.target.value);
         break;
       case 'website-link':
         setNewWebsite(event.target.value);
@@ -56,7 +50,7 @@ export default function Companies() {
         setNewPic(event.target.value);
         break;
       default:
-          // pass
+        // pass
     }
   };
 
@@ -64,17 +58,22 @@ export default function Companies() {
     const fields = {
       name: newCompanyName,
       website: newWebsite,
-      location: newCompanyLocation,
       linkedIn: newlinkedIn,
       description: newDescription,
       picture: newPic,
     };
+    console.log(fields);
     createCompany(fields)(dispatch, navigate);
+
     // eslint-disable-next-line no-use-before-define
     closeModal();
   };
 
-  const companies = useSelector((state) => state.company.companies) || [];
+  const companies = useSelector((state) => state.company.companies);
+
+  useEffect(() => {
+    getCompanies()(dispatch);
+  }, []);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -84,17 +83,13 @@ export default function Companies() {
     setIsModalOpen(false);
   };
 
-  const handleShowCompany = (id) => {
-    navigate(`/companies/${id}`);
-  };
-
   return (
-    <div className="people">
+    <div className="companies">
 
       {/* top panel -- contains search-bar and toggle */}
-      <div className="people-top-panel">
+      <div className="companies-top-panel">
         {/* search bar */}
-        <div className="people-search-bar">
+        <div className="companies-search-bar">
           <input
             type="text"
             placeholder="Search..."
@@ -104,32 +99,33 @@ export default function Companies() {
         </div>
 
         {/* list vs. grid view toggle */}
-        <div className="people-list-grid-toggle">
+        <div className="companies-list-grid-toggle">
           <button type="button" onClick={openModal}>Create</button>
           <button type="button"> List </button>
           <button type="button"> Grid </button>
         </div>
       </div>
 
-      {/* main panel -- contains list of people */}
-      <div className="people-main-panel">
-        <ul className="people-list">
+      {/* main panel -- contains list of companies */}
+      <div className="companies-main-panel">
+        <ul className="companies-list">
           { companies.map((company) => (
-            <li key={company.id} className="people-list-item">
-              <div className="people-list-item-photo">
-                <img src={company.photo} alt="profile" />
+            <li key={company.id} className="companies-list-item">
+              <div className="companies-list-item-logo">
+                <img src={company.logo} alt="company logo" />
               </div>
-              <div className="people-list-item-info">
-                <div className="people-list-item-name">
+              <div className="companies-list-item-info">
+                <div className="companies-list-item-name">
                   {company.name}
                 </div>
-                <div className="people-list-item-company">
-                  {company.company}
+                <div className="companies-list-item-bio">
+                  {company.bio}
                 </div>
-                <div className="people-list-item-company">
-                  {company.connection}
-                </div>
-                <button className="people-list-item-button" type="button" onClick={() => handleShowCompany(company.id)}>
+                <button
+                  className="companies-list-item-button"
+                  type="button"
+                  onClick={() => navigate(`${company.companyID}`)}
+                >
                   to see full page
                 </button>
               </div>
@@ -151,7 +147,7 @@ export default function Companies() {
 
           <label htmlFor="company-location">
             Company Location:
-            <input id="company-location" type="text" onChange={handleOnChange} value={newCompanyLocation} />
+            <input id="company-location" type="text" onChange={handleOnChange} value={newCompanyName} />
           </label>
           <br />
 
@@ -175,7 +171,7 @@ export default function Companies() {
 
           <label htmlFor="company-description">
             Company Logo Image URL:
-            <input id="imageURL" type="text" onChange={handleOnChange} value={newPic} />
+            <input id="imageURL" type="text" onChange={handleOnChange} value={newDescription} />
           </label>
           <br />
 

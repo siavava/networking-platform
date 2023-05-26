@@ -24,12 +24,49 @@ export default function People() {
     debouncedSearch(searchTerm);
   }, [searchTerm]);
 
-  // get people from redux instead
-  const people = useSelector((state) => state.person.people);
-
   useEffect(() => {
     getPeople()(dispatch);
+    getCompanies()(dispatch);
   }, []);
+
+  const handleOnChange = (event) => {
+    switch (event.target.id) {
+      case 'connection-name':
+        setNewName(event.target.value);
+        break;
+      case 'email':
+        setNewEmail(event.target.value);
+        break;
+      case 'linkedIn':
+        setNewlinkedIn(event.target.value);
+        break;
+      case 'description':
+        setNewDescription(event.target.value);
+        break;
+      case 'profile-pic':
+        setNewPic(event.target.value);
+        break;
+      default:
+    }
+  };
+
+  const handleSubmit = () => {
+    const fields = {
+      name: newName,
+      email: newEmail,
+      linkedIn: newlinkedIn,
+      description: newDescription,
+      associatedCompany: selectedCompany.value,
+      tags: selectedTags.map((tag) => tag.value),
+      picture: newPic,
+    };
+    createPerson(fields)(dispatch, navigate);
+    // eslint-disable-next-line no-use-before-define
+    closeModal();
+  };
+
+  // get people from redux instead
+  const people = useSelector((state) => state.person.people);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -38,6 +75,18 @@ export default function People() {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
+  const companyOptions = companies
+    ? companies.map((company) => ({ value: company.id, label: company.name }))
+    : [];
+
+  const peopleTagOptions = [
+    { value: 'alumni', label: 'Alumni' },
+    { value: 'coworker', label: 'Coworker' },
+    { value: 'friend', label: 'Friend' },
+    { value: 'family', label: 'Family' },
+    { value: 'other', label: 'Other' },
+  ];
 
   const handleShowPerson = (id) => {
     navigate(`/people/${id}`);
