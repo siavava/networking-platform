@@ -40,6 +40,7 @@ export const ActionTypes = {
     GET_PERSON: 'GET_PERSON',
     DELETE_PERSON: 'DELETE_PERSON',
     UPDATE_PERSON: 'UPDATE_PERSON',
+    SET_PEOPLE: 'SET_PEOPLE',
   },
   AUTH: {
     AUTH_USER: 'AUTH_USER',
@@ -298,6 +299,17 @@ export function getPerson(personId) {
     try {
       const response = await axios.get(`${ROOT_URL}/api/people/${personId}`, { headers: { authorization: localStorage.getItem('token') } });
       dispatch({ type: ActionTypes.PERSON.GET_PERSON, payload: response.data });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+}
+
+export function getAssociatedPeople(idString) {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`${ROOT_URL}/api/people/?ids=${idString}`, { headers: { authorization: localStorage.getItem('token') } });
+      dispatch({ type: ActionTypes.PERSON.SET_PEOPLE, payload: response.data });
     } catch (error) {
       console.error(error);
     }

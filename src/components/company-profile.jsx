@@ -1,31 +1,27 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-plusplus */
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 // import { useParams } from 'react-router-dom';
 import '../company-profile.style.scss';
 import { useLocation } from 'react-router-dom';
-import { getCompany } from '../store/actions';
+import { getCompany, getAssociatedPeople } from '../store/actions';
 import CreatePersonModal from './create-person-modal';
 
 export default function CompanyProfile() {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const companyId = pathname.split('/companies/')[1];
-  const [isPeopleModalOpen, setIsPeopleModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  useEffect(() => {
-    dispatch(getCompany(companyId));
-  }, [dispatch, companyId]);
-
-  const openPeopleModal = () => {
-    setIsPeopleModalOpen(true);
+  const openModal = () => {
+    setIsModalOpen(true);
   };
 
-  const closePeopleModal = () => {
-    setIsPeopleModalOpen(false);
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
-  const company = useSelector((state) => state.company);
-  console.log(company);
   const extendedBio = `
     Lorem ipsum dolor sit amet.
     Lorem ipsum dolor sit amet.
@@ -33,60 +29,72 @@ export default function CompanyProfile() {
     Lorem ipsum dolor sit amet.
     Lorem ipsum dolor sit amet.`;
 
-  const people = [
-    {
-      name: 'Chad I',
-      image: 'https://source.unsplash.com/random/200x200/?img=1',
-      connection: 'Homie',
-    },
-    {
-      name: 'Chad II',
-      image: 'https://source.unsplash.com/random/200x200/?img=2',
-      connection: 'College Alumni',
-    },
-    {
-      name: 'Chad V',
-      image: 'https://source.unsplash.com/random/200x200/?img=3',
-      connection: 'Friend',
-    },
-  ];
+  const company = useSelector((state) => state.company);
+  const people = useSelector((state) => state.person.people);
 
-  return (
-    <div className="company-profile-container">
-      <div className="company-profile">
-        <div className="company-profile-left-panel">
-          <h1 className="company-profile-name">{`${company.name}: full profile`}</h1>
-          <img className="company-profile-image" src={company.imageUrl} alt="company logo" />
-          <div className="company-profile-bottom">
-            <div className="company-profile-links">
-              <a href={company.website}>Website</a>
-              <a href={company.linkedin}>LinkedIn</a>
-            </div>
-            <div className="company-profile-extended-bio">
-              <p>{extendedBio}</p>
-            </div>
-          </div>
-        </div>
-        <div className="company-profile-right-panel">
-          <h1>People Associated With Company</h1>
-          <button type="submit" className="add-people" onClick={openPeopleModal}>+</button>
-          {people.map((person) => (
-            <div className="company-profile-person" key={person.name}>
-              <img src={person.image} alt="person" />
-              <div className="company-profile-person-information">
-                <h2>{person.name}</h2>
-                <p>{person.connection}</p>
+  useEffect(() => {
+    const getComp = async () => {
+      await dispatch(getCompany(companyId));
+    };
+
+    getComp();
+    if (company && company.associatedPeople) {
+      const ids = company.associatedPeople;
+      let idStr = '';
+      for (let i = 0; i < ids.length; i++) {
+        const id = ids[i];
+
+        idStr = idStr ? `${idStr},${id}` : `${id}`;
+      }
+
+      dispatch(getAssociatedPeople(idStr));
+    }
+  }, [companyId]);
+
+  if (company.name !== '') {
+    return (
+      <div className="company-profile-container">
+        <div className="company-profile">
+          <div className="company-profile-left-panel">
+            <h1 className="company-profile-name">{`${company.name}: full profile`}</h1>
+            <img className="company-profile-image" src={company.imageUrl} alt="company logo" />
+            <div className="company-profile-bottom">
+              <div className="company-profile-links">
+                <a href={company.website}>Website</a>
+                <a href={company.linkedin}>LinkedIn</a>
+              </div>
+              <div className="company-profile-extended-bio">
+                <p>{extendedBio}</p>
               </div>
             </div>
-          ))}
+          </div>
+          <div className="company-profile-right-panel">
+            <h1>People Associated With Company</h1>
+            <button type="submit" className="add-people" onClick={openModal}>+</button>
+            {console.log(company.associatedPeople)}
+            {console.log(people)}
+            {people.map((person) => (company.associatedPeople.includes(person.id) ? (
+              <div className="company-profile-person" key={person.id}>
+                <img src={person.image} alt="person" />
+                <div className="company-profile-person-information">
+                  <h2>{person.name}</h2>
+                  <p>{person.connection}</p>
+                </div>
+              </div>
+            ) : null))}
+          </div>
         </div>
+        {isModalOpen && (
+          <CreatePersonModal
+            value={{ value: companyId, label: company.name }}
+            closeModal={closeModal}
+          />
+        )}
       </div>
-      {isPeopleModalOpen && (
-        <CreatePersonModal
-          companyValue={{ value: companyId, label: company.name }}
-          closeModal={closePeopleModal}
-        />
-      )}
-    </div>
+    );
+  }
+
+  return (
+    <div>Loading...</div>
   );
 }

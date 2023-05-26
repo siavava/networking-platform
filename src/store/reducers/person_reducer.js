@@ -38,7 +38,13 @@ const PersonReducer = produce((draftState, action = {}) => {
 
     // GET_PERSON
     // we can  probably get this from the people array...
+    case ActionTypes.PERSON.SET_PEOPLE:
+      console.log(action.payload);
+      draftState.people = action.payload;
+      return draftState;
+
     case ActionTypes.PERSON.GET_PERSON:
+      console.log(action.payload);
       draftState.name = action.payload.name;
       draftState.title = action.payload.title;
       draftState.email = action.payload.email;
