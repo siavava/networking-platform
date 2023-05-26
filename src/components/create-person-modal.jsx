@@ -56,6 +56,9 @@ export default function CreatePersonModal(props) {
 
   useEffect(() => {
     getCompanies()(dispatch);
+    if (props.value) {
+      setSelectedCompany(props.value);
+    }
   }, []);
 
   const companyOptions = companies
