@@ -3,8 +3,8 @@ import axios from 'axios';
 
 // const ROOT_URL = 'https://plushiedexapi.onrender.com/api';
 
-// const ROOT_URL = 'https://api-goloco.onrender.com';
-const ROOT_URL = 'http://localhost:9090';
+const ROOT_URL = 'https://api-goloco.onrender.com';
+// const ROOT_URL = 'http://localhost:9090';
 const API_KEY = '';
 
 // keys for actiontypes
