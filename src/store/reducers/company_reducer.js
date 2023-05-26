@@ -19,7 +19,6 @@ const initialState = {
 };
 
 const CompanyReducer = produce((draftState, action = {}) => {
-  console.log(action.type === ActionTypes.COMPANY.GET_COMPANY);
   switch (action.type) {
     // CREATE_COMPANY
     case ActionTypes.COMPANY.CREATE_COMPANY:
@@ -37,6 +36,7 @@ const CompanyReducer = produce((draftState, action = {}) => {
       // GET_COMPANIES
     case ActionTypes.COMPANY.GET_COMPANIES:
       draftState.companies = action.payload;
+      console.log(draftState.companies);
       return draftState;
       // GET_COMPANY
     case ActionTypes.COMPANY.GET_COMPANY:
