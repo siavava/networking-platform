@@ -2,20 +2,25 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import DatePicker from 'react-datepicker';
 import Select from 'react-select';
 import { createTask, getCompanies, getPeople } from '../store/actions';
+import 'react-datepicker/dist/react-datepicker.css';
 
-export default function Modal(props) {
+export default function CreateTaskModal(props) {
   // const [isModalOpen, setIsModalOpen] = useState(false);
   const [newTask, setNewTask] = useState('');
-  const { closeModal, person } = props;
-  const [selectedPeople, setSelectedPeople] = useState([]);
+  const [dueDate, setDueDate] = useState(new Date());
+  const { closeModal, personValue, companyValue } = props;
+  const [selectedPeople, setSelectedPeople] = useState(null);
   const [selectedCompany, setSelectedCompany] = useState(null);
   // const [peopleTagOptions, setPeopleTagOptions] = useState([]);
-  const peopleTagOptions = person.people.map((p) => ({ value: p.id, label: p.name }));
 
   const companies = useSelector((state) => state.company.companies) || [];
+  const people = useSelector((state) => state.person.people) || [];
   const companyTagOptions = companies.map((c) => ({ value: c.id, label: c.name }));
+  const peopleTagOptions = people.map((p) => ({ value: p.id, label: p.name }));
+
   const dispatch = useDispatch();
   const handleOnChange = (event) => {
     switch (event.target.id) {
@@ -29,14 +34,27 @@ export default function Modal(props) {
   useEffect(() => {
     getPeople()(dispatch);
     getCompanies()(dispatch);
+    if (companyValue) {
+      setSelectedCompany(props.companyValue);
+    }
+    if (personValue) {
+      setSelectedPeople(props.personValue);
+    }
   }, []);
 
   const handleSubmit = () => {
     const fields = {
       title: newTask,
-      associatedPeople: selectedPeople.map((p) => p.value),
-      associatedCompany: selectedCompany.value,
+      dueDate,
     };
+
+    if (selectedPeople) {
+      fields.associatedPeople = selectedPeople.value;
+    }
+
+    if (selectedCompany) {
+      fields.associatedCompany = selectedCompany.value;
+    }
 
     createTask(fields)(dispatch);
     closeModal();
@@ -48,8 +66,14 @@ export default function Modal(props) {
         <div className="modal-content">
           <button className="close" type="submit" onClick={closeModal}>x</button>
           <label htmlFor="task-item">
-            New Task:
+            Task Title:
             <input id="task-item" type="text" onChange={handleOnChange} value={newTask} />
+          </label>
+          <br />
+
+          <label htmlFor="task-item">
+            Due Date:
+            <DatePicker selected={dueDate} onChange={(date) => setDueDate(date)} />
           </label>
           <br />
 
@@ -58,7 +82,6 @@ export default function Modal(props) {
               Associated People:
               <Select
                 id="task-people"
-                isMulti
                 options={peopleTagOptions}
                 value={selectedPeople}
                 onChange={setSelectedPeople}
