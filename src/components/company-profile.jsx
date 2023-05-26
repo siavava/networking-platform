@@ -1,20 +1,31 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 // import { useParams } from 'react-router-dom';
 import '../company-profile.style.scss';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { getCompany } from '../store/actions';
+import CreatePersonModal from './create-person-modal';
 
 export default function CompanyProfile() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { pathname } = useLocation();
   const companyId = pathname.split('/companies/')[1];
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     dispatch(getCompany(companyId));
   }, [dispatch, companyId]);
 
   const company = useSelector((state) => state.company);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   const extendedBio = `
     Lorem ipsum dolor sit amet.
