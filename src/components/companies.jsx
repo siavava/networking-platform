@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-console */
 import React, { useCallback, useState, useEffect } from 'react';
-import '../people.style.scss';
+import '../companies.style.scss';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import debounce from '../modules/debounce';
@@ -17,7 +17,7 @@ export default function Companies() {
   const [newWebsite, setNewWebsite] = useState('');
   const [newlinkedIn, setNewlinkedIn] = useState('');
   const [newDescription, setNewDescription] = useState('');
-  const [newPic, setNewPic] = useState('');
+  const [newImageUrl, setNewImageUrl] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -53,7 +53,7 @@ export default function Companies() {
         setNewDescription(event.target.value);
         break;
       case 'imageURL':
-        setNewPic(event.target.value);
+        setNewImageUrl(event.target.value);
         break;
       default:
           // pass
@@ -67,7 +67,7 @@ export default function Companies() {
       location: newCompanyLocation,
       linkedIn: newlinkedIn,
       description: newDescription,
-      picture: newPic,
+      imageUrl: newImageUrl,
     };
     createCompany(fields)(dispatch, navigate);
     // eslint-disable-next-line no-use-before-define
@@ -89,12 +89,12 @@ export default function Companies() {
   };
 
   return (
-    <div className="people">
+    <div className="companies">
 
       {/* top panel -- contains search-bar and toggle */}
-      <div className="people-top-panel">
+      <div className="companies-top-panel">
         {/* search bar */}
-        <div className="people-search-bar">
+        <div className="companies-search-bar">
           <input
             type="text"
             placeholder="Search..."
@@ -104,7 +104,7 @@ export default function Companies() {
         </div>
 
         {/* list vs. grid view toggle */}
-        <div className="people-list-grid-toggle">
+        <div className="companies-list-grid-toggle">
           <button type="button" onClick={openModal}>Create</button>
           <button type="button"> List </button>
           <button type="button"> Grid </button>
@@ -112,24 +112,24 @@ export default function Companies() {
       </div>
 
       {/* main panel -- contains list of people */}
-      <div className="people-main-panel">
-        <ul className="people-list">
+      <div className="companies-main-panel">
+        <ul className="companies-list">
           { companies.map((company) => (
-            <li key={company.id} className="people-list-item">
-              <div className="people-list-item-photo">
-                <img src={company.photo} alt="profile" />
+            <li key={company.id} className="companies-list-item">
+              <div className="companies-list-item-logo">
+                <img src={company.imageUrl} alt="profile" />
               </div>
-              <div className="people-list-item-info">
-                <div className="people-list-item-name">
+              <div className="companies-list-item-info">
+                <div className="companies-list-item-name">
                   {company.name}
                 </div>
-                <div className="people-list-item-company">
-                  {company.company}
+                <div className="companies-list-item-website">
+                  {company.website}
                 </div>
-                <div className="people-list-item-company">
-                  {company.connection}
+                <div className="companies-list-item-description">
+                  {company.description}
                 </div>
-                <button className="people-list-item-button" type="button" onClick={() => handleShowCompany(company.id)}>
+                <button className="companies-list-item-button" type="button" onClick={() => handleShowCompany(company.id)}>
                   to see full page
                 </button>
               </div>
@@ -175,7 +175,7 @@ export default function Companies() {
 
           <label htmlFor="company-description">
             Company Logo Image URL:
-            <input id="imageURL" type="text" onChange={handleOnChange} value={newPic} />
+            <input id="imageURL" type="text" onChange={handleOnChange} value={newImageUrl} />
           </label>
           <br />
 

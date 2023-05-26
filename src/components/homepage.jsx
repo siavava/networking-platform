@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import '../homepage.style.scss';
+import CreateTaskModal from './create-task-modal';
 
 export default function HomePage() {
   const [newTask, setNewTask] = useState('');
@@ -96,33 +97,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      {isModalOpen && (
-      <div className="modal">
-        <div className="modal-content">
-          {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
-          <span className="close" onClick={closeModal}>x</span>
-          <label htmlFor="company-name">
-            Task:
-            <input id="task-name" type="text" onChange={handleOnChange} value={newTask} />
-          </label>
-          <br />
-
-          <label htmlFor="company-location">
-            Company:
-            <input id="company-location" type="text" onChange={handleOnChange} value={newCompany} />
-          </label>
-          <br />
-
-          <label htmlFor="company-website">
-            Person:
-            <input id="website-link" type="text" onChange={handleOnChange} value={newPerson} />
-          </label>
-          <br />
-
-          <input id="submit" type="button" value="Create" onClick={handleSubmit} />
-        </div>
-      </div>
-      )}
+      { isModalOpen && <CreateTaskModal closeModal={closeModal} /> }
     </div>
   );
 }

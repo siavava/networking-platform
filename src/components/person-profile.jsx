@@ -1,14 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { useSelector, useDispatch } from 'react-redux';
 import '../person-profile.style.scss';
 import { useLocation } from 'react-router-dom';
 import { getPerson } from '../store/actions';
+import CreateTaskModal from './create-task-modal';
 
 export default function PersonProfile() {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const personId = pathname.split('/people/')[1];
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   useEffect(() => {
     dispatch(getPerson(personId));
@@ -57,7 +62,7 @@ export default function PersonProfile() {
         </div>
         <div className="todos">
           <h1>Tasks/To Dos</h1>
-          <button type="submit" className="add-tasks">+</button>
+          <button type="submit" className="add-tasks" onClick={() => setIsModalOpen(true)}>+</button>
           {tasks.map((e) => (
             <div className="task" key={e.id}>{e.task}</div>
           ))}
@@ -73,6 +78,11 @@ export default function PersonProfile() {
           </div>
         ))}
       </div>
+      { isModalOpen && (
+      <CreateTaskModal closeModal={closeModal}
+        personValue={{ value: personId, label: person.name }}
+      />
+      ) }
     </div>
   );
 }
