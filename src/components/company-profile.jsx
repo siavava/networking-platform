@@ -10,18 +10,18 @@ export default function CompanyProfile() {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const companyId = pathname.split('/companies/')[1];
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isPeopleModalOpen, setIsPeopleModalOpen] = useState(false);
 
   useEffect(() => {
     dispatch(getCompany(companyId));
   }, [dispatch, companyId]);
 
-  const openModal = () => {
-    setIsModalOpen(true);
+  const openPeopleModal = () => {
+    setIsPeopleModalOpen(true);
   };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
+  const closePeopleModal = () => {
+    setIsPeopleModalOpen(false);
   };
 
   const company = useSelector((state) => state.company);
@@ -69,7 +69,7 @@ export default function CompanyProfile() {
         </div>
         <div className="company-profile-right-panel">
           <h1>People Associated With Company</h1>
-          <button type="submit" className="add-people" onClick={openModal}>+</button>
+          <button type="submit" className="add-people" onClick={openPeopleModal}>+</button>
           {people.map((person) => (
             <div className="company-profile-person" key={person.name}>
               <img src={person.image} alt="person" />
@@ -81,10 +81,10 @@ export default function CompanyProfile() {
           ))}
         </div>
       </div>
-      {isModalOpen && (
+      {isPeopleModalOpen && (
         <CreatePersonModal
-          value={{ value: companyId, label: company.name }}
-          closeModal={closeModal}
+          companyValue={{ value: companyId, label: company.name }}
+          closeModal={closePeopleModal}
         />
       )}
     </div>

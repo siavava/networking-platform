@@ -45,10 +45,14 @@ export default function CreatePersonModal(props) {
       email: newEmail,
       linkedIn: newlinkedIn,
       description: newDescription,
-      associatedCompany: selectedCompany.value,
       imageUrl: newImageUrl,
       tags: selectedTags.map((tag) => tag.value),
     };
+
+    if (selectedCompany) {
+      fields.company = selectedCompany.value;
+    }
+
     createPerson(fields)(dispatch, navigate);
 
     // eslint-disable-next-line no-use-before-define
@@ -61,8 +65,8 @@ export default function CreatePersonModal(props) {
 
   useEffect(() => {
     getCompanies()(dispatch);
-    if (props.value) {
-      setSelectedCompany(props.value);
+    if (props.companyValue) {
+      setSelectedCompany(props.companyValue);
     }
   }, []);
 

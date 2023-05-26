@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import '../person-profile.style.scss';
 import { useLocation } from 'react-router-dom';
 import { getPerson } from '../store/actions';
-import Modal from './create-task-modal';
+import CreateTaskModal from './create-task-modal';
 
 export default function PersonProfile() {
   const dispatch = useDispatch();
@@ -78,7 +78,11 @@ export default function PersonProfile() {
           </div>
         ))}
       </div>
-      { isModalOpen && <Modal closeModal={closeModal} person={person} /> }
+      { isModalOpen && (
+      <CreateTaskModal closeModal={closeModal}
+        personValue={{ value: personId, label: person.name }}
+      />
+      ) }
     </div>
   );
 }
