@@ -31,7 +31,7 @@ export default function CreatePersonModal(props) {
       case 'description':
         setNewDescription(event.target.value);
         break;
-      case 'imageURL':
+      case 'imageUrl':
         setNewImageUrl(event.target.value);
         break;
       default:

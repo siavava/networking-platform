@@ -77,11 +77,11 @@ export default function People() {
                 <div className="people-list-item-name">
                   {person.name}
                 </div>
-                <div className="people-list-item-company">
-                  {person.company}
+                <div className="people-list-item-title">
+                  {person.title}
                 </div>
-                <div className="people-list-item-company">
-                  {person.connection}
+                <div className="people-list-item-description">
+                  {person.description}
                 </div>
                 <button className="people-list-item-button" type="button" onClick={() => handleShowPerson(person.id)}>
                   to see full page
