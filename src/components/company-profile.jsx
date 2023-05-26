@@ -70,7 +70,7 @@ export default function CompanyProfile() {
         </div>
         <div className="company-profile-right-panel">
           <h1>People Associated With Company</h1>
-          <button type="button" onClick={openModal}>+</button>
+          <button type="submit" className="add-people">+</button>
           {people.map((person) => (
             <div className="company-profile-person" key={person.name}>
               <img src={person.image} alt="person" />
@@ -82,14 +82,6 @@ export default function CompanyProfile() {
           ))}
         </div>
       </div>
-      {isModalOpen && (
-        <CreatePersonModal
-          closeModal={closeModal}
-          associatedCompany={company}
-          dispatch={dispatch}
-          navigate={navigate}
-        />
-      )}
     </div>
   );
 }
