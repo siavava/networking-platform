@@ -15,12 +15,6 @@ export default function HomePage() {
     upcoming: [],
   };
 
-  const handleCreateTask = () => {
-    // Handle create task functionality
-    // You can implement the logic for creating a new task here
-    console.log('Create task button clicked');
-  };
-
   return (
     <div className="homepage">
       <div className="main-panel">
@@ -38,6 +32,7 @@ export default function HomePage() {
             <div className="homepage-tasks-overview-item">
               { `Upcoming Tasks (${tasks.upcoming.length})`}
             </div>
+            <button className="create-task-button" type="submit">+</button>
           </div>
           <table className="homepage-tasks-table">
             <thead>
