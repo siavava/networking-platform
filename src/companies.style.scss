@@ -156,6 +156,9 @@ $text: #000000;
     padding: 20px;
     border-radius: 5px;
     max-width: 400px;
+    height: 600px;
+    overflow-y: auto;
+    position: relative;
 
     .close {
       position: absolute;

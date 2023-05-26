@@ -1,9 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
+import { useSelector, useDispatch } from 'react-redux';
 import '../person-profile.style.scss';
+import { useLocation } from 'react-router-dom';
+import { getPerson } from '../store/actions';
 
 export default function PersonProfile() {
-  const user = {
+  const dispatch = useDispatch();
+  const { pathname } = useLocation();
+  const personId = pathname.split('/people/')[1];
+
+  useEffect(() => {
+    dispatch(getPerson(personId));
+  }, [dispatch, personId]);
+
+  const person = useSelector((state) => state.person);
+  console.log(person);
+  /*
+  const person = {
     fname: 'Chad',
     lname: 'III',
     photo: 'https://source.unsplash.com/random/200x200/?img=1',
@@ -12,6 +26,7 @@ export default function PersonProfile() {
     connectionType: 'Homie',
     notes: '# Notes About Chad III:\n- Chad works at meta\n- Loves beer\n- Enjoys a solid workout',
   };
+  */
 
   const tasks = [
     { id: 0, task: 'Follow up email with my homie' },
@@ -30,17 +45,15 @@ export default function PersonProfile() {
         <div className="basic-info">
           <div className="person-bio">
             <div className="profile-pic">
-              <img src={user.photo} alt="profile" />
+              <img src={person.imageUrl} alt="profile" />
             </div>
             <div className="info-text">
-              <h1>{`${user.fname} ${user.lname}`}</h1>
-              <p>{user.company}</p>
-              <p>{user.email}</p>
-              <p>{`Connection Type: ${user.connectionType}`}</p>
+              <h1>{`${person.name}`}</h1>
+              <p>{person.email}</p>
             </div>
           </div>
           <div className="person-notes">
-            <ReactMarkdown className="notes-content">{user.notes}</ReactMarkdown>
+            <ReactMarkdown className="notes-content">hi</ReactMarkdown>
           </div>
         </div>
         <div className="todos">

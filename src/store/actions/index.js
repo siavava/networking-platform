@@ -4,7 +4,7 @@ import axios from 'axios';
 // const ROOT_URL = 'https://plushiedexapi.onrender.com/api';
 
 const ROOT_URL = 'https://api-goloco.onrender.com';
-// const ROOT_URL = 'http://localhost:9090/api';
+// const ROOT_URL = 'http://localhost:9090';
 const API_KEY = '';
 
 // keys for actiontypes
@@ -32,10 +32,6 @@ export const ActionTypes = {
     GET_NOTE: 'GET_NOTE',
     DELETE_NOTE: 'DELETE_NOTE',
     UPDATE_NOTE: 'UPDATE_NOTE',
-    ADD_TO_ASSOCIATED_COMPANY: 'ADD_TO_ASSOCIATED_COMPANY',
-    DELETE_FROM_EXISTING_ASSOCIATED_COMPANY: 'DELETE_FROM_EXISTING_ASSOCIATED_COMPANY',
-    ADD_TO_ASSOCIATED_PERSON: 'ADD_TO_ASSOCIATED_PERSON',
-    DELETE_FROM_EXISTING_ASSOCIATED_PERSON: 'DELETE_FROM_EXISTING_ASSOCIATED_PERSON',
   },
   PERSON: {
     CREATE_PERSON: 'CREATE_PERSON',
@@ -45,9 +41,10 @@ export const ActionTypes = {
     DELETE_PERSON: 'DELETE_PERSON',
     UPDATE_PERSON: 'UPDATE_PERSON',
   },
-  USER: {
-    LOGIN: 'LOGIN',
-    SIGNUP: 'SIGNUP',
+  AUTH: {
+    AUTH_USER: 'AUTH_USER',
+    DEAUTH_USER: 'DEAUTH_USER',
+    AUTH_ERROR: 'AUTH_ERROR',
   },
 };
 
@@ -55,7 +52,7 @@ export function createCompany(companyParams, navigate) {
   return async (dispatch) => {
     try {
       // check that response is correct
-      const response = await axios.post(`${ROOT_URL}/api/companies`, companyParams);
+      const response = await axios.post(`${ROOT_URL}/api/companies`, companyParams, { headers: { authorization: localStorage.getItem('token') } });
       dispatch({ type: ActionTypes.COMPANY.CREATE_COMPANY, payload: response.data });
 
       // navigate to new company page
@@ -69,8 +66,7 @@ export function createCompany(companyParams, navigate) {
 export function getCompany(companyId) {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`${ROOT_URL}/api/companies/${companyId}`);
-      console.log(response.data);
+      const response = await axios.get(`${ROOT_URL}/api/companies/${companyId}`, { headers: { authorization: localStorage.getItem('token') } });
       dispatch({ type: ActionTypes.COMPANY.GET_COMPANY, payload: response.data });
     } catch (error) {
       console.error(error);
@@ -81,7 +77,7 @@ export function getCompany(companyId) {
 export function findCompanies(query) {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`${ROOT_URL}/api/companies/find?q=${query}`);
+      const response = await axios.get(`${ROOT_URL}/api/companies/find?q=${query}`, { headers: { authorization: localStorage.getItem('token') } });
       dispatch({ type: ActionTypes.COMPANY.FIND_COMPANIES, payload: response.data });
     } catch (error) {
       console.error(error);
@@ -92,7 +88,7 @@ export function findCompanies(query) {
 export function getCompanies() {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`${ROOT_URL}/api/companies/${API_KEY}`);
+      const response = await axios.get(`${ROOT_URL}/api/companies`, { headers: { authorization: localStorage.getItem('token') } });
       dispatch({ type: ActionTypes.COMPANY.GET_COMPANIES, payload: response.data });
     } catch (error) {
       console.error(error);
@@ -103,7 +99,7 @@ export function getCompanies() {
 export function deleteCompany(companyId) {
   return async (dispatch, navigate) => {
     try {
-      await axios.delete(`${ROOT_URL}/api/companies/${companyId}`);
+      await axios.delete(`${ROOT_URL}/api/companies/${companyId}`, { headers: { authorization: localStorage.getItem('token') } });
 
       // navigate to people page
       navigate('/companies');
@@ -116,7 +112,7 @@ export function deleteCompany(companyId) {
 export function updateCompany(updates) {
   return async (dispatch) => {
     try {
-      const response = await axios.put(`${ROOT_URL}/${API_KEY}/companies/${updates.id}`, updates);
+      const response = await axios.put(`${ROOT_URL}/companies/${updates.id}`, updates, { headers: { authorization: localStorage.getItem('token') } });
       dispatch({ type: ActionTypes.COMPANY.UPDATE_COMPANY, payload: response.data });
     } catch (error) {
       console.error(error);
@@ -136,9 +132,9 @@ export function createTask(taskFields) {
 
   return async () => {
     try {
-      await axios.post(`${ROOT_URL}/tasks${API_KEY}`, fields);
+      await axios.post(`${ROOT_URL}/tasks${API_KEY}`, fields, { headers: { authorization: localStorage.getItem('token') } });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 }
@@ -146,10 +142,10 @@ export function createTask(taskFields) {
 export function getTasks() {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`${ROOT_URL}/tasks${API_KEY}`);
+      const response = await axios.get(`${ROOT_URL}/tasks${API_KEY}`, { headers: { authorization: localStorage.getItem('token') } });
       dispatch({ type: ActionTypes.TASK.GET_TASKS, payload: response.data });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 }
@@ -166,13 +162,13 @@ export function getTask(id) {
   return async (dispatch) => {
     // get
     try {
-      const result = await axios.get(`${ROOT_URL}/tasks/${id}${API_KEY}`);
+      const result = await axios.get(`${ROOT_URL}/tasks/${id}${API_KEY}`, { headers: { authorization: localStorage.getItem('token') } });
       dispatch({
         type: ActionTypes.TASK.GET_TASK,
         payload: result.data,
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 }
@@ -180,7 +176,7 @@ export function getTask(id) {
 export function deleteTask(id) {
   return async () => {
     // delete
-    await axios.delete(`${ROOT_URL}/tasks/${id}${API_KEY}`);
+    await axios.delete(`${ROOT_URL}/tasks/${id}${API_KEY}`, { headers: { authorization: localStorage.getItem('token') } });
   };
 }
 
@@ -196,13 +192,13 @@ export function updateTask(taskFields, id) {
 
   return async (dispatch) => {
     try {
-      await axios.put(`${ROOT_URL}/tasks/${id}${API_KEY}`, fields);
+      await axios.put(`${ROOT_URL}/tasks/${id}${API_KEY}`, fields, { headers: { authorization: localStorage.getItem('token') } });
       dispatch({
         type: ActionTypes.TASK.UPDATE_TASK,
         payload: fields,
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 }
@@ -219,9 +215,9 @@ export function createNote(noteFields) {
 
   return async () => {
     try {
-      await axios.post(`${ROOT_URL}/notes/${API_KEY}`, fields);
+      await axios.post(`${ROOT_URL}/notes`, fields, { headers: { authorization: localStorage.getItem('token') } });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 }
@@ -229,10 +225,10 @@ export function createNote(noteFields) {
 export function getNotes() {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`${ROOT_URL}/notes/${API_KEY}`);
+      const response = await axios.get(`${ROOT_URL}/notes`, { headers: { authorization: localStorage.getItem('token') } });
       dispatch({ type: ActionTypes.NOTE.GET_NOTES, payload: response.data });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 }
@@ -241,13 +237,13 @@ export function getNote(id) {
   return async (dispatch) => {
     // get
     try {
-      const result = await axios.get(`${ROOT_URL}/notes/${id}${API_KEY}`);
+      const result = await axios.get(`${ROOT_URL}/notes/${id}${API_KEY}`, { headers: { authorization: localStorage.getItem('token') } });
       dispatch({
         type: ActionTypes.NOTE.GET_NOTE,
         payload: result.data,
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 }
@@ -255,7 +251,7 @@ export function getNote(id) {
 export function deleteNote(id) {
   return async () => {
     // delete
-    await axios.delete(`${ROOT_URL}/notes/${id}${API_KEY}`);
+    await axios.delete(`${ROOT_URL}/notes/${id}${API_KEY}`, { headers: { authorization: localStorage.getItem('token') } });
   };
 }
 
@@ -271,49 +267,21 @@ export function updateNote(noteFields, id) {
 
   return async (dispatch) => {
     try {
-      await axios.put(`${ROOT_URL}/notes/${id}${API_KEY}`, fields);
+      await axios.put(`${ROOT_URL}/notes/${id}${API_KEY}`, fields, { headers: { authorization: localStorage.getItem('token') } });
       dispatch({
         type: ActionTypes.NOTE.UPDATE_NOTE,
         payload: fields,
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
-  };
-}
-
-export function addToAssocitedCompany() {
-  return {
-    type: ActionTypes.ADD_TO_ASSCIATED_COMPANY,
-    payload: null,
-  };
-}
-
-export function deleteFromExistingAssociatedCompany() {
-  return {
-    type: ActionTypes.DELETE_FROM_EXISTING_ASSOCIATED_COMPANY,
-    payload: null,
-  };
-}
-
-export function addToAssociatedPerson() {
-  return {
-    type: ActionTypes.ADD_TO_ASSOCIATED_PERSON,
-    payload: null,
-  };
-}
-
-export function deleteFromExistingAssociatedPerson() {
-  return {
-    type: ActionTypes.DELETE_FROM_EXISTING_ASSOCIATED_PERSON,
-    payload: null,
   };
 }
 
 export function createPerson(personParams) {
   return async (dispatch, navigate) => {
     try {
-      const response = await axios.post(`${ROOT_URL}/api/${API_KEY}/people`, personParams);
+      const response = await axios.post(`${ROOT_URL}/api/people`, personParams, { headers: { authorization: localStorage.getItem('token') } });
       dispatch({ type: ActionTypes.PERSON.CREATE_PERSON, payload: response.data });
 
       // navigate to new person's page
@@ -327,7 +295,7 @@ export function createPerson(personParams) {
 export function getPerson(personId) {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`${ROOT_URL}/api/${API_KEY}/people/${personId}`);
+      const response = await axios.get(`${ROOT_URL}/api/people/${personId}`, { headers: { authorization: localStorage.getItem('token') } });
       dispatch({ type: ActionTypes.PERSON.GET_PERSON, payload: response.data });
     } catch (error) {
       console.error(error);
@@ -338,7 +306,7 @@ export function getPerson(personId) {
 export function getPeople() {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`${ROOT_URL}/people${API_KEY}`);
+      const response = await axios.get(`${ROOT_URL}/api/people`, { headers: { authorization: localStorage.getItem('token') } });
       dispatch({ type: ActionTypes.PERSON.GET_PEOPLE, payload: response.data });
     } catch (error) {
       console.error(error);
@@ -349,7 +317,7 @@ export function getPeople() {
 export function deletePerson(personId) {
   return async (dispatch, navigate) => {
     try {
-      await axios.delete(`${ROOT_URL}/api/${API_KEY}/people/${personId}`);
+      await axios.delete(`${ROOT_URL}/api/people/${personId}`, { headers: { authorization: localStorage.getItem('token') } });
 
       // navigate to people page
       navigate('/people');
@@ -362,7 +330,7 @@ export function deletePerson(personId) {
 export function updatePerson(updates) {
   return async (dispatch) => {
     try {
-      const response = await axios.put(`${ROOT_URL}/api/${API_KEY}/people/${updates.id}`, updates);
+      const response = await axios.put(`${ROOT_URL}/api/people/${updates.id}`, updates, { headers: { authorization: localStorage.getItem('token') } });
       dispatch({ type: ActionTypes.PERSON.UPDATE_PERSON, payload: response.data });
     } catch (error) {
       console.error(error);
@@ -373,7 +341,7 @@ export function updatePerson(updates) {
 export function findPeople(query) {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`${ROOT_URL}/api/${API_KEY}/people/find?q=${query}`);
+      const response = await axios.get(`${ROOT_URL}/api/people/find?q=${query}`, { headers: { authorization: localStorage.getItem('token') } });
       dispatch({ type: ActionTypes.PERSON.FIND_PEOPLE, payload: response.data });
     } catch (error) {
       console.error(error);
@@ -381,10 +349,10 @@ export function findPeople(query) {
   };
 }
 
-export function persondDeleteFromExistingAssociatedCompany() {
+export function authError(error) {
   return {
-    type: ActionTypes.DELETE_FROM_EXISTING_ASSOCIATED_COMPANY,
-    payload: null,
+    type: ActionTypes.AUTH_ERROR,
+    message: error,
   };
 }
 
@@ -396,8 +364,10 @@ export function signup({
       const response = await axios.post(`${ROOT_URL}/api/signup`, {
         email, password,
       });
-      dispatch({ type: ActionTypes.USER.SIGNUP, payload: response.data });
-      navigate(`/${response.data.id}/homepage`);
+      console.log(response);
+      dispatch({ type: ActionTypes.AUTH.AUTH_USER, payload: response.data });
+      localStorage.setItem('token', response.data.token);
+      navigate('/homepage');
     } catch (error) {
       console.error(error);
     }
@@ -412,10 +382,19 @@ export function signin({
       const response = await axios.post(`${ROOT_URL}/api/signin`, {
         email, password,
       });
-      dispatch({ type: ActionTypes.USER.LOGIN, payload: response.data });
-      navigate(`/${response.data.id}/homepage`);
+      dispatch({ type: ActionTypes.AUTH.AUTH_USER, payload: response.data });
+      localStorage.setItem('token', response.data.token);
+      navigate('/homepage');
     } catch (error) {
       console.error(error);
     }
+  };
+}
+
+export function signoutUser(navigate) {
+  return (dispatch) => {
+    localStorage.removeItem('token');
+    dispatch({ type: ActionTypes.DEAUTH_USER });
+    navigate('/');
   };
 }

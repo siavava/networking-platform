@@ -1,15 +1,24 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 import React, { useCallback, useState, useEffect } from 'react';
+import Select from 'react-select';
 import '../people.style.scss';
-import { connect } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import debounce from '../modules/debounce';
+import { createPerson, getPeople, getCompanies } from '../store/actions';
 
 export default function People() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [selectedCompany, setSelectedCompany] = useState(null);
+  const [selectedTags, setSelectedTags] = useState([]);
   const [newName, setNewName] = useState('');
   const [newEmail, setNewEmail] = useState('');
   const [newlinkedIn, setNewlinkedIn] = useState('');
   const [newDescription, setNewDescription] = useState('');
+  const [newPic, setNewPic] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -37,8 +46,10 @@ export default function People() {
       case 'description':
         setNewDescription(event.target.value);
         break;
+      case 'profile-pic':
+        setNewPic(event.target.value);
+        break;
       default:
-        // pass
     }
   };
 
@@ -48,59 +59,23 @@ export default function People() {
       email: newEmail,
       linkedIn: newlinkedIn,
       description: newDescription,
+      associatedCompany: selectedCompany.value,
+      tags: selectedTags.map((tag) => tag.value),
+      picture: newPic,
     };
-    console.log(fields);
-    // dispatch(createCompany(fields));
-    // eslint-disable-next-line no-use-before-define
-
+    createPerson(fields)(dispatch, navigate);
     // eslint-disable-next-line no-use-before-define
     closeModal();
   };
 
-  const people = [
-    {
-      id: 1,
-      name: 'Amy',
-      company: 'Google',
-      photo: 'https://source.unsplash.com/random/100x100/?img=1',
-      connection: 'College Alumni',
-    },
-    {
-      id: 2,
-      name: 'Nilufar',
-      company: 'Amazon',
-      photo: 'https://source.unsplash.com/random/100x100/?img=1',
-      connection: 'Coworker',
-    },
-    {
-      id: 3,
-      name: 'Stacy',
-      company: 'Jane Street',
-      photo: 'https://source.unsplash.com/random/100x100/?img=1',
-      connection: 'College Alumni',
-    },
-    {
-      id: 4,
-      name: 'Hampter',
-      company: 'Meta',
-      photo: 'https://source.unsplash.com/random/100x100/?img=1',
-      connection: 'College Alumni',
-    },
-    {
-      id: 5,
-      name: 'Sigma',
-      company: 'Meta',
-      photo: 'https://source.unsplash.com/random/100x100/?img=1',
-      connection: 'College Alumni',
-    },
-    {
-      id: 6,
-      name: 'Mark',
-      company: 'Google',
-      photo: 'https://source.unsplash.com/random/100x100/?img=1',
-      connection: 'Coworker',
-    },
-  ];
+  // get people from redux instead
+  const people = useSelector((state) => state.person.people);
+  const companies = useSelector((state) => state.company.companies);
+
+  useEffect(() => {
+    getPeople()(dispatch);
+    getCompanies()(dispatch);
+  }, []);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -108,6 +83,20 @@ export default function People() {
 
   const closeModal = () => {
     setIsModalOpen(false);
+  };
+
+  const companyOptions = companies.map((company) => ({ value: company.id, label: company.name }));
+
+  const peopleTagOptions = [
+    { value: 'alumni', label: 'Alumni' },
+    { value: 'coworker', label: 'Coworker' },
+    { value: 'friend', label: 'Friend' },
+    { value: 'family', label: 'Family' },
+    { value: 'other', label: 'Other' },
+  ];
+
+  const handleShowPerson = (id) => {
+    navigate(`/people/${id}`);
   };
 
   return (
@@ -151,7 +140,7 @@ export default function People() {
                 <div className="people-list-item-company">
                   {person.connection}
                 </div>
-                <button className="people-list-item-button" type="button">
+                <button className="people-list-item-button" type="button" onClick={() => handleShowPerson(person.id)}>
                   to see full page
                 </button>
               </div>
@@ -164,12 +153,24 @@ export default function People() {
       <div className="modal">
         <div className="modal-content">
           {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
-          <span className="close" onClick={closeModal}>&times;</span>
+          <span className="close" onClick={closeModal}>x</span>
           <label htmlFor="connection-name">
             Connection Name:
             <input id="connection-name" type="text" onChange={handleOnChange} value={newName} />
           </label>
           <br />
+
+          <div>
+            <label>
+              Connection Company:
+              <Select id="connection-company"
+                value={selectedCompany}
+                onChange={setSelectedCompany}
+                options={companyOptions}
+              />
+            </label>
+            <br />
+          </div>
 
           <label htmlFor="email">
             Connection Email:
@@ -178,14 +179,34 @@ export default function People() {
           <br />
 
           <label htmlFor="linkedIn">
-            Connection linkedIn:
+            Connection LinkedIn:
             <input id="linkedIn" type="text" onChange={handleOnChange} value={newlinkedIn} />
           </label>
           <br />
 
+          <div>
+            <label>
+              Connection Tags:
+              <Select
+                id="connection-tags"
+                isMulti
+                options={peopleTagOptions}
+                value={selectedTags}
+                onChange={setSelectedTags}
+              />
+            </label>
+            <br />
+          </div>
+
           <label htmlFor="description">
             Connection Description:
             <input id="description" type="text" onChange={handleOnChange} value={newDescription} />
+          </label>
+          <br />
+
+          <label htmlFor="profile-pic">
+            Connection Picture URL:
+            <input id="profile-pic" type="text" onChange={handleOnChange} value={newPic} />
           </label>
           <br />
 
