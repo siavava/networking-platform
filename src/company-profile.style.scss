@@ -34,6 +34,7 @@ $text: #000000;
       .company-profile-image {
         width: clamp(100px, 70%, 300px);
         aspect-ratio: 1/1;;
+        object-fit: cover;
       }
 
       .company-profile-bottom {
