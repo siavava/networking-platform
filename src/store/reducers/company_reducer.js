@@ -35,9 +35,7 @@ const CompanyReducer = produce((draftState, action = {}) => {
       return draftState;
       // GET_COMPANIES
     case ActionTypes.COMPANY.GET_COMPANIES:
-      console.log('Getting companies!!');
       draftState.companies = action.payload;
-      console.log(draftState.companies);
       return draftState;
       // GET_COMPANY
     case ActionTypes.COMPANY.GET_COMPANY:
@@ -50,7 +48,7 @@ const CompanyReducer = produce((draftState, action = {}) => {
       draftState.tags = action.payload.tags;
       draftState.notes = action.payload.notes;
       draftState.author = action.payload.author;
-      draftState.associatedPeople = action.payload.associatedPeolpe;
+      draftState.associatedPeople = action.payload.associatedPeople;
       draftState.companies = action.payload.companies;
       return draftState;
       // UPDATE_COMPANY

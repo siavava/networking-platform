@@ -1,9 +1,11 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-plusplus */
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 // import { useParams } from 'react-router-dom';
 import '../company-profile.style.scss';
 import { useLocation } from 'react-router-dom';
-import { getCompany } from '../store/actions';
+import { getCompany, getAssociatedPeople } from '../store/actions';
 import CreatePersonModal from './create-person-modal';
 
 export default function CompanyProfile() {
@@ -11,10 +13,6 @@ export default function CompanyProfile() {
   const { pathname } = useLocation();
   const companyId = pathname.split('/companies/')[1];
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  useEffect(() => {
-    dispatch(getCompany(companyId));
-  }, [dispatch, companyId]);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -24,8 +22,6 @@ export default function CompanyProfile() {
     setIsModalOpen(false);
   };
 
-  const company = useSelector((state) => state.company);
-
   const extendedBio = `
     Lorem ipsum dolor sit amet.
     Lorem ipsum dolor sit amet.
@@ -33,23 +29,28 @@ export default function CompanyProfile() {
     Lorem ipsum dolor sit amet.
     Lorem ipsum dolor sit amet.`;
 
-  const people = [
-    {
-      name: 'Chad I',
-      image: 'https://source.unsplash.com/random/200x200/?img=1',
-      connection: 'Homie',
-    },
-    {
-      name: 'Chad II',
-      image: 'https://source.unsplash.com/random/200x200/?img=2',
-      connection: 'College Alumni',
-    },
-    {
-      name: 'Chad V',
-      image: 'https://source.unsplash.com/random/200x200/?img=3',
-      connection: 'Friend',
-    },
-  ];
+  const company = useSelector((state) => state.company);
+  const people = useSelector((state) => state.person.people);
+
+  useEffect(() => {
+    const getComp = async () => {
+      await dispatch(getCompany(companyId));
+    };
+
+    getComp();
+
+    if (company && company.associatedPeople) {
+      const ids = company.associatedPeople;
+      let idStr = '';
+      for (let i = 0; i < ids.length; i++) {
+        const id = ids[i];
+
+        idStr = idStr ? `${idStr},${id}` : `${id}`;
+      }
+
+      dispatch(getAssociatedPeople(idStr));
+    }
+  }, [companyId]);
 
   return (
     <div className="company-profile-container">
@@ -70,15 +71,16 @@ export default function CompanyProfile() {
         <div className="company-profile-right-panel">
           <h1>People Associated With Company</h1>
           <button type="submit" className="add-people" onClick={openModal}>+</button>
-          {people.map((person) => (
-            <div className="company-profile-person" key={person.name}>
+
+          {people.map((person) => (person === null ? '' : (
+            <div className="company-profile-person" key={person.id}>
               <img src={person.image} alt="person" />
               <div className="company-profile-person-information">
                 <h2>{person.name}</h2>
                 <p>{person.connection}</p>
               </div>
             </div>
-          ))}
+          )))}
         </div>
       </div>
       {isModalOpen && (
