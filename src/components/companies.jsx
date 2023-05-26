@@ -123,11 +123,11 @@ export default function Companies() {
                 <div className="companies-list-item-name">
                   {company.name}
                 </div>
-                <div className="companies-list-item-company">
-                  {company.company}
+                <div className="companies-list-item-website">
+                  {company.website}
                 </div>
-                <div className="companies-list-item-company">
-                  {company.connection}
+                <div className="companies-list-item-description">
+                  {company.description}
                 </div>
                 <button className="companies-list-item-button" type="button" onClick={() => handleShowCompany(company.id)}>
                   to see full page
