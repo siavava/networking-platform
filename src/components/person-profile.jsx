@@ -15,7 +15,6 @@ export default function PersonProfile() {
   }, [dispatch, personId]);
 
   const person = useSelector((state) => state.person);
-  console.log(person);
   /*
   const person = {
     fname: 'Chad',
@@ -53,11 +52,12 @@ export default function PersonProfile() {
             </div>
           </div>
           <div className="person-notes">
-            <ReactMarkdown className="notes-content">hi</ReactMarkdown>
+            <ReactMarkdown className="notes-content">Notes for this person:</ReactMarkdown>
           </div>
         </div>
         <div className="todos">
           <h1>Tasks/To Dos</h1>
+          <button type="submit" className="add-tasks">+</button>
           {tasks.map((e) => (
             <div className="task" key={e.id}>{e.task}</div>
           ))}
