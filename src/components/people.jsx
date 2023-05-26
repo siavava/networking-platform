@@ -1,24 +1,16 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 import React, { useCallback, useState, useEffect } from 'react';
-import Select from 'react-select';
 import '../people.style.scss';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import debounce from '../modules/debounce';
-import { createPerson, getPeople, getCompanies } from '../store/actions';
+import { getPeople } from '../store/actions';
+import CreatePersonModal from './create-person-modal';
 
 export default function People() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [selectedCompany, setSelectedCompany] = useState(null);
-  const [selectedTags, setSelectedTags] = useState([]);
-  const [newName, setNewName] = useState('');
-  const [newEmail, setNewEmail] = useState('');
-  const [newlinkedIn, setNewlinkedIn] = useState('');
-  const [newDescription, setNewDescription] = useState('');
-  const [newPic, setNewPic] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -101,69 +93,11 @@ export default function People() {
       </div>
 
       {isModalOpen && (
-      <div className="modal">
-        <div className="modal-content">
-          {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
-          <span className="close" onClick={closeModal}>x</span>
-          <label htmlFor="connection-name">
-            Connection Name:
-            <input id="connection-name" type="text" onChange={handleOnChange} value={newName} />
-          </label>
-          <br />
-
-          <div>
-            <label>
-              Connection Company:
-              <Select id="connection-company"
-                value={selectedCompany}
-                onChange={setSelectedCompany}
-                options={companyOptions}
-              />
-            </label>
-            <br />
-          </div>
-
-          <label htmlFor="email">
-            Connection Email:
-            <input id="email" type="text" onChange={handleOnChange} value={newEmail} />
-          </label>
-          <br />
-
-          <label htmlFor="linkedIn">
-            Connection LinkedIn:
-            <input id="linkedIn" type="text" onChange={handleOnChange} value={newlinkedIn} />
-          </label>
-          <br />
-
-          <div>
-            <label>
-              Connection Tags:
-              <Select
-                id="connection-tags"
-                isMulti
-                options={peopleTagOptions}
-                value={selectedTags}
-                onChange={setSelectedTags}
-              />
-            </label>
-            <br />
-          </div>
-
-          <label htmlFor="description">
-            Connection Description:
-            <input id="description" type="text" onChange={handleOnChange} value={newDescription} />
-          </label>
-          <br />
-
-          <label htmlFor="profile-pic">
-            Connection Picture URL:
-            <input id="profile-pic" type="text" onChange={handleOnChange} value={newPic} />
-          </label>
-          <br />
-
-          <input id="submit" type="button" value="Create" onClick={handleSubmit} />
-        </div>
-      </div>
+        <CreatePersonModal
+          dispatch={dispatch}
+          navigate={navigate}
+          closeModal={closeModal}
+        />
       )}
     </div>
   );
