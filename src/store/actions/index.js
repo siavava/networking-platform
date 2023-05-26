@@ -3,8 +3,8 @@ import axios from 'axios';
 
 // const ROOT_URL = 'https://plushiedexapi.onrender.com/api';
 
-const ROOT_URL = 'https://api-goloco.onrender.com';
-// const ROOT_URL = 'http://localhost:9090';
+// const ROOT_URL = 'https://api-goloco.onrender.com';
+const ROOT_URL = 'http://localhost:9090';
 const API_KEY = '';
 
 // keys for actiontypes
@@ -48,15 +48,14 @@ export const ActionTypes = {
   },
 };
 
-export function createCompany(companyParams, navigate) {
-  return async (dispatch) => {
+export function createCompany(companyParams) {
+  return async (dispatch, navigate) => {
     try {
-      // check that response is correct
       const response = await axios.post(`${ROOT_URL}/api/companies`, companyParams, { headers: { authorization: localStorage.getItem('token') } });
       dispatch({ type: ActionTypes.COMPANY.CREATE_COMPANY, payload: response.data });
 
-      // navigate to new company page
-      navigate('/companies');
+      // navigate to new person's page
+      navigate(`/companies/${response.data.id}`);
     } catch (error) {
       console.error(error);
     }
@@ -112,7 +111,7 @@ export function deleteCompany(companyId) {
 export function updateCompany(updates) {
   return async (dispatch) => {
     try {
-      const response = await axios.put(`${ROOT_URL}/companies/${updates.id}`, updates, { headers: { authorization: localStorage.getItem('token') } });
+      const response = await axios.put(`${ROOT_URL}/api/companies/${updates.id}`, updates, { headers: { authorization: localStorage.getItem('token') } });
       dispatch({ type: ActionTypes.COMPANY.UPDATE_COMPANY, payload: response.data });
     } catch (error) {
       console.error(error);

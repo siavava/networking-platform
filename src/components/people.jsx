@@ -32,6 +32,11 @@ export default function People() {
     debouncedSearch(searchTerm);
   }, [searchTerm]);
 
+  useEffect(() => {
+    getPeople()(dispatch);
+    getCompanies()(dispatch);
+  }, []);
+
   const handleOnChange = (event) => {
     switch (event.target.id) {
       case 'connection-name':
@@ -72,11 +77,6 @@ export default function People() {
   const people = useSelector((state) => state.person.people);
   const companies = useSelector((state) => state.company.companies);
 
-  useEffect(() => {
-    getPeople()(dispatch);
-    getCompanies()(dispatch);
-  }, []);
-
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -85,7 +85,9 @@ export default function People() {
     setIsModalOpen(false);
   };
 
-  const companyOptions = companies.map((company) => ({ value: company.id, label: company.name }));
+  const companyOptions = companies
+    ? companies.map((company) => ({ value: company.id, label: company.name }))
+    : [];
 
   const peopleTagOptions = [
     { value: 'alumni', label: 'Alumni' },
