@@ -1,51 +1,28 @@
+/* eslint-disable max-len */
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import '../homepage.style.scss';
 import CreateTaskModal from './create-task-modal';
+import {
+  getTasks,
+} from '../store/actions';
 
 export default function HomePage() {
-  const [newTask, setNewTask] = useState('');
-  const [newCompany, setNewCompany] = useState('');
-  const [newPerson, setNewPerson] = useState('');
+  const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const user = { name: 'Chad IV' };
-  const tasks = {
-    overdue: [],
-    today: [
-      { task: 'follow up', company: 'google', person: 'bob bobby' },
-      { task: 'follow up, second email', company: 'apple', person: 'joe bro' },
-      { task: 'initial reach out', company: 'McKinsey', person: 'Susan Sue' },
-      { task: 'send cover letter', company: 'meta', person: 'Allie Rally' },
-    ],
-    upcoming: [],
-  };
 
-  const handleSubmit = () => {
-    const fields = {
-      task: newTask,
-      company: newCompany,
-      person: newPerson,
-    };
-    console.log(fields);
-    // eslint-disable-next-line no-use-before-define
-    closeModal();
-  };
+  useEffect(() => {
+    getTasks()(dispatch);
+  }, [dispatch]);
 
-  const handleOnChange = (event) => {
-    console.log(event.target.id);
-    switch (event.target.id) {
-      case 'company-name':
-        setNewTask(event.target.value);
-        break;
-      case 'company-location':
-        setNewCompany(event.target.value);
-        break;
-      case 'website-link':
-        setNewPerson(event.target.value);
-        break;
-      default:
-    }
-  };
+  const tasks = useSelector((state) => state.task.all) || [];
+  console.log(tasks);
+  const todayTasks = tasks.filter((task) => new Date(task.dueDate).getDate()
+    === new Date().getDate());
+  const overDueTasks = tasks.filter((task) => new Date(task.dueDate).getDate() < new Date().getDate());
+  const upcomingTasks = tasks.filter((task) => new Date(task.dueDate).getDate() > new Date().getDate());
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -64,13 +41,13 @@ export default function HomePage() {
         <div className="homepage-tasks">
           <div className="homepage-tasks-overview">
             <div className="homepage-tasks-overview-item">
-              { `Overdue Tasks (${tasks.overdue.length})`}
+              { `Overdue Tasks (${overDueTasks.length})`}
             </div>
             <div className="homepage-tasks-overview-item">
-              { `Today's Tasks (${tasks.today.length})`}
+              { `Today's Tasks (${todayTasks.length})`}
             </div>
             <div className="homepage-tasks-overview-item">
-              { `Upcoming Tasks (${tasks.upcoming.length})`}
+              { `Upcoming Tasks (${upcomingTasks.length})`}
             </div>
             <button className="create-task-button" type="submit" onClick={openModal}>+</button>
           </div>
@@ -84,12 +61,12 @@ export default function HomePage() {
             </thead>
             <tbody>
 
-              {tasks.today.map((task, index) => (
+              {todayTasks.map((task, index) => (
                 // eslint-disable-next-line react/no-array-index-key
                 <tr className="homepage-tasks-table-row" key={index}>
-                  <td className="homepage-tasks-table-cell">{task.task}</td>
-                  <td className="homepage-tasks-table-cell">{task.company}</td>
-                  <td className="homepage-tasks-table-cell">{task.person}</td>
+                  <td className="homepage-tasks-table-cell">{task.title}</td>
+                  <td className="homepage-tasks-table-cell">{task.associatedCompany}</td>
+                  <td className="homepage-tasks-table-cell">{task.associatedPerson}</td>
                 </tr>
               ))}
             </tbody>

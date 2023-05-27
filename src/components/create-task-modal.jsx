@@ -12,7 +12,7 @@ export default function CreateTaskModal(props) {
   const [newTask, setNewTask] = useState('');
   const [dueDate, setDueDate] = useState(new Date());
   const { closeModal, personValue, companyValue } = props;
-  const [selectedPeople, setSelectedPeople] = useState(null);
+  const [selectedPerson, setSelectedPerson] = useState(null);
   const [selectedCompany, setSelectedCompany] = useState(null);
   // const [peopleTagOptions, setPeopleTagOptions] = useState([]);
 
@@ -38,7 +38,7 @@ export default function CreateTaskModal(props) {
       setSelectedCompany(props.companyValue);
     }
     if (personValue) {
-      setSelectedPeople(props.personValue);
+      setSelectedPerson(props.personValue);
     }
   }, []);
 
@@ -48,8 +48,8 @@ export default function CreateTaskModal(props) {
       dueDate,
     };
 
-    if (selectedPeople) {
-      fields.associatedPeople = selectedPeople.value;
+    if (selectedPerson) {
+      fields.associatedPerson = selectedPerson.value;
     }
 
     if (selectedCompany) {
@@ -83,8 +83,8 @@ export default function CreateTaskModal(props) {
               <Select
                 id="task-people"
                 options={peopleTagOptions}
-                value={selectedPeople}
-                onChange={setSelectedPeople}
+                value={selectedPerson}
+                onChange={setSelectedPerson}
               />
             </label>
             <br />
