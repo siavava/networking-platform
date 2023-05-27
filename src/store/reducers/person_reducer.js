@@ -36,13 +36,6 @@ const PersonReducer = produce((draftState, action = {}) => {
       draftState.tasks = action.payload.tasks;
       return draftState;
 
-    // GET_PERSON
-    // we can  probably get this from the people array...
-    case ActionTypes.PERSON.SET_PEOPLE:
-      console.log(action.payload);
-      draftState.people = action.payload;
-      return draftState;
-
     case ActionTypes.PERSON.GET_PERSON:
       console.log(action.payload);
       draftState.name = action.payload.name;
@@ -77,11 +70,6 @@ const PersonReducer = produce((draftState, action = {}) => {
     case ActionTypes.PERSON.GET_PEOPLE:
       draftState.people = action.payload;
       break;
-
-    // FIND_PEOPLE
-    case ActionTypes.PERSON.FIND_PEOPLE:
-      draftState.people = action.payload.people;
-      return draftState;
 
     default:
       return draftState;

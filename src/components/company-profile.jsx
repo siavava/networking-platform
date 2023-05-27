@@ -26,23 +26,8 @@ export default function CompanyProfile() {
   const people = useSelector((state) => state.person.people);
 
   useEffect(() => {
-    console.log('useEffect');
-    const getComp = async () => {
-      await dispatch(getCompany(companyId));
-    };
-
-    getComp();
-    if (company && company.associatedPeople) {
-      const ids = company.associatedPeople;
-      let idStr = '';
-      for (let i = 0; i < ids.length; i++) {
-        const id = ids[i];
-
-        idStr = idStr ? `${idStr},${id}` : `${id}`;
-      }
-
-      dispatch(getAssociatedPeople(idStr));
-    }
+    dispatch(getCompany(companyId));
+    dispatch(getAssociatedPeople(companyId));
   }, [companyId, dispatch]);
 
   if (company.name !== '') {
@@ -65,20 +50,20 @@ export default function CompanyProfile() {
           <div className="company-profile-right-panel">
             <h1>People Associated With Company</h1>
             <button type="submit" className="add-people" onClick={openModal}>+</button>
-            {console.log(company.associatedPeople)}
-            {console.log(people)}
-            {people.map((person) => (company.associatedPeople.includes(person.id) ? (
-              <div className="company-profile-person" key={person.id}>
-                <img src={person.imageUrl} alt="person" />
-                <div className="company-profile-person-information">
-                  <h2>
-                    <a href={`../people/${person.id}`}>{person.name}</a> (
-                    <a href={`mailto: ${person.email}`}>{person.email})</a>
-                  </h2>
-                  <p>{person.title}</p>
+            {people
+              && (people.map((person) => (
+                <div className="company-profile-person" key={person.id}>
+                  <img src={person.imageUrl} alt="person" />
+                  <div className="company-profile-person-information">
+                    <h2>
+                      <a href={`../people/${person.id}`}>{person.name}</a> (
+                      <a href={`mailto: ${person.email}`}>{person.email})</a>
+                    </h2>
+                    <p>{person.title}</p>
+                  </div>
                 </div>
-              </div>
-            ) : null))}
+              ))
+              )}
           </div>
         </div>
         {isModalOpen && (

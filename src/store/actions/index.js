@@ -36,11 +36,9 @@ export const ActionTypes = {
   PERSON: {
     CREATE_PERSON: 'CREATE_PERSON',
     GET_PEOPLE: 'GET_PEOPLE',
-    FIND_PEOPLE: 'FIND_PEOPLE',
     GET_PERSON: 'GET_PERSON',
     DELETE_PERSON: 'DELETE_PERSON',
     UPDATE_PERSON: 'UPDATE_PERSON',
-    SET_PEOPLE: 'SET_PEOPLE',
   },
   AUTH: {
     AUTH_USER: 'AUTH_USER',
@@ -67,7 +65,6 @@ export function getCompany(companyId) {
   return async (dispatch) => {
     try {
       const response = await axios.get(`${ROOT_URL}/api/companies/${companyId}`, { headers: { authorization: localStorage.getItem('token') } });
-      console.log(response);
       dispatch({ type: ActionTypes.COMPANY.GET_COMPANY, payload: response.data });
     } catch (error) {
       console.error(error);
@@ -90,7 +87,6 @@ export function getCompanies() {
   return async (dispatch) => {
     try {
       const response = await axios.get(`${ROOT_URL}/api/companies`, { headers: { authorization: localStorage.getItem('token') } });
-      console.log(response);
       dispatch({ type: ActionTypes.COMPANY.GET_COMPANIES, payload: response.data });
     } catch (error) {
       console.error(error);
@@ -308,8 +304,8 @@ export function getPerson(personId) {
 export function getAssociatedPeople(idString) {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`${ROOT_URL}/api/people/?ids=${idString}`, { headers: { authorization: localStorage.getItem('token') } });
-      dispatch({ type: ActionTypes.PERSON.SET_PEOPLE, payload: response.data });
+      const response = await axios.get(`${ROOT_URL}/api/people/?companies=${idString}`, { headers: { authorization: localStorage.getItem('token') } });
+      dispatch({ type: ActionTypes.PERSON.GET_PEOPLE, payload: response.data });
     } catch (error) {
       console.error(error);
     }
