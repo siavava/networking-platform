@@ -21,7 +21,10 @@ export default function Nav() {
   return (
     <nav>
       <ul className="navbar">
-        <li><NavLink to="/homepage">Goloco</NavLink></li>
+        <li>
+          <img src="../src/img/logo.png" alt="Logo" />
+          <NavLink to="/homepage" />
+        </li>
 
         <div className="inner-navbar">
           <li><NavLink to="/companies">Companies</NavLink></li>
