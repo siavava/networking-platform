@@ -22,13 +22,6 @@ export default function CompanyProfile() {
     setIsModalOpen(false);
   };
 
-  const extendedBio = `
-    Lorem ipsum dolor sit amet.
-    Lorem ipsum dolor sit amet.
-    Lorem ipsum dolor sit amet.
-    Lorem ipsum dolor sit amet.
-    Lorem ipsum dolor sit amet.`;
-
   const company = useSelector((state) => state.company);
   const people = useSelector((state) => state.person.people);
 
@@ -57,7 +50,7 @@ export default function CompanyProfile() {
       <div className="company-profile-container">
         <div className="company-profile">
           <div className="company-profile-left-panel">
-            <h1 className="company-profile-name">{`${company.name}: full profile`}</h1>
+            <h1 className="company-profile-name">{`${company.name}: Company Overview`}</h1>
             <img className="company-profile-image" src={company.imageUrl} alt="company logo" />
             <div className="company-profile-bottom">
               <div className="company-profile-links">
@@ -65,7 +58,7 @@ export default function CompanyProfile() {
                 <a href={company.linkedin}>LinkedIn</a>
               </div>
               <div className="company-profile-extended-bio">
-                <p>{extendedBio}</p>
+                <p>{company.description}</p>
               </div>
             </div>
           </div>
@@ -76,10 +69,13 @@ export default function CompanyProfile() {
             {console.log(people)}
             {people.map((person) => (company.associatedPeople.includes(person.id) ? (
               <div className="company-profile-person" key={person.id}>
-                <img src={person.image} alt="person" />
+                <img src={person.imageUrl} alt="person" />
                 <div className="company-profile-person-information">
-                  <h2>{person.name}</h2>
-                  <p>{person.connection}</p>
+                  <h2>
+                    <a href={`../people/${person.id}`}>{person.name}</a> (
+                    <a href={`mailto: ${person.email}`}>{person.email})</a>
+                  </h2>
+                  <p>{person.title}</p>
                 </div>
               </div>
             ) : null))}

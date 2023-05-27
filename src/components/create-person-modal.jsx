@@ -12,6 +12,7 @@ export default function CreatePersonModal(props) {
   const [selectedCompany, setSelectedCompany] = useState(null);
   const [selectedTags, setSelectedTags] = useState([]);
   const [newName, setNewName] = useState('');
+  const [newTitle, setNewTitle] = useState('');
   const [newEmail, setNewEmail] = useState('');
   const [newlinkedIn, setNewlinkedIn] = useState('');
   const [newDescription, setNewDescription] = useState('');
@@ -24,6 +25,9 @@ export default function CreatePersonModal(props) {
         break;
       case 'email':
         setNewEmail(event.target.value);
+        break;
+      case 'connection-title':
+        setNewTitle(event.target.value);
         break;
       case 'linkedIn':
         setNewlinkedIn(event.target.value);
@@ -42,6 +46,7 @@ export default function CreatePersonModal(props) {
   const handleSubmit = () => {
     const fields = {
       name: newName,
+      title: newTitle,
       email: newEmail,
       linkedIn: newlinkedIn,
       description: newDescription,
@@ -88,7 +93,7 @@ export default function CreatePersonModal(props) {
         {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
         <span className="close" onClick={props.closeModal}>&times;</span>
         <label htmlFor="connection-name">
-          Connection Name:
+          Name:
           <input id="connection-name" type="text" onChange={handleOnChange} value={newName} />
         </label>
         <br />
@@ -105,21 +110,27 @@ export default function CreatePersonModal(props) {
           <br />
         </div>
 
+        <label htmlFor="connection-title">
+          Title:
+          <input id="connection-title" type="text" onChange={handleOnChange} value={newTitle} />
+        </label>
+        <br />
+
         <label htmlFor="email">
-          Connection Email:
+          Email:
           <input id="email" type="text" onChange={handleOnChange} value={newEmail} />
         </label>
         <br />
 
         <label htmlFor="linkedIn">
-          Connection linkedIn:
+          linkedIn:
           <input id="linkedIn" type="text" onChange={handleOnChange} value={newlinkedIn} />
         </label>
         <br />
 
         <div>
           <label>
-            Connection Tags:
+            Tags:
             <Select
               id="connection-tags"
               isMulti
@@ -132,13 +143,13 @@ export default function CreatePersonModal(props) {
         </div>
 
         <label htmlFor="description">
-          Connection Description:
+          Description:
           <input id="description" type="text" onChange={handleOnChange} value={newDescription} />
         </label>
         <br />
 
         <label htmlFor="imageUrl">
-          Connection Image URL:
+          Image URL:
           <input id="imageUrl" type="text" onChange={handleOnChange} value={newImageUrl} />
         </label>
         <br />
