@@ -52,10 +52,6 @@ export default function CompanyProfile() {
     }
   }, [companyId, dispatch]);
 
-  const dispatchCreatePerson = (fields, navigate) => {
-    createPerson(fields)(dispatch, navigate);
-  };
-
   if (company.name !== '') {
     return (
       <div className="company-profile-container">
@@ -93,7 +89,6 @@ export default function CompanyProfile() {
           <CreatePersonModal
             companyValue={{ value: companyId, label: company.name }}
             closeModal={closeModal}
-            dispatchCreatePerson={dispatchCreatePerson}
           />
         )}
       </div>
