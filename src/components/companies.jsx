@@ -116,23 +116,22 @@ export default function Companies() {
         <ul className="companies-list">
           { companies.map((company) => (
             <li key={company.id} className="companies-list-item">
-              <div className="companies-list-item-logo">
-                <img src={company.imageUrl} alt="profile" />
+              <div className="flip-card">
+                <div className="flip-card-inner">
+                  <div className="flip-card-front">
+                    <img src={company.imageUrl} alt="profile" />
+                  </div>
+                  <div className="flip-card-back">
+                    <h1 className="companies-list-item-name">{company.name}</h1>
+                    <p className="companies-list-item-website">{company.website}</p>
+                    <p className="companies-list-item-location">{company.location}</p>
+                    <p className="companies-list-item-info">{company.description}</p>
+                  </div>
+                </div>
               </div>
-              <div className="companies-list-item-info">
-                <div className="companies-list-item-name">
-                  {company.name}
-                </div>
-                <div className="companies-list-item-website">
-                  {company.website}
-                </div>
-                <div className="companies-list-item-description">
-                  {company.description}
-                </div>
-                <button className="companies-list-item-button" type="button" onClick={() => handleShowCompany(company.id)}>
-                  to see full page
-                </button>
-              </div>
+              <button className="companies-list-item-button" type="button" onClick={() => handleShowCompany(company.id)}>
+                to see full page
+              </button>
             </li>
           ))}
         </ul>

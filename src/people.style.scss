@@ -66,73 +66,96 @@ $text: #000000;
         background: white;
         aspect-ratio: 1/1;
         display: flex;
-        flex-direction: row;
-        place-items: flex-start;
+        flex-direction: column;
+        place-items: flex-end;
         padding: 20px;
         gap: 20px;
+        border-radius: 12px;
 
-        .people-list-item-photo {
-          width: 30%;
-          aspect-ratio: 1/1;
-          background: #FFFFFF;
-          margin-top: 5px;
-          margin-left: 10px;
-          margin-right: 20px;
-
-          & > img {
+        // modelled after https://www.w3schools.com/howto/howto_css_flip_card.asp
+        .flip-card {
+          width: 100%;
+          height: 100%;
+          perspective: 1000px;
+          border: 1px solid #f1f1f1;
+        
+          .flip-card-inner {
+            position: relative;
             width: 100%;
             height: 100%;
-            object-fit: cover;
-          }
-        }
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
 
-        .people-list-item-info {
-          width: 70%;
-          height: 100%;
-          background: #FFFFFF;
-          display: flex;
-          flex-direction: column;
-          gap: 20px;
-
-          .people-list-item-name {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-top: 15px;
-            margin-bottom: 10px;
-          }
-
-          .people-list-item-bio {
-            font-size: 1rem;
-            margin-bottom: 10px;
-          }
-
-          .people-list-item-button {
-            width: fit-content;
-            background: none;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            line-height: 2;
-            place-self: flex-end;
-            background: $header;
-            margin-top: auto;
-            border: none;
-            outline: none;
-
-            &:after {
-              content: "\2192";
-              margin-left: 10px;
-              transition: all 0.2s ease-in-out;
+            .flip-card-front, .flip-card-back {
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              -webkit-backface-visibility: hidden; /* Safari */
+              backface-visibility: hidden;
             }
+            
+            /* Style the front side (fallback if image is missing) */
+            .flip-card-front {
+              background-color: #bbb;
+              color: black;
+              background: #FFFFFF;
 
-            &:hover{
-              color: #c0d6bd;
+              & > img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+              }
+            }
+            
+            /* Style the back side */
+            .flip-card-back {
+              background-color: rgb(69, 124, 36);
+              color: white;
+              transform: rotateY(180deg);
+              overflow: hidden;
 
-              &::after {
-                transform: translateX(10px);
+              .person-list-item-name {
+                font-size: 1.5rem;
+                font-weight: bold;
+                margin-top: 15px;
+              }
+              .person-list-item-info {
+                font-size: 1rem;
+                margin-bottom: 10px;
               }
             }
           }
+        }
+        .person-list-item-button {
+          width: fit-content;
+          background: none;
+          color: white;
+          font-weight: bold;
+          cursor: pointer;
+          line-height: 2;
+          justify-self: flex-end;
+          background: $header;
+          margin-top: auto;
+          border: none;
+          outline: none;
+
+          &:after {
+            content: "\2192";
+            margin-left: 10px;
+            transition: all 0.2s ease-in-out;
+          }
+
+          &:hover{
+            color: #c0d6bd;
+
+            &::after {
+              transform: translateX(10px);
+            }
+          }
+        }
+        .flip-card:hover .flip-card-inner {
+          transform: rotateY(180deg);
         }
       }
     }
