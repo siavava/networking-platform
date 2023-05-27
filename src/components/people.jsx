@@ -70,23 +70,22 @@ export default function People() {
         <ul className="people-list">
           { people.map((person) => (
             <li key={person.id} className="people-list-item">
-              <div className="people-list-item-photo">
-                <img src={person.imageUrl} alt="profile" />
+              <div className="flip-card">
+                <div className="flip-card-inner">
+                  <div className="flip-card-front">
+                    <img src={person.imageUrl} alt="profile" />
+                  </div>
+                  <div className="flip-card-back">
+                    <h1 className="person-list-item-name">{person.name}</h1>
+                    <p className="person-list-item-title">{person.title}</p>
+                    <p className="person-list-item-email">{person.email}</p>
+                    <p className="person-list-item-description">{person.description}</p>
+                  </div>
+                </div>
               </div>
-              <div className="people-list-item-info">
-                <div className="people-list-item-name">
-                  {person.name}
-                </div>
-                <div className="people-list-item-title">
-                  {person.title}
-                </div>
-                <div className="people-list-item-description">
-                  {person.description}
-                </div>
-                <button className="people-list-item-button" type="button" onClick={() => handleShowPerson(person.id)}>
-                  to see full page
-                </button>
-              </div>
+              <button className="person-list-item-button" type="button" onClick={() => handleShowPerson(person.id)}>
+                to see full page
+              </button>
             </li>
           ))}
         </ul>

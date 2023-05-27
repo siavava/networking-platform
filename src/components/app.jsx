@@ -9,7 +9,7 @@ import People from './people';
 import HomePage from './homepage';
 import Landing from './landing';
 import SignUp from './signup';
-import Nav from './navbar';
+import NavigationBar from './navbar';
 import PersonProfile from './person-profile';
 import LogIn from './login';
 
@@ -17,7 +17,7 @@ function App() {
   return (
     <BrowserRouter>
       <div>
-        <Nav />
+        <NavigationBar />
         <Routes>
           <Route path="/homepage" element={<HomePage />} />
           <Route path="/" element={<Landing />} />
