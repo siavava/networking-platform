@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 // import { useParams } from 'react-router-dom';
 import '../company-profile.style.scss';
 import { useLocation } from 'react-router-dom';
-import { getCompany, getAssociatedPeople } from '../store/actions';
+import { getCompany, getAssociatedPeople, createPerson } from '../store/actions';
 import CreatePersonModal from './create-person-modal';
 
 export default function CompanyProfile() {
@@ -33,6 +33,7 @@ export default function CompanyProfile() {
   const people = useSelector((state) => state.person.people);
 
   useEffect(() => {
+    console.log('useEffect');
     const getComp = async () => {
       await dispatch(getCompany(companyId));
     };
@@ -49,7 +50,11 @@ export default function CompanyProfile() {
 
       dispatch(getAssociatedPeople(idStr));
     }
-  }, [companyId]);
+  }, [companyId, dispatch]);
+
+  const dispatchCreatePerson = (fields, navigate) => {
+    createPerson(fields)(dispatch, navigate);
+  };
 
   if (company.name !== '') {
     return (
@@ -86,8 +91,9 @@ export default function CompanyProfile() {
         </div>
         {isModalOpen && (
           <CreatePersonModal
-            value={{ value: companyId, label: company.name }}
+            companyValue={{ value: companyId, label: company.name }}
             closeModal={closeModal}
+            dispatchCreatePerson={dispatchCreatePerson}
           />
         )}
       </div>

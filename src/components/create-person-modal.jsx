@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 import '../create-person-modal.style.scss';
-import { createPerson, getCompanies } from '../store/actions';
+import { getCompanies } from '../store/actions';
 
 export default function CreatePersonModal(props) {
   const dispatch = useDispatch();
@@ -50,10 +50,10 @@ export default function CreatePersonModal(props) {
     };
 
     if (selectedCompany) {
-      fields.company = selectedCompany.value;
+      fields.associatedCompany = selectedCompany.value;
     }
 
-    createPerson(fields)(dispatch, navigate);
+    props.dispatchCreatePerson(fields, navigate);
 
     // eslint-disable-next-line no-use-before-define
 
