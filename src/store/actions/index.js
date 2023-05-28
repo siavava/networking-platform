@@ -222,9 +222,11 @@ export function createNote(noteFields) {
     author: noteFields.author,
   };
 
-  return async () => {
+  return async (dispatch) => {
     try {
-      await axios.post(`${ROOT_URL}/notes`, fields, { headers: { authorization: localStorage.getItem('token') } });
+      const response = await axios.post(`${ROOT_URL}/api/notes`, fields, { headers: { authorization: localStorage.getItem('token') } });
+      console.log(response);
+      dispatch({ type: ActionTypes.NOTE.CREATE_NOTE, payload: fields });
     } catch (error) {
       console.error(error);
     }
@@ -234,7 +236,18 @@ export function createNote(noteFields) {
 export function getNotes() {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`${ROOT_URL}/notes`, { headers: { authorization: localStorage.getItem('token') } });
+      const response = await axios.get(`${ROOT_URL}/api/notes`, { headers: { authorization: localStorage.getItem('token') } });
+      dispatch({ type: ActionTypes.NOTE.GET_NOTES, payload: response.data });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+}
+
+export function getAssociatedNotes(idString, associationType) {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`${ROOT_URL}/api/notes/?${associationType}=${idString}`, { headers: { authorization: localStorage.getItem('token') } });
       dispatch({ type: ActionTypes.NOTE.GET_NOTES, payload: response.data });
     } catch (error) {
       console.error(error);
@@ -246,7 +259,7 @@ export function getNote(id) {
   return async (dispatch) => {
     // get
     try {
-      const result = await axios.get(`${ROOT_URL}/notes/${id}${API_KEY}`, { headers: { authorization: localStorage.getItem('token') } });
+      const result = await axios.get(`${ROOT_URL}/api/notes/${id}${API_KEY}`, { headers: { authorization: localStorage.getItem('token') } });
       dispatch({
         type: ActionTypes.NOTE.GET_NOTE,
         payload: result.data,
@@ -260,7 +273,7 @@ export function getNote(id) {
 export function deleteNote(id) {
   return async () => {
     // delete
-    await axios.delete(`${ROOT_URL}/notes/${id}${API_KEY}`, { headers: { authorization: localStorage.getItem('token') } });
+    await axios.delete(`${ROOT_URL}/api/notes/${id}${API_KEY}`, { headers: { authorization: localStorage.getItem('token') } });
   };
 }
 
@@ -276,7 +289,7 @@ export function updateNote(noteFields, id) {
 
   return async (dispatch) => {
     try {
-      await axios.put(`${ROOT_URL}/notes/${id}${API_KEY}`, fields, { headers: { authorization: localStorage.getItem('token') } });
+      await axios.put(`${ROOT_URL}/api/notes/${id}${API_KEY}`, fields, { headers: { authorization: localStorage.getItem('token') } });
       dispatch({
         type: ActionTypes.NOTE.UPDATE_NOTE,
         payload: fields,
@@ -410,10 +423,10 @@ export function signin({
   };
 }
 
-export function signoutUser(navigate) {
-  return (dispatch) => {
+export function signout() {
+  return async (dispatch, navigate) => {
     localStorage.removeItem('token');
-    dispatch({ type: ActionTypes.DEAUTH_USER });
+    dispatch({ type: ActionTypes.AUTH.DEAUTH_USER });
     navigate('/');
   };
 }
