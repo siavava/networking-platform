@@ -3,8 +3,8 @@ import { produce } from 'immer';
 import { ActionTypes } from '../actions';
 
 const initialState = {
-  first_name: '',
-  last_name: '',
+  firstName: '',
+  lastName: '',
   id: '',
   email: '',
   authenticated: false,
