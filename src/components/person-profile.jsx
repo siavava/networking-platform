@@ -4,8 +4,9 @@ import ReactMarkdown from 'react-markdown';
 import { useSelector, useDispatch } from 'react-redux';
 import '../person-profile.style.scss';
 import { useLocation } from 'react-router-dom';
-import { getPerson, getAssociatedTasks } from '../store/actions';
+import { getPerson, getAssociatedTasks, getAssociatedNotes } from '../store/actions';
 import CreateTaskModal from './create-task-modal';
+import CreateNoteModal from './create-note-modal';
 
 export default function PersonProfile() {
   const dispatch = useDispatch();
@@ -25,10 +26,13 @@ export default function PersonProfile() {
   useEffect(() => {
     dispatch(getPerson(personId));
     dispatch(getAssociatedTasks(personId, 'people'));
+    dispatch(getAssociatedNotes(personId, 'people'));
   }, [dispatch, personId, isTaskModalOpen], isNoteModalOpen);
 
   const person = useSelector((state) => state.person);
   const tasks = useSelector((state) => state.task.all);
+  const notes = useSelector((state) => state.note.all);
+  console.log(notes);
 
   const emails = [
     { id: 0, title: 'Meeting?', details: 'When do you think you have time to meet?...' },
@@ -62,8 +66,8 @@ export default function PersonProfile() {
         <div className="notes">
           <h1>Notes</h1>
           <button type="submit" className="add-notes" onClick={() => setIsNoteModalOpen(true)}>+</button>
-          {tasks && (tasks.map((e) => (
-            <div className="task" key={e.id}>{e.dueDate.split('T')[0]} - {e.title}</div>
+          {notes && (notes.map((e) => (
+            <div className="note" key={e.id}>{e.title}</div>
           )))}
         </div>
       </div>
@@ -79,6 +83,11 @@ export default function PersonProfile() {
       </div>
       { isTaskModalOpen && (
       <CreateTaskModal closeModal={closeTaskModal}
+        personValue={{ value: personId, label: person.name }}
+      />
+      ) }
+      { isNoteModalOpen && (
+      <CreateNoteModal closeModal={closeNoteModal}
         personValue={{ value: personId, label: person.name }}
       />
       ) }
