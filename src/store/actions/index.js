@@ -377,14 +377,13 @@ export function authError(error) {
 }
 
 export function signup({
-  email, password,
+  firstName, lastName, email, password,
 }) {
   return async (dispatch, navigate) => {
     try {
       const response = await axios.post(`${ROOT_URL}/api/signup`, {
-        email, password,
+        firstName, lastName, email, password,
       });
-      console.log(response);
       dispatch({ type: ActionTypes.AUTH.AUTH_USER, payload: response.data });
       localStorage.setItem('token', response.data.token);
       navigate('/homepage');

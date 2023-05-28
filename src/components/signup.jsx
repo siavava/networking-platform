@@ -9,16 +9,20 @@ import { signup } from '../store/actions';
 export default function SignUp() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [fname, setFname] = useState('');
-  const [lname, setLname] = useState('');
+  const [firstName, setFname] = useState('');
+  const [lastName, setLname] = useState('');
   const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
   const [confirm, setConfirm] = useState('');
   const [password, setPassword] = useState('');
   const handleSubmit = () => {
-    const validate = () => email !== '' && password !== '' && password === confirm;
+    const validate = () => firstName !== '' && lastName !== '' && email !== '' && password !== '' && password === confirm;
     if (validate()) {
-      signup({ email, password })(dispatch, navigate);
+      signup({
+        firstName,
+        lastName,
+        email,
+        password,
+      })(dispatch, navigate);
     }
   };
 
@@ -30,13 +34,13 @@ export default function SignUp() {
 
       <label htmlFor="first-name">
         First Name:
-        <input id="first-name" type="text" value={fname} onChange={(e) => setFname(e.target.value)} />
+        <input id="first-name" type="text" value={firstName} onChange={(e) => setFname(e.target.value)} />
       </label>
       <br />
 
       <label htmlFor="last-name">
         Last Name:
-        <input id="last-name" type="text" value={lname} onChange={(e) => setLname(e.target.value)} />
+        <input id="last-name" type="text" value={lastName} onChange={(e) => setLname(e.target.value)} />
       </label>
       <br />
 
@@ -46,21 +50,15 @@ export default function SignUp() {
       </label>
       <br />
 
-      <label htmlFor="username">
-        Username:
-        <input id="username" type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
-      </label>
-      <br />
-
       <label htmlFor="password">
         Password:
-        <input id="password" type="text" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
       </label>
       <br />
 
       <label htmlFor="confirm-password">
         Confirm Password:
-        <input id="confirm-password" type="text" value={confirm} onChange={(e) => setConfirm(e.target.value)} />
+        <input id="confirm-password" type="password" value={confirm} onChange={(e) => setConfirm(e.target.value)} />
       </label>
       <br />
 

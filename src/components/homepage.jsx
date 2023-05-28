@@ -1,6 +1,8 @@
 /* eslint-disable max-len */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
 import { useSelector, useDispatch } from 'react-redux';
 import '../homepage.style.scss';
 import CreateTaskModal from './create-task-modal';
@@ -11,18 +13,20 @@ import {
 export default function HomePage() {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const user = { name: 'Chad IV' };
+  const [tabKey, setTabKey] = useState('today');
 
   useEffect(() => {
     getTasks()(dispatch);
   }, [dispatch]);
 
   const tasks = useSelector((state) => state.task.all) || [];
-  console.log(tasks);
+  const user = useSelector((state) => state.user) || {};
+  console.log(user);
+  const today = new Date().getDate();
   const todayTasks = tasks.filter((task) => new Date(task.dueDate).getDate()
-    === new Date().getDate());
-  const overDueTasks = tasks.filter((task) => new Date(task.dueDate).getDate() < new Date().getDate());
-  const upcomingTasks = tasks.filter((task) => new Date(task.dueDate).getDate() > new Date().getDate());
+    === today);
+  const overDueTasks = tasks.filter((task) => new Date(task.dueDate).getDate() < today);
+  const upcomingTasks = tasks.filter((task) => new Date(task.dueDate).getDate() > today);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -32,40 +36,49 @@ export default function HomePage() {
     setIsModalOpen(false);
   };
 
+  const keyTaskVar = {
+    overdue: overDueTasks,
+    today: todayTasks,
+    upcoming: upcomingTasks,
+  };
+
   return (
     <div className="homepage">
       <div className="main-panel">
         <div className="homepage-title">
-          { `Welcome back, ${user.name || 'anonymous user'}!` }
+          { `Welcome back, ${`${user.firstName} ${user.lastName}` || 'anonymous user'}!` }
         </div>
         <div className="homepage-tasks">
           <div className="homepage-tasks-overview">
-            <div className="homepage-tasks-overview-item">
-              { `Overdue Tasks (${overDueTasks.length})`}
-            </div>
-            <div className="homepage-tasks-overview-item">
-              { `Today's Tasks (${todayTasks.length})`}
-            </div>
-            <div className="homepage-tasks-overview-item">
-              { `Upcoming Tasks (${upcomingTasks.length})`}
-            </div>
+            <Tabs
+              defaultActiveKey="profile"
+              id="fill-tab-example"
+              className="mb-3"
+              activeKey={tabKey}
+              onSelect={(k) => setTabKey(k)}
+              fill
+            >
+              <Tab eventKey="overdue" title={`Overdue Tasks (${overDueTasks.length})`} />
+              <Tab eventKey="today" title={`Today's Tasks (${todayTasks.length})`} />
+              <Tab eventKey="upcoming" title={`Upcoming Tasks (${upcomingTasks.length})`} />
+            </Tabs>
             <button className="create-task-button" type="submit" onClick={openModal}>+</button>
           </div>
           <table className="homepage-tasks-table">
             <thead>
               <tr className="homepage-tasks-table-row table-header">
+                <th className="homepage-tasks-table-cell header"> Due Date </th>
                 <th className="homepage-tasks-table-cell header"> Task </th>
-                <th className="homepage-tasks-table-cell header"> Company </th>
                 <th className="homepage-tasks-table-cell header"> Person </th>
               </tr>
             </thead>
             <tbody>
 
-              {todayTasks.map((task, index) => (
+              {keyTaskVar[tabKey].map((task, index) => (
                 // eslint-disable-next-line react/no-array-index-key
                 <tr className="homepage-tasks-table-row" key={index}>
+                  <td className="homepage-tasks-table-cell">{task.dueDate.split('T')[0]}</td>
                   <td className="homepage-tasks-table-cell">{task.title}</td>
-                  <td className="homepage-tasks-table-cell">{task.associatedCompany}</td>
                   <td className="homepage-tasks-table-cell">{task.associatedPerson}</td>
                 </tr>
               ))}
