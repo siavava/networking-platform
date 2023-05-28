@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { useSelector, useDispatch } from 'react-redux';
@@ -10,15 +11,21 @@ export default function PersonProfile() {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const personId = pathname.split('/people/')[1];
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const closeModal = () => {
-    setIsModalOpen(false);
+  const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
+  const [isNoteModalOpen, setIsNoteModalOpen] = useState(false);
+
+  const closeTaskModal = () => {
+    setIsTaskModalOpen(false);
+  };
+
+  const closeNoteModal = () => {
+    setIsNoteModalOpen(false);
   };
 
   useEffect(() => {
     dispatch(getPerson(personId));
     dispatch(getAssociatedTasks(personId, 'people'));
-  }, [dispatch, personId, isModalOpen]);
+  }, [dispatch, personId, isTaskModalOpen], isNoteModalOpen);
 
   const person = useSelector((state) => state.person);
   const tasks = useSelector((state) => state.task.all);
@@ -47,7 +54,14 @@ export default function PersonProfile() {
         </div>
         <div className="todos">
           <h1>Tasks/To Dos</h1>
-          <button type="submit" className="add-tasks" onClick={() => setIsModalOpen(true)}>+</button>
+          <button type="submit" className="add-tasks" onClick={() => setIsTaskModalOpen(true)}>+</button>
+          {tasks && (tasks.map((e) => (
+            <div className="task" key={e.id}>{e.dueDate.split('T')[0]} - {e.title}</div>
+          )))}
+        </div>
+        <div className="notes">
+          <h1>Notes</h1>
+          <button type="submit" className="add-notes" onClick={() => setIsNoteModalOpen(true)}>+</button>
           {tasks && (tasks.map((e) => (
             <div className="task" key={e.id}>{e.dueDate.split('T')[0]} - {e.title}</div>
           )))}
@@ -63,8 +77,8 @@ export default function PersonProfile() {
           </div>
         ))}
       </div>
-      { isModalOpen && (
-      <CreateTaskModal closeModal={closeModal}
+      { isTaskModalOpen && (
+      <CreateTaskModal closeModal={closeTaskModal}
         personValue={{ value: personId, label: person.name }}
       />
       ) }

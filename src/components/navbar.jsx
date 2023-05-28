@@ -29,6 +29,7 @@ export default function Nav() {
         <div className="inner-navbar">
           <li><NavLink to="/companies">Companies</NavLink></li>
           <li><NavLink to="/people">People</NavLink></li>
+          <li><NavLink to="/signout">Sign Out</NavLink></li>
         </div>
       </ul>
     </nav>

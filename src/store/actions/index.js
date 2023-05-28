@@ -410,10 +410,10 @@ export function signin({
   };
 }
 
-export function signoutUser(navigate) {
-  return (dispatch) => {
+export function signout() {
+  return async (dispatch, navigate) => {
     localStorage.removeItem('token');
-    dispatch({ type: ActionTypes.DEAUTH_USER });
+    dispatch({ type: ActionTypes.AUTH.DEAUTH_USER });
     navigate('/');
   };
 }

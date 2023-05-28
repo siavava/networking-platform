@@ -12,6 +12,7 @@ import SignUp from './signup';
 import NavigationBar from './navbar';
 import PersonProfile from './person-profile';
 import LogIn from './login';
+import Signout from './signout';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/companies/:companyId" element={<CompanyProfile />} />
           <Route path="/people" element={<People />} />
           <Route path="/people/:id" element={<PersonProfile />} />
+          <Route path="/signout" element={<Signout />} />
           <Route path="*" element={<FallBack />} />
         </Routes>
       </div>
