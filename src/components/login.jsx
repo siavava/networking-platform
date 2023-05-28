@@ -25,7 +25,7 @@ export default function LogIn() {
       <NavLink to="/" className="close-button">x</NavLink>
       <br />
       <label htmlFor="username">
-        Username:
+        Email:
         <input id="username" type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
       </label>
       <br />

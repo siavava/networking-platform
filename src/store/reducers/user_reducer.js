@@ -3,6 +3,8 @@ import { produce } from 'immer';
 import { ActionTypes } from '../actions';
 
 const initialState = {
+  first_name: '',
+  last_name: '',
   id: '',
   email: '',
   authenticated: false,
@@ -11,6 +13,8 @@ const initialState = {
 const UserReducer = produce((draftState, action = {}) => {
   switch (action.type) {
     case ActionTypes.AUTH.AUTH_USER:
+      draftState.first_name = action.payload.first_name;
+      draftState.last_name = action.payload.last_name;
       draftState.id = action.payload.id;
       draftState.email = action.payload.email;
       draftState.authenticated = true;

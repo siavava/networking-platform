@@ -12,13 +12,17 @@ export default function SignUp() {
   const [fname, setFname] = useState('');
   const [lname, setLname] = useState('');
   const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
   const [confirm, setConfirm] = useState('');
   const [password, setPassword] = useState('');
   const handleSubmit = () => {
-    const validate = () => email !== '' && password !== '' && password === confirm;
+    const validate = () => fname !== '' && lname !== '' && email !== '' && password !== '' && password === confirm;
     if (validate()) {
-      signup({ email, password })(dispatch, navigate);
+      signup({
+        fname,
+        lname,
+        email,
+        password,
+      })(dispatch, navigate);
     }
   };
 
@@ -46,21 +50,15 @@ export default function SignUp() {
       </label>
       <br />
 
-      <label htmlFor="username">
-        Username:
-        <input id="username" type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
-      </label>
-      <br />
-
       <label htmlFor="password">
-        Password:
-        <input id="password" type="text" value={password} onChange={(e) => setPassword(e.target.value)} />
+        Password: must be at least 8 characters
+        <input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
       </label>
       <br />
 
       <label htmlFor="confirm-password">
         Confirm Password:
-        <input id="confirm-password" type="text" value={confirm} onChange={(e) => setConfirm(e.target.value)} />
+        <input id="confirm-password" type="password" value={confirm} onChange={(e) => setConfirm(e.target.value)} />
       </label>
       <br />
 
