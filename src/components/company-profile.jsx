@@ -57,7 +57,7 @@ export default function CompanyProfile() {
                   <div className="company-profile-person-information">
                     <h2>
                       <a href={`../people/${person.id}`}>{person.name}</a> (
-                      <a href={`mailto: ${person.email}`}>{person.email})</a>
+                      <a href={`mailto: ${person.email}`}>{person.email}</a>)
                     </h2>
                     <p>{person.title}</p>
                   </div>

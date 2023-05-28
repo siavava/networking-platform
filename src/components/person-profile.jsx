@@ -3,7 +3,7 @@ import ReactMarkdown from 'react-markdown';
 import { useSelector, useDispatch } from 'react-redux';
 import '../person-profile.style.scss';
 import { useLocation } from 'react-router-dom';
-import { getPerson } from '../store/actions';
+import { getPerson, getAssociatedTasks } from '../store/actions';
 import CreateTaskModal from './create-task-modal';
 
 export default function PersonProfile() {
@@ -17,26 +17,11 @@ export default function PersonProfile() {
 
   useEffect(() => {
     dispatch(getPerson(personId));
-  }, [dispatch, personId]);
+    dispatch(getAssociatedTasks(personId, 'people'));
+  }, [dispatch, personId, isModalOpen]);
 
   const person = useSelector((state) => state.person);
-  /*
-  const person = {
-    fname: 'Chad',
-    lname: 'III',
-    photo: 'https://source.unsplash.com/random/200x200/?img=1',
-    company: 'Meta',
-    email: 'giga.chad@dartmouth.edu',
-    connectionType: 'Homie',
-    notes: '# Notes About Chad III:\n- Chad works at meta\n- Loves beer\n- Enjoys a solid workout',
-  };
-  */
-
-  const tasks = [
-    { id: 0, task: 'Follow up email with my homie' },
-    { id: 1, task: 'Send him my resume!' },
-    { id: 2, task: 'Set up call' },
-  ];
+  const tasks = useSelector((state) => state.task.all);
 
   const emails = [
     { id: 0, title: 'Meeting?', details: 'When do you think you have time to meet?...' },
@@ -63,9 +48,9 @@ export default function PersonProfile() {
         <div className="todos">
           <h1>Tasks/To Dos</h1>
           <button type="submit" className="add-tasks" onClick={() => setIsModalOpen(true)}>+</button>
-          {tasks.map((e) => (
-            <div className="task" key={e.id}>{e.task}</div>
-          ))}
+          {tasks && (tasks.map((e) => (
+            <div className="task" key={e.id}>{e.dueDate.split('T')[0]} - {e.title}</div>
+          )))}
         </div>
       </div>
 
