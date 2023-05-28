@@ -13,8 +13,8 @@ const initialState = {
 const UserReducer = produce((draftState, action = {}) => {
   switch (action.type) {
     case ActionTypes.AUTH.AUTH_USER:
-      draftState.first_name = action.payload.first_name;
-      draftState.last_name = action.payload.last_name;
+      draftState.firstName = action.payload.firstName;
+      draftState.lastName = action.payload.lastName;
       draftState.id = action.payload.id;
       draftState.email = action.payload.email;
       draftState.authenticated = true;

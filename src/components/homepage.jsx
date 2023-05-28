@@ -14,14 +14,14 @@ export default function HomePage() {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [tabKey, setTabKey] = useState('today');
-  const user = { name: 'Chad IV' };
 
   useEffect(() => {
     getTasks()(dispatch);
   }, [dispatch]);
 
   const tasks = useSelector((state) => state.task.all) || [];
-
+  const user = useSelector((state) => state.user) || {};
+  console.log(user);
   const today = new Date().getDate();
   const todayTasks = tasks.filter((task) => new Date(task.dueDate).getDate()
     === today);
@@ -46,7 +46,7 @@ export default function HomePage() {
     <div className="homepage">
       <div className="main-panel">
         <div className="homepage-title">
-          { `Welcome back, ${user.name || 'anonymous user'}!` }
+          { `Welcome back, ${`${user.firstName} ${user.lastName}` || 'anonymous user'}!` }
         </div>
         <div className="homepage-tasks">
           <div className="homepage-tasks-overview">
