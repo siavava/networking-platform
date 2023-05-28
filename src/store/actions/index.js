@@ -201,6 +201,17 @@ export function updateTask(taskFields, id) {
   };
 }
 
+export function getAssociatedTasks(idString, associationType) {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`${ROOT_URL}/api/tasks/?${associationType}=${idString}`, { headers: { authorization: localStorage.getItem('token') } });
+      dispatch({ type: ActionTypes.TASK.GET_TASKS, payload: response.data });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+}
+
 export function createNote(noteFields) {
   const fields = {
     title: noteFields.title,
