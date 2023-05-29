@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import '../homepage.style.scss';
 import CreateTaskModal from './create-task-modal';
 import {
-  getTasks,
+  getTasks, getPeopleById,
 } from '../store/actions';
 
 export default function HomePage() {
@@ -20,8 +20,31 @@ export default function HomePage() {
   }, [dispatch]);
 
   const tasks = useSelector((state) => state.task.all) || [];
-  const user = useSelector((state) => state.user) || {};
-  console.log(user);
+  const associatedPeopleList = useSelector((state) => state.person.people) || [];
+  const associatedPeopleDict = {};
+  const name = localStorage.getItem('name') || 'anonymous user';
+
+  useEffect(() => {
+    const idStr = '';
+    const getAssociatedPerson = async (task) => {
+      if (task.associatedPerson) {
+        if (idStr !== '') {
+          idStr.concat(`,${task.associatedPerson}`);
+        } else {
+          idStr.concat(task.associatedPerson);
+        }
+      }
+    };
+    tasks.forEach(getAssociatedPerson);
+    getPeopleById(idStr)(dispatch);
+  }, [dispatch, tasks]);
+
+  if (associatedPeopleList) {
+    associatedPeopleList.forEach((person) => {
+      associatedPeopleDict[person.id] = person.name;
+    });
+  }
+
   const today = new Date().getDate();
   const todayTasks = tasks.filter((task) => new Date(task.dueDate).getDate()
     === today);
@@ -46,7 +69,10 @@ export default function HomePage() {
     <div className="homepage">
       <div className="main-panel">
         <div className="homepage-title">
-          { `Welcome back, ${`${user.firstName} ${user.lastName}` || 'anonymous user'}!` }
+          { `Welcome back, ${`${name.split(' ')[0]}` || 'anonymous user'}!` }
+        </div>
+        <div className="homepage-subtitle">
+          Are you ready for today?
         </div>
         <div className="homepage-tasks">
           <div className="homepage-tasks-overview">
@@ -62,28 +88,30 @@ export default function HomePage() {
               <Tab eventKey="today" title={`Today's Tasks (${todayTasks.length})`} />
               <Tab eventKey="upcoming" title={`Upcoming Tasks (${upcomingTasks.length})`} />
             </Tabs>
-            <button className="create-task-button" type="submit" onClick={openModal}>+</button>
           </div>
           <table className="homepage-tasks-table">
             <thead>
               <tr className="homepage-tasks-table-row table-header">
-                <th className="homepage-tasks-table-cell header"> Due Date </th>
-                <th className="homepage-tasks-table-cell header"> Task </th>
-                <th className="homepage-tasks-table-cell header"> Person </th>
+                <th className="homepage-tasks-table-cell header"> DUE DATE </th>
+                <th className="homepage-tasks-table-cell header"> TASK </th>
+                <th className="homepage-tasks-table-cell header"> PERSON </th>
               </tr>
             </thead>
             <tbody>
 
               {keyTaskVar[tabKey].map((task, index) => (
                 // eslint-disable-next-line react/no-array-index-key
-                <tr className="homepage-tasks-table-row" key={index}>
+                <tr className="homepage-tasks-table-row table-body" key={index}>
                   <td className="homepage-tasks-table-cell">{task.dueDate.split('T')[0]}</td>
                   <td className="homepage-tasks-table-cell">{task.title}</td>
-                  <td className="homepage-tasks-table-cell">{task.associatedPerson}</td>
+                  <td className="homepage-tasks-table-cell">
+                    <a href={`people/${task.associatedPerson}`}>{associatedPeopleDict[task.associatedPerson]}</a>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
+          <button className="create-task-button" type="submit" onClick={openModal}>+ Add New Task</button>
         </div>
       </div>
 

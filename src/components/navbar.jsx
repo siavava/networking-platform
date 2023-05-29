@@ -11,8 +11,7 @@ export default function Nav() {
           <li><NavLink to="/">Goloco</NavLink></li>
 
           <div className="inner-navbar">
-            <li><NavLink to="/signup">Sign Up</NavLink></li>
-            <li><NavLink to="/login">Log In</NavLink></li>
+            <li className="authbtns"><NavLink to="/login">Log In</NavLink></li>
           </div>
         </ul>
       </nav>
@@ -22,14 +21,13 @@ export default function Nav() {
     <nav>
       <ul className="navbar">
         <li>
-          <img src="../src/img/logo.png" alt="Logo" />
-          <NavLink to="/homepage" />
+          <NavLink to="/home">goloco</NavLink>
         </li>
 
         <div className="inner-navbar">
-          <li><NavLink to="/companies">Companies</NavLink></li>
-          <li><NavLink to="/people">People</NavLink></li>
-          <li><NavLink to="/signout">Sign Out</NavLink></li>
+          <li><NavLink to="/companies">COMPANIES</NavLink></li>
+          <li><NavLink to="/people">PEOPLE</NavLink></li>
+          <li className="authbtns"><NavLink to="/signout">SIGNOUT</NavLink></li>
         </div>
       </ul>
     </nav>

@@ -336,6 +336,17 @@ export function getAssociatedPeople(idString) {
   };
 }
 
+export function getPeopleById(idString) {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`${ROOT_URL}/api/people/?id=${idString}`, { headers: { authorization: localStorage.getItem('token') } });
+      dispatch({ type: ActionTypes.PERSON.GET_PEOPLE, payload: response.data });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+}
+
 export function getPeople() {
   return async (dispatch) => {
     try {
@@ -399,7 +410,8 @@ export function signup({
       });
       dispatch({ type: ActionTypes.AUTH.AUTH_USER, payload: response.data });
       localStorage.setItem('token', response.data.token);
-      navigate('/homepage');
+      localStorage.setItem('name', `${response.data.firstname} ${response.data.lastname}`);
+      navigate('/home');
     } catch (error) {
       console.error(error);
     }
@@ -416,7 +428,8 @@ export function signin({
       });
       dispatch({ type: ActionTypes.AUTH.AUTH_USER, payload: response.data });
       localStorage.setItem('token', response.data.token);
-      navigate('/homepage');
+      localStorage.setItem('name', `${response.data.firstName} ${response.data.lastName}`);
+      navigate('/home');
     } catch (error) {
       console.error(error);
     }
@@ -426,6 +439,7 @@ export function signin({
 export function signout() {
   return async (dispatch, navigate) => {
     localStorage.removeItem('token');
+    localStorage.removeItem('name');
     dispatch({ type: ActionTypes.AUTH.DEAUTH_USER });
     navigate('/');
   };
