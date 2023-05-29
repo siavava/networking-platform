@@ -21,7 +21,7 @@ export default function Nav() {
     <nav>
       <ul className="navbar">
         <li>
-          <NavLink to="/homepage">goloco</NavLink>
+          <NavLink to="/home">goloco</NavLink>
         </li>
 
         <div className="inner-navbar">

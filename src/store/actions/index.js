@@ -399,7 +399,8 @@ export function signup({
       });
       dispatch({ type: ActionTypes.AUTH.AUTH_USER, payload: response.data });
       localStorage.setItem('token', response.data.token);
-      navigate('/homepage');
+      localStorage.setItem('name', `${response.data.firstname} ${response.data.lastname}`);
+      navigate('/home');
     } catch (error) {
       console.error(error);
     }
@@ -416,7 +417,8 @@ export function signin({
       });
       dispatch({ type: ActionTypes.AUTH.AUTH_USER, payload: response.data });
       localStorage.setItem('token', response.data.token);
-      navigate('/homepage');
+      localStorage.setItem('name', `${response.data.firstName} ${response.data.lastName}`);
+      navigate('/home');
     } catch (error) {
       console.error(error);
     }
@@ -426,6 +428,7 @@ export function signin({
 export function signout() {
   return async (dispatch, navigate) => {
     localStorage.removeItem('token');
+    localStorage.removeItem('name');
     dispatch({ type: ActionTypes.AUTH.DEAUTH_USER });
     navigate('/');
   };

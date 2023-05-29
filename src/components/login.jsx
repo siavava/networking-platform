@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
@@ -10,6 +10,12 @@ export default function LogIn() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      navigate('/home');
+    }
+  }, []);
 
   const handleSubmit = () => {
     const validate = () => email !== '' && password !== '';

@@ -21,6 +21,7 @@ export default function HomePage() {
 
   const tasks = useSelector((state) => state.task.all) || [];
   const user = useSelector((state) => state.user) || {};
+  const name = localStorage.getItem('name') || 'anonymous user';
 
   const today = new Date().getDate();
   const todayTasks = tasks.filter((task) => new Date(task.dueDate).getDate()
@@ -46,7 +47,7 @@ export default function HomePage() {
     <div className="homepage">
       <div className="main-panel">
         <div className="homepage-title">
-          { `Welcome back, ${`${user.firstName} ${user.lastName}` || 'anonymous user'}!` }
+          { `Welcome back, ${`${name.split(' ')[0]}` || 'anonymous user'}!` }
         </div>
         <div className="homepage-subtitle">
           Are you ready for today?

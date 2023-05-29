@@ -21,7 +21,7 @@ function App() {
       <div>
         <NavigationBar />
         <Routes>
-          <Route path="/homepage" element={<RestrictedPage restrictedPage={HomePage} />} />
+          <Route path="/home" element={<RestrictedPage restrictedPage={HomePage} />} />
           <Route path="/" element={<Landing />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<LogIn />} />
