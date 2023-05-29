@@ -4,19 +4,22 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 import '../create-person-modal.style.scss';
-import { getCompanies, createPerson } from '../store/actions';
+import { getCompanies, createPerson, updatePerson } from '../store/actions';
 
 export default function CreatePersonModal(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [selectedCompany, setSelectedCompany] = useState(null);
-  const [selectedTags, setSelectedTags] = useState([]);
-  const [newName, setNewName] = useState('');
-  const [newTitle, setNewTitle] = useState('');
-  const [newEmail, setNewEmail] = useState('');
-  const [newlinkedIn, setNewlinkedIn] = useState('');
-  const [newDescription, setNewDescription] = useState('');
-  const [newImageUrl, setNewImageUrl] = useState('');
+  const { personValue, isEditing } = props;
+  const [selectedCompany, setSelectedCompany] = useState(personValue.associatedCompany || null);
+  const [selectedTags, setSelectedTags] = useState(personValue.tags || []);
+  const [newName, setNewName] = useState(personValue.name || '');
+  const [newTitle, setNewTitle] = useState(personValue.title || '');
+  const [newEmail, setNewEmail] = useState(personValue.email || '');
+  const [newlinkedIn, setNewlinkedIn] = useState(personValue.linkedIn || '');
+  const [newDescription, setNewDescription] = useState(personValue.description || '');
+  const [newImageUrl, setNewImageUrl] = useState(personValue.imageUrl || '');
+
+  console.log(`personValue: ${Object.keys(personValue)}`);
 
   const handleOnChange = (event) => {
     switch (event.target.id) {
@@ -58,7 +61,11 @@ export default function CreatePersonModal(props) {
       fields.associatedCompany = selectedCompany.value;
     }
 
-    createPerson(fields)(dispatch, navigate);
+    if (isEditing) {
+      updatePerson(personValue.id, fields)(dispatch, navigate);
+    } else {
+      createPerson(fields)(dispatch, navigate);
+    }
 
     // eslint-disable-next-line no-use-before-define
 
@@ -137,6 +144,7 @@ export default function CreatePersonModal(props) {
               options={peopleTagOptions}
               value={selectedTags}
               onChange={setSelectedTags}
+              key={selectedTags}
             />
           </label>
           <br />

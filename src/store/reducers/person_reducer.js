@@ -5,6 +5,7 @@ import { produce } from 'immer';
 import { ActionTypes } from '../actions';
 
 const initialState = {
+  id: null,
   name: '',
   title: '',
   imageUrl: '',
