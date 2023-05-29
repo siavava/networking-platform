@@ -1,15 +1,15 @@
 $header: #A4BCA1;
-$background: #F6F8F5;
+$background: linear-gradient(90deg, #68b3d3 0%, #6e7fc5 100%);
 $text: #000000;
 
 body, html {
-  font-family: "Roboto", sans-serif;
+  font-family: "Proxima Nova", sans-serif;
   height: 100%;
-  background-color: $background;
+  background: $background;
 }
 
 .homepage {
-  background-color: $background;
+  background: $background;
   width: 100%;
   height: 100%;
   margin-top: auto;
@@ -21,55 +21,67 @@ body, html {
   place-content: center;
 
   .main-panel {
-    background-color: #FFFFFF;
     width: 60%;
     height: 650px;
     padding: 20px;
 
     .homepage-title {
-      font-size: 35px;
+      font-size: 5rem;
       font-weight: bold;
       margin-top: 10px;
+      margin-bottom: 10px;
+      text-align: center;
+      color: white;
+    }
+
+    .homepage-subtitle {
+      font-size: 2rem;
+      font-style: italic;
+      margin-top: 10px;
       margin-bottom: 50px;
-      background: #FFFFFF;
+      text-align: center;
+      color: white;
     }
 
     .homepage-tasks {
       display: flex;
       flex-direction: column;
       gap: 20px;
-      background-color: #F6F6F6;
 
       .homepage-tasks-overview {
         display: flex;
         flex-direction: row;
         justify-content: center;
         width: 100%;
-        background-color: #D6E8D4;
+        font-weight: bold;
+        font-size: 1.2rem;
 
         ul {
-          width: 80%;
+          width: 100%;
+          padding-bottom: 10px;
           .nav-item {
             display: flex;
-            background-color: #D6E8D4;
-            padding: 10px;
+            border-style: solid;
+            border-width: 1px;
+            border-radius: 25px;
+            margin: 5px;
+            padding: 5px;
+            border-color: white;
             flex-direction: column;
-          }
-        }
 
-        .create-task-button {
-          background-color: #D6E8D4;
-          color: $text;
-          width: 10%;
-          font-size: 20px;
-          font-weight: bold;
-          padding: 5px;
-          border: none;
-          cursor: pointer;
-        }
-        
-        .create-task-button:hover {
-          background-color: darken($header, 10%);
+            button {
+              color: white;
+            }
+          }
+          .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.305);
+            color: black;
+            border-width: 1px;
+            border-radius: 25px;
+          }
+          .nav-link:hover {
+            border-radius: 25px;
+          }
         }
       }
 
@@ -94,18 +106,25 @@ body, html {
           flex-direction: row;
           gap: 20px;
           width: 100%;
-          padding: 20px;
+          padding: 10px;
           margin-bottom: 1px;
-          background: #FFFFFF;
-          font-size: 14px;
+          font-size: 1.1rem;
           text-align: left;
+          text-align: center;
 
           &.table-header {
-            background: #F6F6F6;
             font-weight: bold;
-            font-size: 18px;
+            font-size: 1.3rem;
+            padding: 0px;
           }
 
+          &.table-body {
+            background-color: rgba(255, 255, 255, 0.563);
+            border-radius: 20px;
+            margin-bottom: 10px;
+            padding: 5px;
+          }
+          
           .homepage-tasks-table-cell {
             width: 30%;
             margin: 0 10px;
@@ -113,6 +132,14 @@ body, html {
             position: static;
           }
         }
+      }
+      .create-task-button {
+        background-color: rgba(255, 255, 255, 0.563);
+        border-radius: 20px;
+        border-style: none;
+        padding: 5px;
+        width: 20%;
+        align-self: center;
       }
     }
   }

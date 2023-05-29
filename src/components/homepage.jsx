@@ -21,7 +21,7 @@ export default function HomePage() {
 
   const tasks = useSelector((state) => state.task.all) || [];
   const user = useSelector((state) => state.user) || {};
-  console.log(user);
+
   const today = new Date().getDate();
   const todayTasks = tasks.filter((task) => new Date(task.dueDate).getDate()
     === today);
@@ -48,6 +48,9 @@ export default function HomePage() {
         <div className="homepage-title">
           { `Welcome back, ${`${user.firstName} ${user.lastName}` || 'anonymous user'}!` }
         </div>
+        <div className="homepage-subtitle">
+          Are you ready for today?
+        </div>
         <div className="homepage-tasks">
           <div className="homepage-tasks-overview">
             <Tabs
@@ -62,21 +65,20 @@ export default function HomePage() {
               <Tab eventKey="today" title={`Today's Tasks (${todayTasks.length})`} />
               <Tab eventKey="upcoming" title={`Upcoming Tasks (${upcomingTasks.length})`} />
             </Tabs>
-            <button className="create-task-button" type="submit" onClick={openModal}>+</button>
           </div>
           <table className="homepage-tasks-table">
             <thead>
               <tr className="homepage-tasks-table-row table-header">
-                <th className="homepage-tasks-table-cell header"> Due Date </th>
-                <th className="homepage-tasks-table-cell header"> Task </th>
-                <th className="homepage-tasks-table-cell header"> Person </th>
+                <th className="homepage-tasks-table-cell header"> DUE DATE </th>
+                <th className="homepage-tasks-table-cell header"> TASK </th>
+                <th className="homepage-tasks-table-cell header"> PERSON </th>
               </tr>
             </thead>
             <tbody>
 
               {keyTaskVar[tabKey].map((task, index) => (
                 // eslint-disable-next-line react/no-array-index-key
-                <tr className="homepage-tasks-table-row" key={index}>
+                <tr className="homepage-tasks-table-row table-body" key={index}>
                   <td className="homepage-tasks-table-cell">{task.dueDate.split('T')[0]}</td>
                   <td className="homepage-tasks-table-cell">{task.title}</td>
                   <td className="homepage-tasks-table-cell">{task.associatedPerson}</td>
@@ -84,6 +86,7 @@ export default function HomePage() {
               ))}
             </tbody>
           </table>
+          <button className="create-task-button" type="submit" onClick={openModal}>+ Add New Task</button>
         </div>
       </div>
 
