@@ -10,8 +10,8 @@ export default function CreatePersonModal(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { personValue, isEditing } = props;
-  const [selectedCompany, setSelectedCompany] = useState(personValue.associatedCompany || null);
-  const [selectedTags, setSelectedTags] = useState(personValue.tags || []);
+  const [selectedCompany, setSelectedCompany] = useState(null);
+  const [selectedTags, setSelectedTags] = useState([]);
   const [newName, setNewName] = useState(personValue.name || '');
   const [newTitle, setNewTitle] = useState(personValue.title || '');
   const [newEmail, setNewEmail] = useState(personValue.email || '');
@@ -162,7 +162,7 @@ export default function CreatePersonModal(props) {
         </label>
         <br />
 
-        <input id="submit" type="button" value="Create" onClick={handleSubmit} />
+        <input className="save-button" id="submit" type="button" value={isEditing ? 'Save' : 'Create'} onClick={handleSubmit} />
       </div>
     </div>
   );

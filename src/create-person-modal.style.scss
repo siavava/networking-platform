@@ -21,6 +21,8 @@ $text: #000000;
   max-width: 400px;
   max-height: 600px;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 
   .close {
     position: absolute;
@@ -55,6 +57,11 @@ $text: #000000;
     padding: 10px 20px;
     font-weight: bold;
     cursor: pointer;
-    margin-left: 120px;
+  }
+
+  .save-button {
+    width: 70%;
+    place-self: center;
+    margin: 0;
   }
 }
