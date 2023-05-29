@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  BrowserRouter, Routes, Route, useParams,
+  BrowserRouter, Routes, Route,
 } from 'react-router-dom';
 
 import Companies from './companies';
@@ -13,6 +13,7 @@ import NavigationBar from './navbar';
 import PersonProfile from './person-profile';
 import LogIn from './login';
 import Signout from './signout';
+import RestrictedPage from './restricted_pages';
 
 function App() {
   return (
@@ -20,26 +21,20 @@ function App() {
       <div>
         <NavigationBar />
         <Routes>
-          <Route path="/homepage" element={<HomePage />} />
+          <Route path="/homepage" element={<RestrictedPage restrictedPage={HomePage} />} />
           <Route path="/" element={<Landing />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<LogIn />} />
-          <Route path="/test/:id" element={<Test />} />
-          <Route path="/companies" element={<Companies />} />
-          <Route path="/companies/:companyId" element={<CompanyProfile />} />
-          <Route path="/people" element={<People />} />
-          <Route path="/people/:id" element={<PersonProfile />} />
+          <Route path="/companies" element={<RestrictedPage restrictedPage={Companies} />} />
+          <Route path="/companies/:companyId" element={<RestrictedPage restrictedPage={CompanyProfile} />} />
+          <Route path="/people" element={<RestrictedPage restrictedPage={People} />} />
+          <Route path="/people/:id" element={<RestrictedPage restrictedPage={PersonProfile} />} />
           <Route path="/signout" element={<Signout />} />
           <Route path="*" element={<FallBack />} />
         </Routes>
       </div>
     </BrowserRouter>
   );
-}
-
-function Test() {
-  const { id } = useParams();
-  return <div> ID: {id} </div>;
 }
 
 function FallBack() {
