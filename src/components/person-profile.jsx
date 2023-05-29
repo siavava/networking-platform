@@ -27,12 +27,11 @@ export default function PersonProfile() {
     dispatch(getPerson(personId));
     dispatch(getAssociatedTasks(personId, 'people'));
     dispatch(getAssociatedNotes(personId, 'people'));
-  }, [dispatch, personId, isTaskModalOpen], isNoteModalOpen);
+  }, [dispatch, personId, isTaskModalOpen, isNoteModalOpen]);
 
   const person = useSelector((state) => state.person);
   const tasks = useSelector((state) => state.task.all);
   const notes = useSelector((state) => state.note.all);
-  console.log(notes);
 
   const emails = [
     { id: 0, title: 'Meeting?', details: 'When do you think you have time to meet?...' },
