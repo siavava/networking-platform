@@ -6,6 +6,7 @@ import DatePicker from 'react-datepicker';
 import Select from 'react-select';
 import { createTask, getCompanies, getPeople } from '../store/actions';
 import 'react-datepicker/dist/react-datepicker.css';
+import '../create-task-modal.style.scss';
 
 export default function CreateTaskModal(props) {
   // const [isModalOpen, setIsModalOpen] = useState(false);
@@ -29,6 +30,13 @@ export default function CreateTaskModal(props) {
         break;
       default:
     }
+  };
+
+  const infoFilled = () => {
+    if (newTask !== '' && dueDate) {
+      return false;
+    }
+    return true;
   };
 
   useEffect(() => {
@@ -62,22 +70,25 @@ export default function CreateTaskModal(props) {
 
   return (
     <div>
-      <div className="modal">
-        <div className="modal-content">
+      <div className="task-modal">
+        <div className="task-modal-content">
           <button className="close" type="submit" onClick={closeModal}>x</button>
-          <label htmlFor="task-item">
-            Task Title:
-            <input id="task-item" type="text" onChange={handleOnChange} value={newTask} />
-          </label>
-          <br />
 
-          <label htmlFor="task-item">
-            Due Date:
-            <DatePicker selected={dueDate} onChange={(date) => setDueDate(date)} />
-          </label>
-          <br />
+          <div className="modal-fill">
+            <label htmlFor="task-item">
+              Task Title:
+              <input id="task-item" type="text" onChange={handleOnChange} value={newTask} />
+            </label>
+          </div>
 
-          <div>
+          <div className="modal-fill">
+            <label htmlFor="task-item">
+              Due Date:
+              <DatePicker selected={dueDate} onChange={(date) => setDueDate(date)} />
+            </label>
+          </div>
+
+          <div className="modal-fill">
             <label htmlFor="task-people">
               Associated People:
               <Select
@@ -87,10 +98,9 @@ export default function CreateTaskModal(props) {
                 onChange={setSelectedPerson}
               />
             </label>
-            <br />
           </div>
 
-          <div>
+          <div className="modal-fill">
             <label htmlFor="task-companies">
               <div>Associated Companies:</div>
               <Select
@@ -100,10 +110,10 @@ export default function CreateTaskModal(props) {
                 onChange={setSelectedCompany}
               />
             </label>
-            <br />
           </div>
-
-          <input id="submit" type="button" value="Create" onClick={handleSubmit} />
+          <div className="submit-btn">
+            <button type="button" onClick={handleSubmit} disabled={infoFilled()}>Create</button>
+          </div>
         </div>
       </div>
     </div>

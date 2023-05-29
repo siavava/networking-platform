@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import '../homepage.style.scss';
 import CreateTaskModal from './create-task-modal';
 import {
-  getTasks,
+  getTasks, getPeopleById,
 } from '../store/actions';
 
 export default function HomePage() {
@@ -20,8 +20,30 @@ export default function HomePage() {
   }, [dispatch]);
 
   const tasks = useSelector((state) => state.task.all) || [];
-  const user = useSelector((state) => state.user) || {};
+  const associatedPeopleList = useSelector((state) => state.person.people) || [];
+  const associatedPeopleDict = {};
   const name = localStorage.getItem('name') || 'anonymous user';
+
+  useEffect(() => {
+    const idStr = '';
+    const getAssociatedPerson = async (task) => {
+      if (task.associatedPerson) {
+        if (idStr !== '') {
+          idStr.concat(`,${task.associatedPerson}`);
+        } else {
+          idStr.concat(task.associatedPerson);
+        }
+      }
+    };
+    tasks.forEach(getAssociatedPerson);
+    getPeopleById(idStr)(dispatch);
+  }, [dispatch, tasks]);
+
+  if (associatedPeopleList) {
+    associatedPeopleList.forEach((person) => {
+      associatedPeopleDict[person.id] = person.name;
+    });
+  }
 
   const today = new Date().getDate();
   const todayTasks = tasks.filter((task) => new Date(task.dueDate).getDate()
@@ -82,7 +104,9 @@ export default function HomePage() {
                 <tr className="homepage-tasks-table-row table-body" key={index}>
                   <td className="homepage-tasks-table-cell">{task.dueDate.split('T')[0]}</td>
                   <td className="homepage-tasks-table-cell">{task.title}</td>
-                  <td className="homepage-tasks-table-cell">{task.associatedPerson}</td>
+                  <td className="homepage-tasks-table-cell">
+                    <a href={`people/${task.associatedPerson}`}>{associatedPeopleDict[task.associatedPerson]}</a>
+                  </td>
                 </tr>
               ))}
             </tbody>

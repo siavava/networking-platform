@@ -336,6 +336,17 @@ export function getAssociatedPeople(idString) {
   };
 }
 
+export function getPeopleById(idString) {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`${ROOT_URL}/api/people/?id=${idString}`, { headers: { authorization: localStorage.getItem('token') } });
+      dispatch({ type: ActionTypes.PERSON.GET_PEOPLE, payload: response.data });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+}
+
 export function getPeople() {
   return async (dispatch) => {
     try {
