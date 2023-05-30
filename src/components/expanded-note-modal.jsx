@@ -22,7 +22,12 @@ export default function ExpandNoteView() {
   return (
     <div className="expanded-note-modal">
       <div className="expanded-note-modal-content">
-        <h1>{note.title}</h1>
+        <div className="content-header">
+          <h1>{note.title}</h1>
+          <button type="button" id="edit">
+            <i className="material-icons" id="svg_options">edit</i>
+          </button>
+        </div>
         <NavLink to={pathname.split('notes')[0] || '/home'} className="close-button">x</NavLink>
         <br />
         <div className="content-body">
