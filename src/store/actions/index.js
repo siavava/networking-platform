@@ -276,22 +276,20 @@ export function deleteNote(id) {
   };
 }
 
-export function updateNote(noteFields, id) {
+export function updateNote(id, noteFields) {
   const fields = {
     title: noteFields.title,
     content: noteFields.content,
     tags: noteFields.tags,
     associatedCompany: noteFields.associatedCompany,
     associatedPerson: noteFields.associatedPerson,
-    author: noteFields.author,
   };
-
   return async (dispatch) => {
     try {
-      await axios.put(`${ROOT_URL}/api/notes/${id}`, fields, { headers: { authorization: localStorage.getItem('token') } });
+      const response = await axios.put(`${ROOT_URL}/api/notes/${id}`, fields, { headers: { authorization: localStorage.getItem('token') } });
       dispatch({
         type: ActionTypes.NOTE.UPDATE_NOTE,
-        payload: fields,
+        payload: response.data,
       });
     } catch (error) {
       console.error(error);

@@ -20,7 +20,7 @@ export default function Nav() {
   return (
     <nav>
       <ul className="navbar">
-        <li>
+        <li className="goloco">
           <NavLink to="/home">goloco</NavLink>
         </li>
 
