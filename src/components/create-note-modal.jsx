@@ -1,19 +1,34 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import MDEditor from '@uiw/react-md-editor';
 import Select from 'react-select';
-import { createNote, getCompanies, getPeople } from '../store/actions';
+import {
+  createNote,
+  updateNote,
+  getCompanies,
+  getPeople,
+} from '../store/actions';
 import '../create-note-modal.style.scss';
 
 export default function CreateNoteModal(props) {
   // const [isModalOpen, setIsModalOpen] = useState(false);
+  const { pathname } = useLocation();
+  const noteId = pathname.split('/notes/')[1];
   const [newNote, setNewNote] = useState('');
   const [content, setContent] = useState('');
-  const { closeModal, personValue, companyValue } = props;
+  const {
+    closeModal,
+    noteValue,
+    personValue,
+    companyValue,
+    isEditing,
+  } = props;
   const [selectedPerson, setSelectedPerson] = useState(null);
   const [selectedCompany, setSelectedCompany] = useState(null);
+  const [selectedTags, setSelectedTags] = useState([]);
   // const [peopleTagOptions, setPeopleTagOptions] = useState([]);
 
   const companies = useSelector((state) => state.company.companies) || [];
@@ -47,6 +62,17 @@ export default function CreateNoteModal(props) {
     if (personValue) {
       setSelectedPerson(props.personValue);
     }
+    if (noteValue) {
+      if (noteValue.title) {
+        setNewNote(noteValue.title);
+      }
+      if (noteValue.content) {
+        setContent(noteValue.content);
+      }
+      if (noteValue.tags) {
+        setSelectedTags(noteValue.tags.map((tag) => ({ value: tag, label: tag })));
+      }
+    }
   }, []);
 
   const handleSubmit = () => {
@@ -63,6 +89,11 @@ export default function CreateNoteModal(props) {
       fields.associatedCompany = selectedCompany.value;
     }
 
+    if (isEditing) {
+      updateNote(noteId, fields)(dispatch);
+    } else {
+      createNote(fields)(dispatch);
+    }
     createNote(fields)(dispatch);
     closeModal();
   };

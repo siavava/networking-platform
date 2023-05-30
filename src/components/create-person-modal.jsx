@@ -9,17 +9,20 @@ import { getCompanies, createPerson, updatePerson } from '../store/actions';
 export default function CreatePersonModal(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { personId, personValue, isEditing } = props;
+  const {
+    personId,
+    personValue,
+    companyValue,
+    isEditing,
+  } = props;
   const [selectedCompany, setSelectedCompany] = useState(null);
   const [selectedTags, setSelectedTags] = useState([]);
-  const [newName, setNewName] = useState(personValue.name || '');
-  const [newTitle, setNewTitle] = useState(personValue.title || '');
-  const [newEmail, setNewEmail] = useState(personValue.email || '');
-  const [newlinkedIn, setNewlinkedIn] = useState(personValue.linkedIn || '');
-  const [newDescription, setNewDescription] = useState(personValue.description || '');
-  const [newImageUrl, setNewImageUrl] = useState(personValue.imageUrl || '');
-
-  console.log(`personValue: ${Object.keys(personValue)}`);
+  const [newName, setNewName] = useState('');
+  const [newTitle, setNewTitle] = useState('');
+  const [newEmail, setNewEmail] = useState('');
+  const [newlinkedIn, setNewlinkedIn] = useState('');
+  const [newDescription, setNewDescription] = useState('');
+  const [newImageUrl, setNewImageUrl] = useState('');
 
   const handleOnChange = (event) => {
     switch (event.target.id) {
@@ -77,8 +80,31 @@ export default function CreatePersonModal(props) {
 
   useEffect(() => {
     getCompanies()(dispatch);
-    if (props.companyValue) {
-      setSelectedCompany(props.companyValue);
+    if (companyValue) {
+      setSelectedCompany(companyValue);
+    }
+    if (personValue) {
+      if (personValue.name) {
+        setNewName(personValue.name);
+      }
+      if (personValue.title) {
+        setNewTitle(personValue.title);
+      }
+      if (personValue.email) {
+        setNewEmail(personValue.email);
+      }
+      if (personValue.linkedIn) {
+        setNewlinkedIn(personValue.linkedIn);
+      }
+      if (personValue.description) {
+        setNewDescription(personValue.description);
+      }
+      if (personValue.imageUrl) {
+        setNewImageUrl(personValue.imageUrl);
+      }
+      if (personValue.tags) {
+        setSelectedTags(personValue.tags.map((tag) => ({ value: tag, label: tag })));
+      }
     }
   }, []);
 

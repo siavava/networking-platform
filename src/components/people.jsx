@@ -94,6 +94,7 @@ export default function People() {
       {isModalOpen && (
         <CreatePersonModal
           closeModal={closeModal}
+          personValue={null}
         />
       )}
     </div>
