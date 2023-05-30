@@ -31,6 +31,13 @@ export default function CreateNoteModal(props) {
     }
   };
 
+  const infoFilled = () => {
+    if (newNote !== '' && content) {
+      return false;
+    }
+    return true;
+  };
+
   useEffect(() => {
     getPeople()(dispatch);
     getCompanies()(dispatch);
@@ -62,8 +69,8 @@ export default function CreateNoteModal(props) {
 
   return (
     <div>
-      <div className="modal">
-        <div className="modal-content">
+      <div className="note-modal">
+        <div className="note-modal-content">
           <button className="close" type="submit" onClick={closeModal}>x</button>
           <div className="note-selects">
             <label htmlFor="task-item">
@@ -102,7 +109,9 @@ export default function CreateNoteModal(props) {
             />
           </div>
 
-          <input id="submit" type="button" value="Create" onClick={handleSubmit} />
+          <div className="submit-btn">
+            <button type="button" onClick={handleSubmit} disabled={infoFilled()}>Create</button>
+          </div>
         </div>
       </div>
     </div>

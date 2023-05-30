@@ -9,7 +9,7 @@ import { getCompanies, createPerson, updatePerson } from '../store/actions';
 export default function CreatePersonModal(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { personValue, isEditing } = props;
+  const { personId, personValue, isEditing } = props;
   const [selectedCompany, setSelectedCompany] = useState(null);
   const [selectedTags, setSelectedTags] = useState([]);
   const [newName, setNewName] = useState(personValue.name || '');
@@ -51,7 +51,7 @@ export default function CreatePersonModal(props) {
       name: newName,
       title: newTitle,
       email: newEmail,
-      linkedIn: newlinkedIn,
+      linkedin: newlinkedIn,
       description: newDescription,
       imageUrl: newImageUrl,
       tags: selectedTags.map((tag) => tag.value),
@@ -62,7 +62,7 @@ export default function CreatePersonModal(props) {
     }
 
     if (isEditing) {
-      updatePerson(personValue.id, fields)(dispatch, navigate);
+      updatePerson(personId, fields)(dispatch, navigate);
     } else {
       createPerson(fields)(dispatch, navigate);
     }
