@@ -371,10 +371,10 @@ export function deletePerson(personId) {
   };
 }
 
-export function updatePerson(updates) {
+export function updatePerson(personId, updatedFields) {
   return async (dispatch) => {
     try {
-      const response = await axios.put(`${ROOT_URL}/api/people/${updates.id}`, updates, { headers: { authorization: localStorage.getItem('token') } });
+      const response = await axios.put(`${ROOT_URL}/api/people/${personId}`, updatedFields, { headers: { authorization: localStorage.getItem('token') } });
       dispatch({ type: ActionTypes.PERSON.UPDATE_PERSON, payload: response.data });
     } catch (error) {
       console.error(error);

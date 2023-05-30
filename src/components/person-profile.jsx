@@ -37,8 +37,6 @@ export default function PersonProfile() {
   const tasks = useSelector((state) => state.task.all);
   const notes = useSelector((state) => state.note.all);
 
-  // const imageUrl = person.imageUrl || 'https://unsplash.com/photos/8wTPqxlnKM4'
-
   const emails = [
     { id: 0, title: 'Meeting?', details: 'When do you think you have time to meet?...' },
     { id: 1, title: 'Working at Meta', details: 'How are you liking it there so far?...' },
@@ -51,12 +49,14 @@ export default function PersonProfile() {
           <div className="person-bio">
             <div className="profile-pic">
               {/* show default image (unsplash) if no image is provided */}
-              <img src={person.imageUrl || 'https://source.unsplash.com/MQ2xYBHImKM'} alt="profile" />
+              <img src={person.imageUrl || 'https://img.freepik.com/free-icon/user_318-159711.jpg'} alt="profile" />
               <div className="info-text">
                 <button className="edit-button" type="button" onClick={() => setIsEditPersonModal(true)}>Edit</button>
                 <div className="contact-details-container">
                   <h1>{`${person.name}`}</h1>
-                  <p>{person.email}</p>
+                  <p>{person.title}</p>
+                  <a href={`mailto:${person.email}`}>{person.email}</a>
+                  <a href={person.linkedin}>{person.linkedin}</a>
                 </div>
               </div>
             </div>
@@ -114,6 +114,7 @@ export default function PersonProfile() {
       { isEditPersonModal && (
         <CreatePersonModal closeModal={() => setIsEditPersonModal(false)}
           personValue={person}
+          personId={personId}
           isEditing
         />
       )}
