@@ -5,7 +5,6 @@ import axios from 'axios';
 
 // const ROOT_URL = 'https://api-goloco.onrender.com';
 const ROOT_URL = 'http://localhost:9090';
-const API_KEY = '';
 
 // keys for actiontypes
 export const ActionTypes = {
@@ -130,7 +129,7 @@ export function createTask(taskFields) {
 
   return async () => {
     try {
-      await axios.post(`${ROOT_URL}/api/tasks${API_KEY}`, fields, { headers: { authorization: localStorage.getItem('token') } });
+      await axios.post(`${ROOT_URL}/api/tasks`, fields, { headers: { authorization: localStorage.getItem('token') } });
     } catch (error) {
       console.error(error);
     }
@@ -140,7 +139,7 @@ export function createTask(taskFields) {
 export function getTasks() {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`${ROOT_URL}/api/tasks${API_KEY}`, { headers: { authorization: localStorage.getItem('token') } });
+      const response = await axios.get(`${ROOT_URL}/api/tasks`, { headers: { authorization: localStorage.getItem('token') } });
       dispatch({ type: ActionTypes.TASK.GET_TASKS, payload: response.data });
     } catch (error) {
       console.error(error);
@@ -160,7 +159,7 @@ export function getTask(id) {
   return async (dispatch) => {
     // get
     try {
-      const result = await axios.get(`${ROOT_URL}/tasks/${id}${API_KEY}`, { headers: { authorization: localStorage.getItem('token') } });
+      const result = await axios.get(`${ROOT_URL}/tasks/${id}`, { headers: { authorization: localStorage.getItem('token') } });
       dispatch({
         type: ActionTypes.TASK.GET_TASK,
         payload: result.data,
@@ -174,7 +173,7 @@ export function getTask(id) {
 export function deleteTask(id) {
   return async () => {
     // delete
-    await axios.delete(`${ROOT_URL}/tasks/${id}${API_KEY}`, { headers: { authorization: localStorage.getItem('token') } });
+    await axios.delete(`${ROOT_URL}/tasks/${id}`, { headers: { authorization: localStorage.getItem('token') } });
   };
 }
 
@@ -190,7 +189,7 @@ export function updateTask(taskFields, id) {
 
   return async (dispatch) => {
     try {
-      await axios.put(`${ROOT_URL}/tasks/${id}${API_KEY}`, fields, { headers: { authorization: localStorage.getItem('token') } });
+      await axios.put(`${ROOT_URL}/tasks/${id}`, fields, { headers: { authorization: localStorage.getItem('token') } });
       dispatch({
         type: ActionTypes.TASK.UPDATE_TASK,
         payload: fields,
@@ -259,7 +258,7 @@ export function getNote(id) {
   return async (dispatch) => {
     // get
     try {
-      const result = await axios.get(`${ROOT_URL}/api/notes/${id}${API_KEY}`, { headers: { authorization: localStorage.getItem('token') } });
+      const result = await axios.get(`${ROOT_URL}/api/notes/${id}`, { headers: { authorization: localStorage.getItem('token') } });
       dispatch({
         type: ActionTypes.NOTE.GET_NOTE,
         payload: result.data,
@@ -273,7 +272,7 @@ export function getNote(id) {
 export function deleteNote(id) {
   return async () => {
     // delete
-    await axios.delete(`${ROOT_URL}/api/notes/${id}${API_KEY}`, { headers: { authorization: localStorage.getItem('token') } });
+    await axios.delete(`${ROOT_URL}/api/notes/${id}`, { headers: { authorization: localStorage.getItem('token') } });
   };
 }
 
@@ -289,7 +288,7 @@ export function updateNote(noteFields, id) {
 
   return async (dispatch) => {
     try {
-      await axios.put(`${ROOT_URL}/api/notes/${id}${API_KEY}`, fields, { headers: { authorization: localStorage.getItem('token') } });
+      await axios.put(`${ROOT_URL}/api/notes/${id}`, fields, { headers: { authorization: localStorage.getItem('token') } });
       dispatch({
         type: ActionTypes.NOTE.UPDATE_NOTE,
         payload: fields,

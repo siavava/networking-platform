@@ -14,6 +14,7 @@ import PersonProfile from './person-profile';
 import LogIn from './login';
 import Signout from './signout';
 import RestrictedPage from './restricted_pages';
+import ExpandNoteView from './expanded-note-modal';
 
 function App() {
   return (
@@ -28,7 +29,9 @@ function App() {
           <Route path="/companies" element={<RestrictedPage restrictedPage={Companies} />} />
           <Route path="/companies/:companyId" element={<RestrictedPage restrictedPage={CompanyProfile} />} />
           <Route path="/people" element={<RestrictedPage restrictedPage={People} />} />
-          <Route path="/people/:id" element={<RestrictedPage restrictedPage={PersonProfile} />} />
+          <Route path="/people/:id/" element={<RestrictedPage restrictedPage={PersonProfile} />}>
+            <Route path="notes/:id" element={<RestrictedPage restrictedPage={ExpandNoteView} />} />
+          </Route>
           <Route path="/signout" element={<Signout />} />
           <Route path="*" element={<FallBack />} />
         </Routes>

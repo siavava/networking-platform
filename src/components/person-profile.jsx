@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { useSelector, useDispatch } from 'react-redux';
 import '../person-profile.style.scss';
-import { useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Outlet } from 'react-router-dom';
 import { getPerson, getAssociatedTasks, getAssociatedNotes } from '../store/actions';
 import CreateTaskModal from './create-task-modal';
 import CreateNoteModal from './create-note-modal';
@@ -12,8 +12,9 @@ import CreatePersonModal from './create-person-modal';
 
 export default function PersonProfile() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { pathname } = useLocation();
-  const personId = pathname.split('/people/')[1];
+  const personId = pathname.split('/people/')[1].split('/')[0];
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
   const [isNoteModalOpen, setIsNoteModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -25,6 +26,10 @@ export default function PersonProfile() {
 
   const closeNoteModal = () => {
     setIsNoteModalOpen(false);
+  };
+
+  const openExpandedNoteView = (event) => {
+    navigate(`notes/${event.target.id}`);
   };
 
   useEffect(() => {
@@ -86,7 +91,7 @@ export default function PersonProfile() {
             <button type="submit" className="add-notes" onClick={() => setIsNoteModalOpen(true)}>+</button>
             {notes && (notes.map((e) => (
               // eslint-disable-next-line jsx-a11y/interactive-supports-focus
-              <div className="note" key={e.id} onClick={() => setSelectedItem(e)} role="button">{e.title}</div>
+              <div className="note" id={e.id} key={e.id} onClick={openExpandedNoteView} role="button">{e.title}</div>
             )))}
           </div>
         </div>
@@ -118,6 +123,7 @@ export default function PersonProfile() {
           isEditing
         />
       )}
+      <Outlet />
     </div>
   );
 }
