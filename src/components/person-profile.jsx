@@ -25,6 +25,15 @@ export default function PersonProfile() {
   const [isEditPersonModal, setIsEditPersonModal] = useState(false);
   const [emailInteractions, setEmailInteractions] = useState([]);
 
+  const { deleted } = useLocation().state || { deleted: false };
+
+  if (deleted) {
+    dispatch(getPerson(personId));
+    dispatch(getAssociatedTasks(personId, 'people'));
+    dispatch(getAssociatedNotes(personId, 'people'));
+    navigate(pathname, { state: { deleted: false } });
+  }
+
   const openDeleteModal = () => {
     setIsDeletePersonModalOpen(true);
   };
@@ -49,7 +58,7 @@ export default function PersonProfile() {
     dispatch(getPerson(personId));
     dispatch(getAssociatedTasks(personId, 'people'));
     dispatch(getAssociatedNotes(personId, 'people'));
-  }, [personId, isTaskModalOpen, isNoteModalOpen]);
+  }, [personId, isTaskModalOpen, isNoteModalOpen, isEditPersonModal, isDeletePersonModalOpen]);
 
   const person = useSelector((state) => state.person);
   const tasks = useSelector((state) => state.task.all);
