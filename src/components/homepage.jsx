@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import '../homepage.style.scss';
 import CreateTaskModal from './create-task-modal';
 import {
-  getTasks, getPeopleById,
+  getTasks, getPeopleById, deleteTask,
 } from '../store/actions';
 
 export default function HomePage() {
@@ -105,6 +105,9 @@ export default function HomePage() {
                   <td className="homepage-tasks-table-cell">{task.title}</td>
                   <td className="homepage-tasks-table-cell">
                     <a href={`people/${task.associatedPerson}`}>{associatedPeopleDict[task.associatedPerson]}</a>
+                  </td>
+                  <td className="homepage-tasks-table-cell">
+                    <button className="delete-task-button" type="submit" onClick={(event) => deleteTask(task.id, task.associatedPerson)}>Delete</button>
                   </td>
                 </tr>
               ))}
