@@ -110,7 +110,7 @@ $text: #000000;
             
             /* Style the back side */
             .flip-card-back {
-              background: linear-gradient(90deg, #3d75e4 0%, #2b3da2 100%);
+              background: linear-gradient(90deg, #5787e6 0%, #6373cd 100%);
               color: white;
               transform: rotateY(180deg);
               overflow: hidden;
@@ -146,7 +146,7 @@ $text: #000000;
           }
 
           &:hover{
-            color: #c0d6bd;
+            color: #8e9bcf;
 
             &::after {
               transform: translateX(10px);
