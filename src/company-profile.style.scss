@@ -1,5 +1,4 @@
-$header: #A4BCA1;
-$background: #F6F8F5;
+$background: linear-gradient(90deg, #68b3d3 0%, #6e7fc5 100%);;
 $text: #000000;
 
 .company-profile-container {
@@ -11,7 +10,7 @@ $text: #000000;
   padding: 20px;
 
   .company-profile {
-    background: #CDE2CA;
+    background: $background;
     width: 100%;
     max-width: 1250px;
     display: flex;
