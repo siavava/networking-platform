@@ -4,7 +4,9 @@ import ReactMarkdown from 'react-markdown';
 import { useSelector, useDispatch } from 'react-redux';
 import '../person-profile.style.scss';
 import { useNavigate, useLocation, Outlet } from 'react-router-dom';
-import { getPerson, getAssociatedTasks, getAssociatedNotes } from '../store/actions';
+import {
+  getPerson, deletePerson, getAssociatedTasks, getAssociatedNotes,
+} from '../store/actions';
 import CreateTaskModal from './create-task-modal';
 import CreateNoteModal from './create-note-modal';
 import CreatePersonModal from './create-person-modal';
@@ -31,6 +33,10 @@ export default function PersonProfile() {
     navigate(`notes/${event.target.id}`);
   };
 
+  const handleDeletePerson = () => {
+    deletePerson(personId)(dispatch, navigate);
+  };
+
   useEffect(() => {
     dispatch(getPerson(personId));
     dispatch(getAssociatedTasks(personId, 'people'));
@@ -55,7 +61,10 @@ export default function PersonProfile() {
               {/* show default image (unsplash) if no image is provided */}
               <img src={person.imageUrl || 'https://img.freepik.com/free-icon/user_318-159711.jpg'} alt="profile" />
               <div className="info-text">
-                <button className="edit-button" type="button" onClick={() => setIsEditPersonModal(true)}>Edit</button>
+                <div className="action-buttons-container">
+                  <button className="edit-button" type="button" onClick={() => setIsEditPersonModal(true)}>Edit</button>
+                  <button className="edit-button" onClick={handleDeletePerson} type="button">Delete</button>
+                </div>
                 <div className="contact-details-container">
                   <h1>{`${person.name}`}</h1>
                   <p>{person.title}</p>
