@@ -18,6 +18,7 @@ export default function CompanyProfile() {
   const [isDeleteCompanyModalOpen, setIsDeleteCompanyModalOpen] = useState(false);
   const [isCreatePersonModalOpen, setIsCreatePersonModalOpen] = useState(false);
   const openModal = (type) => {
+    console.log(type);
     if (type === 'company') setIsCreateCompanyModalOpen(true);
     else if (type === 'person') setIsCreatePersonModalOpen(true);
     else if (type === 'delete-company') setIsDeleteCompanyModalOpen(true);
