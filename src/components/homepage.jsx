@@ -120,7 +120,9 @@ export default function HomePage() {
                     <a href={`people/${task.associatedPerson}`}>{associatedPeopleDict[task.associatedPerson]}</a>
                   </td>
                   <td className="homepage-tasks-table-cell">
-                    <button className="delete-task-button" type="submit" onClick={() => openTaskDeleteModal(task)}>Delete</button>
+                    <button className="delete-task-button" type="submit" onClick={() => openTaskDeleteModal(task)}>
+                      <i className="material-icons" id="svg_options">delete</i>
+                    </button>
                   </td>
                 </tr>
               ))}
