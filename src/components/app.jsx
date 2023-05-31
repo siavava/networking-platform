@@ -15,6 +15,7 @@ import LogIn from './login';
 import Signout from './signout';
 import RestrictedPage from './restricted_pages';
 import ExpandNoteView from './expanded-note-modal';
+import GoogleAuth from './googleAuth';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
             <Route path="notes/:id" element={<RestrictedPage restrictedPage={ExpandNoteView} />} />
           </Route>
           <Route path="/signout" element={<Signout />} />
+          <Route path="/settings" element={<RestrictedPage restrictedPage={GoogleAuth} />} />
           <Route path="*" element={<FallBack />} />
         </Routes>
       </div>

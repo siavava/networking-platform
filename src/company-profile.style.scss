@@ -51,8 +51,9 @@ $header: #A4BCA1;
             line-height: 2rem;
             border-radius: 5px;
             border-style: none;
-            background-color: $header;
-            color: white;
+            background-color: white;
+            color: black;
+            border: 1px solid;
             font-weight: bold;
             cursor: pointer;
           }
@@ -153,7 +154,7 @@ $header: #A4BCA1;
             gap: 5px;
             width: 100%;
             & > h2 {
-              text-transform: capitalize;
+              // text-transform: capitalize;
               font-size: 1.2em;
               margin-left: 10px;
               color: $text;

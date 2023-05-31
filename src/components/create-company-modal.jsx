@@ -9,12 +9,13 @@ export default function CreateCompanyModal(props) {
   const {
     closeModal, companyId, companyValue, isEditing,
   } = props;
-  const [newCompanyName, setNewCompanyName] = useState(companyValue.name || 'none');
-  const [newCompanyLocation, setNewCompanyLocation] = useState(companyValue.location || '');
-  const [newWebsite, setNewWebsite] = useState(companyValue.website || '');
-  const [newlinkedIn, setNewlinkedIn] = useState(companyValue.linkedin || '');
-  const [newDescription, setNewDescription] = useState(companyValue.description || '');
-  const [newImageUrl, setNewImageUrl] = useState(companyValue.imageUrl || '');
+  const [newCompanyName, setNewCompanyName] = useState(companyValue ? companyValue.name : '');
+  const [newCompanyLocation, setNewCompanyLocation] = useState(companyValue ? companyValue.location : '');
+  const [newWebsite, setNewWebsite] = useState(companyValue ? companyValue.website : '');
+  const [newlinkedIn, setNewlinkedIn] = useState(companyValue ? companyValue.linkedin : '');
+  const [newEmailDomain, setNewEmailDomain] = useState(companyValue ? companyValue.linkedin : '');
+  const [newDescription, setNewDescription] = useState(companyValue ? companyValue.description : '');
+  const [newImageUrl, setNewImageUrl] = useState(companyValue ? companyValue.imageUrl : '');
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -32,6 +33,9 @@ export default function CreateCompanyModal(props) {
         break;
       case 'linkedIn':
         setNewlinkedIn(event.target.value);
+        break;
+      case 'email-domain':
+        setNewEmailDomain(event.target.value);
         break;
       case 'description':
         setNewDescription(event.target.value);
@@ -86,6 +90,12 @@ export default function CreateCompanyModal(props) {
         <label htmlFor="company-website">
           Website Link:
           <input id="website-link" type="text" onChange={handleOnChange} value={newWebsite} />
+        </label>
+        <br />
+
+        <label htmlFor="company-email-domain">
+          Email Domain: (@example.com)
+          <input id="email-domain" type="text" onChange={handleOnChange} value={newEmailDomain} />
         </label>
         <br />
 

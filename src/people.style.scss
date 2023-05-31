@@ -6,9 +6,11 @@ $text: #000000;
   place-items: center;
   gap: 20px;
   padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 
   .people-top-panel {
-    width: 1250px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -54,11 +56,11 @@ $text: #000000;
   }
 
   .people-main-panel {
-    width: 1250px;
+    width: 100%;
 
     .people-list {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 50px;
       padding: 10px;
 
@@ -127,6 +129,7 @@ $text: #000000;
             }
           }
         }
+
         .person-list-item-button {
           width: fit-content;
           background: none;
@@ -138,17 +141,25 @@ $text: #000000;
           margin-top: auto;
           border: none;
           outline: none;
+          border: 1px solid transparent;
+          transition: all 0.2s ease-in-out;
+          padding-right: 40px;
+          position: relative;
 
           &:after {
             content: "\2192";
             margin-left: 10px;
             transition: all 0.2s ease-in-out;
+            position: absolute;
+            right: 20px;
+            top: 1px;
           }
 
           &:hover{
-            color: #8e9bcf;
+            border-radius: 12px;
+            border: 1px solid white;
 
-            &::after {
+            &:after {
               transform: translateX(10px);
             }
           }

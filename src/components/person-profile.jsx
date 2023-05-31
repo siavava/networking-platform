@@ -4,10 +4,13 @@ import ReactMarkdown from 'react-markdown';
 import { useSelector, useDispatch } from 'react-redux';
 import '../person-profile.style.scss';
 import { useNavigate, useLocation, Outlet } from 'react-router-dom';
-import { getPerson, getAssociatedTasks, getAssociatedNotes } from '../store/actions';
+import {
+  getPerson, getAssociatedTasks, getAssociatedNotes,
+} from '../store/actions';
 import CreateTaskModal from './create-task-modal';
 import CreateNoteModal from './create-note-modal';
 import CreatePersonModal from './create-person-modal';
+import { DeletePersonModal } from './delete-modal';
 
 export default function PersonProfile() {
   const dispatch = useDispatch();
@@ -15,9 +18,18 @@ export default function PersonProfile() {
   const { pathname } = useLocation();
   const personId = pathname.split('/people/')[1].split('/')[0];
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
+  const [isDeletePersonModalOpen, setIsDeletePersonModalOpen] = useState(false);
   const [isNoteModalOpen, setIsNoteModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [isEditPersonModal, setIsEditPersonModal] = useState(false);
+
+  const openDeleteModal = () => {
+    setIsDeletePersonModalOpen(true);
+  };
+
+  const closeDeleteModal = () => {
+    setIsDeletePersonModalOpen(false);
+  };
 
   const closeTaskModal = () => {
     setIsTaskModalOpen(false);
@@ -55,7 +67,10 @@ export default function PersonProfile() {
               {/* show default image (unsplash) if no image is provided */}
               <img src={person.imageUrl || 'https://img.freepik.com/free-icon/user_318-159711.jpg'} alt="profile" />
               <div className="info-text">
-                <button className="edit-button" type="button" onClick={() => setIsEditPersonModal(true)}>Edit</button>
+                <div className="action-buttons-container">
+                  <button className="edit-button" type="button" onClick={() => setIsEditPersonModal(true)}>Edit</button>
+                  <button className="edit-button" onClick={() => openDeleteModal()} type="button">Delete</button>
+                </div>
                 <div className="contact-details-container">
                   <h1>{`${person.name}`}</h1>
                   <p>{person.title}</p>
@@ -121,6 +136,12 @@ export default function PersonProfile() {
           personId={personId}
           isEditing
         />
+      )}
+      {isDeletePersonModalOpen && (
+      <DeletePersonModal
+        personId={personId}
+        closeModal={() => closeDeleteModal()}
+      />
       )}
       <Outlet />
     </div>

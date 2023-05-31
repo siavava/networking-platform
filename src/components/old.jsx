@@ -8,7 +8,7 @@ import '../company-profile.style.scss';
 import { getCompany, getAssociatedPeople } from '../store/actions';
 import CreateCompanyModal from './create-company-modal';
 import CreatePersonModal from './create-person-modal';
-import { DeleteCompanyModal } from './delete-modal';
+import DeleteCompanyModal from './delete-modal';
 
 export default function CompanyProfile() {
   const dispatch = useDispatch();
@@ -18,6 +18,7 @@ export default function CompanyProfile() {
   const [isDeleteCompanyModalOpen, setIsDeleteCompanyModalOpen] = useState(false);
   const [isCreatePersonModalOpen, setIsCreatePersonModalOpen] = useState(false);
   const openModal = (type) => {
+    console.log(type);
     if (type === 'company') setIsCreateCompanyModalOpen(true);
     else if (type === 'person') setIsCreatePersonModalOpen(true);
     else if (type === 'delete-company') setIsDeleteCompanyModalOpen(true);
