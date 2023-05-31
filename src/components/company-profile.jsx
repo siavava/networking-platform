@@ -2,10 +2,10 @@
 /* eslint-disable no-plusplus */
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate, useLocation } from 'react-router-dom';
 // import { useParams } from 'react-router-dom';
 import '../company-profile.style.scss';
-import { useLocation } from 'react-router-dom';
-import { getCompany, getAssociatedPeople, createPerson } from '../store/actions';
+import { getCompany, getAssociatedPeople, deleteCompany } from '../store/actions';
 import CreateCompanyModal from './create-company-modal';
 import CreatePersonModal from './create-person-modal';
 
@@ -15,7 +15,7 @@ export default function CompanyProfile() {
   const companyId = pathname.split('/companies/')[1];
   const [isCreateCompanyModalOpen, setIsCreateCompanyModalOpen] = useState(false);
   const [isCreatePersonModalOpen, setIsCreatePersonModalOpen] = useState(false);
-
+  const navigate = useNavigate();
   const openModal = (type) => {
     if (type === 'company') setIsCreateCompanyModalOpen(true);
     else if (type === 'person') setIsCreatePersonModalOpen(true);
@@ -34,6 +34,10 @@ export default function CompanyProfile() {
     dispatch(getAssociatedPeople(companyId));
   }, [companyId, dispatch]);
 
+  const handleDeleteCompany = () => {
+    deleteCompany(companyId)(dispatch, navigate);
+  };
+
   if (company.name !== '') {
     return (
       <div className="company-profile-container">
@@ -41,7 +45,10 @@ export default function CompanyProfile() {
           <div className="company-profile-left-panel">
             <div className="company-profile-header">
               <h1 className="company-profile-name">{`${company.name}: Company Overview`}</h1>
-              <button onClick={() => openModal('company')} type="button" className="edit-company">Edit</button>
+              <div className="action-buttons-container">
+                <button onClick={() => openModal('company')} type="button" className="edit-company">Edit</button>
+                <button onClick={handleDeleteCompany} type="button" className="edit-company">Delete</button>
+              </div>
             </div>
             <img className="company-profile-image" src={company.imageUrl} alt="company logo" />
             <div className="company-profile-bottom">
