@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import '../person-profile.style.scss';
 import { useNavigate, useLocation, Outlet } from 'react-router-dom';
 import {
-  getPerson, getAssociatedTasks, getAssociatedNotes,
+  getPerson, deletePerson, getAssociatedTasks, getAssociatedNotes, getEmails,
 } from '../store/actions';
 import CreateTaskModal from './create-task-modal';
 import CreateNoteModal from './create-note-modal';
@@ -22,6 +22,7 @@ export default function PersonProfile() {
   const [isNoteModalOpen, setIsNoteModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [isEditPersonModal, setIsEditPersonModal] = useState(false);
+  const [emailInteractions, setEmailInteractions] = useState([]);
 
   const openDeleteModal = () => {
     setIsDeletePersonModalOpen(true);
@@ -53,10 +54,13 @@ export default function PersonProfile() {
   const tasks = useSelector((state) => state.task.all);
   const notes = useSelector((state) => state.note.all);
 
-  const emails = [
-    { id: 0, title: 'Meeting?', details: 'When do you think you have time to meet?...' },
-    { id: 1, title: 'Working at Meta', details: 'How are you liking it there so far?...' },
-  ];
+  const setEmails = async () => {
+    let emails = await getEmails(personId);
+    if (emails.length > 10) {
+      emails = emails.slice(0, 10);
+    }
+    setEmailInteractions(emails);
+  };
 
   return (
     <div className="person-profile">
@@ -113,10 +117,10 @@ export default function PersonProfile() {
 
       <div className="email-container">
         <h1>Email Interactions</h1>
-        {emails.map((email) => (
+        <button type="button" onClick={setEmails}>Get Emails</button>
+        {emailInteractions.map((email) => (
           <div className="email-interaction" key={email.id}>
-            <h2>{email.title}</h2>
-            <h3>{email.details}</h3>
+            <h3>{email}</h3>
           </div>
         ))}
       </div>

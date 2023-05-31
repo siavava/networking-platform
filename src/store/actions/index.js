@@ -5,7 +5,7 @@ import axios from 'axios';
 // const ROOT_URL = 'https://plushiedexapi.onrender.com/api';
 
 // const ROOT_URL = 'https://api-goloco.onrender.com';
-const ROOT_URL = 'http://localhost:9090';
+export const ROOT_URL = 'http://localhost:9090';
 
 // keys for actiontypes
 export const ActionTypes = {
@@ -39,6 +39,7 @@ export const ActionTypes = {
     GET_PERSON: 'GET_PERSON',
     DELETE_PERSON: 'DELETE_PERSON',
     UPDATE_PERSON: 'UPDATE_PERSON',
+    GET_EMAILS: 'GET_EMAILS',
   },
   AUTH: {
     AUTH_USER: 'AUTH_USER',
@@ -376,6 +377,7 @@ export function updatePerson(personId, updatedFields) {
   return async (dispatch) => {
     try {
       const response = await axios.put(`${ROOT_URL}/api/people/${personId}`, updatedFields, { headers: { authorization: localStorage.getItem('token') } });
+      console.log(response);
       dispatch({ type: ActionTypes.PERSON.UPDATE_PERSON, payload: response.data });
     } catch (error) {
       console.error(error);
@@ -446,8 +448,13 @@ export function signout() {
   };
 }
 
-export async function getEmails() {
+export async function getEmails(idString) {
   // eslint-disable-next-line no-unused-vars
-  const res = await axios.get(`${ROOT_URL}/api/email`, { headers: { authorization: localStorage.getItem('token') } });
-  console.log(res);
+  try {
+    const res = await axios.get(`${ROOT_URL}/api/emails?person=${idString}`, { headers: { authorization: localStorage.getItem('token') } });
+    return res.data;
+  } catch (error) {
+    console.error(error);
+  }
+  return [];
 }

@@ -18,6 +18,7 @@ const initialState = {
   tags: [],
   tasks: [],
   people: [],
+  emails: [],
 };
 
 const PersonReducer = produce((draftState, action = {}) => {
@@ -69,6 +70,10 @@ const PersonReducer = produce((draftState, action = {}) => {
     // GET_PEOPLE
     case ActionTypes.PERSON.GET_PEOPLE:
       draftState.people = action.payload;
+      break;
+
+    case ActionTypes.PERSON.GET_EMAILS:
+      draftState.email = action.payload;
       break;
 
     default:

@@ -4,7 +4,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { getEmails } from '../store/actions';
+import { ROOT_URL, getEmails } from '../store/actions';
 import '../settings.style.scss';
 
 export default function GoogleAuth() {
@@ -28,7 +28,7 @@ export default function GoogleAuth() {
       ux_mode: 'popup',
       callback: (response) => {
         const xhr = new XMLHttpRequest();
-        xhr.open('POST', 'http://localhost:9090/api/googleauth', true);
+        xhr.open('POST', `${ROOT_URL}/api/googleauth`, true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         // Set custom header for CRSF
         xhr.setRequestHeader('X-Requested-With', 'XmlHttpRequest');
@@ -36,7 +36,6 @@ export default function GoogleAuth() {
         xhr.onload = function () {
           console.log(`Auth code response: ${xhr.responseText}`);
         };
-        console.log(response.code);
         xhr.send(`code=${response.code}`);
       },
     }));
