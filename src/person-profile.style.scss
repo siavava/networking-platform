@@ -251,11 +251,29 @@ $text: #000000;
   font-size: 30px;
 }
 
+.email-container button {
+  background-color: #8e9bcf;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  padding: 10px 20px;
+  font-weight: bold;
+  width: 10%;
+  min-width: 200px;
+  cursor: pointer;
+}
+
+.email-container button:hover {
+  background-color: rgba(#6e7fc5, 0.3);
+}
+
 .email-interaction {
   background-color: #dee3f6;
   margin: 10px;
   margin-left: 15px;
   border-radius: 5px;
+  padding: 5px;
 }
 
 .email-interaction h2 {
