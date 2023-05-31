@@ -5,6 +5,7 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,8 +14,6 @@
 
 .expanded-note-modal-content {
   background-color: white;
-  min-width: 500px;
-  width: 70%;
   min-height: 525px;
   height: 80%;
   display: flex;
@@ -27,6 +26,11 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  width: 70%;
+
+  @media screen and (max-width: 840px) {
+    width: 100%;
+  }
 
   h1 {
     margin-top: 20px;
