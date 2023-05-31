@@ -14,15 +14,14 @@ export default function HomePage() {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [tabKey, setTabKey] = useState('today');
-
-  useEffect(() => {
-    getTasks()(dispatch);
-  }, [dispatch]);
-
   const tasks = useSelector((state) => state.task.all) || [];
   const associatedPeopleList = useSelector((state) => state.person.people) || [];
   const associatedPeopleDict = {};
   const name = localStorage.getItem('name') || 'anonymous user';
+
+  useEffect(() => {
+    getTasks()(dispatch);
+  }, [isModalOpen]);
 
   useEffect(() => {
     const idStr = '';
@@ -37,7 +36,7 @@ export default function HomePage() {
     };
     tasks.forEach(getAssociatedPerson);
     getPeopleById(idStr)(dispatch);
-  }, [dispatch, tasks]);
+  }, [tasks]);
 
   if (associatedPeopleList) {
     associatedPeopleList.forEach((person) => {

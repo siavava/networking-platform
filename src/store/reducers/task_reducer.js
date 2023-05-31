@@ -9,6 +9,11 @@ const initialState = {
 
 const TasksReducer = produce((draftState, action = {}) => {
   switch (action.type) {
+    case ActionTypes.TASK.CREATE_TASK:
+      console.log('going to reducer');
+      draftState.current = action.payload;
+      break;
+
     case ActionTypes.TASK.GET_TASKS:
       draftState.all = action.payload;
       break;

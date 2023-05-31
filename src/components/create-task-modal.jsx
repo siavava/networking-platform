@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
 import DatePicker from 'react-datepicker';
 import Select from 'react-select';
@@ -12,9 +13,12 @@ export default function CreateTaskModal(props) {
   // const [isModalOpen, setIsModalOpen] = useState(false);
   const [newTask, setNewTask] = useState('');
   const [dueDate, setDueDate] = useState(new Date());
-  const { closeModal, personValue, companyValue } = props;
+  const {
+    closeModal, personValue, companyValue, toggleRefresh,
+  } = props;
   const [selectedPerson, setSelectedPerson] = useState(null);
   const [selectedCompany, setSelectedCompany] = useState(null);
+  const [refresh, setRefresh] = useState(false);
   // const [peopleTagOptions, setPeopleTagOptions] = useState([]);
 
   const companies = useSelector((state) => state.company.companies) || [];
@@ -22,6 +26,7 @@ export default function CreateTaskModal(props) {
   const companyTagOptions = companies.map((c) => ({ value: c.id, label: c.name }));
   const peopleTagOptions = people.map((p) => ({ value: p.id, label: p.name }));
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleOnChange = (event) => {
     switch (event.target.id) {
@@ -64,7 +69,7 @@ export default function CreateTaskModal(props) {
       fields.associatedCompany = selectedCompany.value;
     }
 
-    createTask(fields)(dispatch);
+    dispatch(createTask(fields, navigate));
     closeModal();
   };
 

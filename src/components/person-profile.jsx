@@ -1,5 +1,4 @@
 /* eslint-disable jsx-a11y/interactive-supports-focus */
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { useSelector, useDispatch } from 'react-redux';
@@ -36,7 +35,7 @@ export default function PersonProfile() {
     dispatch(getPerson(personId));
     dispatch(getAssociatedTasks(personId, 'people'));
     dispatch(getAssociatedNotes(personId, 'people'));
-  }, [dispatch, personId, isTaskModalOpen, isNoteModalOpen]);
+  }, [personId, isTaskModalOpen, isNoteModalOpen]);
 
   const person = useSelector((state) => state.person);
   const tasks = useSelector((state) => state.task.all);
