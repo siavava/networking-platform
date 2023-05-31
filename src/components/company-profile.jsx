@@ -6,20 +6,24 @@ import { useSelector, useDispatch } from 'react-redux';
 import '../company-profile.style.scss';
 import { useLocation } from 'react-router-dom';
 import { getCompany, getAssociatedPeople, createPerson } from '../store/actions';
+import CreateCompanyModal from './create-company-modal';
 import CreatePersonModal from './create-person-modal';
 
 export default function CompanyProfile() {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const companyId = pathname.split('/companies/')[1];
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isCreateCompanyModalOpen, setIsCreateCompanyModalOpen] = useState(false);
+  const [isCreatePersonModalOpen, setIsCreatePersonModalOpen] = useState(false);
 
-  const openModal = () => {
-    setIsModalOpen(true);
+  const openModal = (type) => {
+    if (type === 'company') setIsCreateCompanyModalOpen(true);
+    else if (type === 'person') setIsCreatePersonModalOpen(true);
   };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
+  const closeModal = (type) => {
+    if (type === 'company') setIsCreateCompanyModalOpen(false);
+    else if (type === 'person') setIsCreatePersonModalOpen(false);
   };
 
   const company = useSelector((state) => state.company);
@@ -35,7 +39,10 @@ export default function CompanyProfile() {
       <div className="company-profile-container">
         <div className="company-profile">
           <div className="company-profile-left-panel">
-            <h1 className="company-profile-name">{`${company.name}: Company Overview`}</h1>
+            <div className="company-profile-header">
+              <h1 className="company-profile-name">{`${company.name}: Company Overview`}</h1>
+              <button onClick={() => openModal('company')} type="button" className="edit-company">Edit</button>
+            </div>
             <img className="company-profile-image" src={company.imageUrl} alt="company logo" />
             <div className="company-profile-bottom">
               <div className="company-profile-links">
@@ -48,28 +55,42 @@ export default function CompanyProfile() {
             </div>
           </div>
           <div className="company-profile-right-panel">
-            <h1>People Associated With Company</h1>
-            <button type="submit" className="add-people" onClick={openModal}>+</button>
+            <div className="company-profile-header">
+              <h1>People Associated With Company</h1>
+              <button type="submit" className="add-people" onClick={() => openModal('person')}>+</button>
+            </div>
             {people
               && (people.map((person) => (
                 <div className="company-profile-person" key={person.id}>
-                  <img src={person.imageUrl} alt="person" />
                   <div className="company-profile-person-information">
-                    <h2>
-                      <a href={`../people/${person.id}`}>{person.name}</a> (
-                      <a href={`mailto: ${person.email}`}>{person.email}</a>)
-                    </h2>
-                    <p>{person.title}</p>
+                    <img src={person.imageUrl || 'https://img.freepik.com/free-icon/user_318-159711.jpg'} alt="person" />
+                    <div className="bio">
+                      <h2>
+                        <a href={`../people/${person.id}`}>{person.name}</a> (
+                        <a href={`mailto: ${person.email}`}>{person.email}</a>)
+                      </h2>
+                      <p>{person.title}</p>
+                    </div>
+
                   </div>
                 </div>
               ))
               )}
           </div>
         </div>
-        {isModalOpen && (
+        {isCreateCompanyModalOpen && (
+          <CreateCompanyModal
+            companyId={companyId}
+            companyValue={company}
+            closeModal={() => closeModal('company')}
+            isEditing
+          />
+        )}
+        {isCreatePersonModalOpen && (
           <CreatePersonModal
-            companyValue={{ value: companyId, label: company.name }}
-            closeModal={closeModal}
+            companyId={companyId}
+            closeModal={() => closeModal('person')}
+            // isEditing
           />
         )}
       </div>
