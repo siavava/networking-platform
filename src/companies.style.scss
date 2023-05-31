@@ -6,9 +6,12 @@ $text: #000000;
   place-items: center;
   gap: 20px;
   padding: 20px;
+  max-width: 1200px;
+  width: 100%;
+  margin: auto;
 
   .companies-top-panel {
-    width: 1200px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -54,12 +57,12 @@ $text: #000000;
   }
 
   .companies-main-panel {
-    width: 1250px;
+    width: 100%;
 
     .companies-list {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 50px;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      // gap: 50px;
       padding: 10px;
 
       .companies-list-item {
@@ -139,19 +142,25 @@ $text: #000000;
           margin-top: auto;
           border: none;
           outline: none;
+          border: 1px solid transparent;
+          transition: all 0.2s ease-in-out;
+          padding-right: 40px;
+          position: relative;
 
           &:after {
             content: "\2192";
             margin-left: 10px;
             transition: all 0.2s ease-in-out;
+            position: absolute;
+            right: 20px;
+            top: 1px;
           }
 
           &:hover{
-            border-color: white;
-            border-style: solid;
             border-radius: 12px;
+            border: 1px solid white;
 
-            &::after {
+            &:after {
               transform: translateX(10px);
             }
           }
