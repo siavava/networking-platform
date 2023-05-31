@@ -10,6 +10,7 @@ import {
 import CreateTaskModal from './create-task-modal';
 import CreateNoteModal from './create-note-modal';
 import CreatePersonModal from './create-person-modal';
+import { DeletePersonModal } from './delete-modal';
 
 export default function PersonProfile() {
   const dispatch = useDispatch();
@@ -17,10 +18,19 @@ export default function PersonProfile() {
   const { pathname } = useLocation();
   const personId = pathname.split('/people/')[1].split('/')[0];
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
+  const [isDeletePersonModalOpen, setIsDeletePersonModalOpen] = useState(false);
   const [isNoteModalOpen, setIsNoteModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [isEditPersonModal, setIsEditPersonModal] = useState(false);
   const [emailInteractions, setEmailInteractions] = useState([]);
+
+  const openDeleteModal = () => {
+    setIsDeletePersonModalOpen(true);
+  };
+
+  const closeDeleteModal = () => {
+    setIsDeletePersonModalOpen(false);
+  };
 
   const closeTaskModal = () => {
     setIsTaskModalOpen(false);
@@ -32,10 +42,6 @@ export default function PersonProfile() {
 
   const openExpandedNoteView = (event) => {
     navigate(`notes/${event.target.id}`);
-  };
-
-  const handleDeletePerson = () => {
-    deletePerson(personId)(dispatch, navigate);
   };
 
   useEffect(() => {
@@ -67,7 +73,7 @@ export default function PersonProfile() {
               <div className="info-text">
                 <div className="action-buttons-container">
                   <button className="edit-button" type="button" onClick={() => setIsEditPersonModal(true)}>Edit</button>
-                  <button className="edit-button" onClick={handleDeletePerson} type="button">Delete</button>
+                  <button className="edit-button" onClick={() => openDeleteModal()} type="button">Delete</button>
                 </div>
                 <div className="contact-details-container">
                   <h1>{`${person.name}`}</h1>
@@ -134,6 +140,12 @@ export default function PersonProfile() {
           personId={personId}
           isEditing
         />
+      )}
+      {isDeletePersonModalOpen && (
+      <DeletePersonModal
+        personId={personId}
+        closeModal={() => closeDeleteModal()}
+      />
       )}
       <Outlet />
     </div>

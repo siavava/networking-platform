@@ -1,0 +1,17 @@
+.delete-options {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 1em;
+
+    .delete-options-buttons {
+        width: 100px;
+        line-height: 2rem;
+        border-radius: 5px;
+        border-style: none;
+        background-color: white;
+        color: black;
+        border: 1px solid;
+        font-weight: bold;
+        cursor: pointer;
+    }
+}
