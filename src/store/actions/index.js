@@ -441,3 +441,9 @@ export function signout() {
     navigate('/');
   };
 }
+
+export async function getEmails() {
+  // eslint-disable-next-line no-unused-vars
+  const res = await axios.get(`${ROOT_URL}/api/email`, { headers: { authorization: localStorage.getItem('token') } });
+  console.log(res);
+}
