@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
+/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/interactive-supports-focus */
 import React, { useState, useEffect } from 'react';
@@ -11,7 +13,7 @@ import {
 import CreateTaskModal from './create-task-modal';
 import CreateNoteModal from './create-note-modal';
 import CreatePersonModal from './create-person-modal';
-import { DeletePersonModal } from './delete-modal';
+import { DeletePersonModal, DeleteTaskModal } from './delete-modal';
 
 export default function PersonProfile() {
   const dispatch = useDispatch();
@@ -25,12 +27,27 @@ export default function PersonProfile() {
   const [isEditPersonModal, setIsEditPersonModal] = useState(false);
   const [emailInteractions, setEmailInteractions] = useState([]);
 
+  const [isTaskDeleteModalOpen, setTaskDeleteModal] = useState(false);
+  const [taskId, setTaskId] = useState(null);
+
+  // for person delete modal
   const openDeleteModal = () => {
     setIsDeletePersonModalOpen(true);
   };
 
   const closeDeleteModal = () => {
     setIsDeletePersonModalOpen(false);
+  };
+
+  // for task delete modal
+  const openTaskDeleteModal = (id) => {
+    setTaskId(id);
+    console.log(id);
+    setTaskDeleteModal(true);
+  };
+
+  const closeTaskDeleteModal = () => {
+    setTaskDeleteModal(false);
   };
 
   const closeTaskModal = () => {
@@ -102,7 +119,10 @@ export default function PersonProfile() {
             <h1>Tasks/To Dos</h1>
             <button type="submit" className="add-tasks" onClick={() => setIsTaskModalOpen(true)}>+</button>
             {tasks && (tasks.map((e) => (
-              <div className="task" key={e.id} onClick={() => setSelectedItem(e)} role="button">{e.dueDate.split('T')[0]} - {e.title}</div>
+              <div className="task">
+                <div key={e.id} onClick={() => setSelectedItem(e)} role="button">{e.dueDate.split('T')[0]} - {e.title}</div>
+                <button className="delete-task-button" type="submit" onClick={() => openTaskDeleteModal(e.id)}>Delete</button>
+              </div>
             )))}
           </div>
           <div className="notes">
@@ -146,6 +166,12 @@ export default function PersonProfile() {
       <DeletePersonModal
         personId={personId}
         closeModal={() => closeDeleteModal()}
+      />
+      )}
+      {isTaskDeleteModalOpen && (
+      <DeleteTaskModal
+        taskId={taskId}
+        closeModal={() => closeTaskDeleteModal()}
       />
       )}
       <Outlet />
