@@ -454,6 +454,17 @@ export function signout() {
   };
 }
 
+export function updateUser(fields) {
+  return async (dispatch, navigate) => {
+    try {
+      const response = await axios.put(`${ROOT_URL}/api/users`, fields, { headers: { authorization: localStorage.getItem('token') } });
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+}
+
 export async function getEmails(idString) {
   // eslint-disable-next-line no-unused-vars
   try {
