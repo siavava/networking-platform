@@ -58,6 +58,7 @@ button, input[type="button"] {
 }
 
 .inner-navbar li {
+  list-style: none;
   margin-left: 80px;
 }
 
@@ -69,6 +70,16 @@ button, input[type="button"] {
 
 .inner-navbar li a:hover {
   color: #555353;
+}
+
+.inner-navbar li .settingButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  i {
+    color: white;
+  }
 }
 
 .authbtns {

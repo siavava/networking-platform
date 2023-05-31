@@ -3,8 +3,9 @@
 /* eslint-disable no-console */
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { getEmails } from '../store/actions';
+import '../settings.style.scss';
 
 export default function GoogleAuth() {
   const [tokenClient, setTokenClient] = useState({}); // eslint-disable-line no-unused-vars
@@ -13,19 +14,10 @@ export default function GoogleAuth() {
   const CLIENT_ID = '365906657849-9plkk1n06f756aq12eo0e7vclopb26c3.apps.googleusercontent.com';
   const SCOPE = 'https://mail.google.com/';
 
-  const createEmail = () => {
+  const codeForEmail = () => {
     tokenClient.requestCode();
   };
 
-  const getEmailssss = async (tokenResponse) => {
-    const res = await axios.get('https://gmail.googleapis.com/gmail/v1/users/evilpiggyfoofoo@gmail.com/messages', {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${tokenResponse.access_token}`,
-      },
-    });
-    console.log(res);
-  };
   useEffect(() => {
     /* global google */
 
@@ -51,10 +43,17 @@ export default function GoogleAuth() {
   }, []);
 
   return (
-    <div className="gmail-signin">
-      <div id="signin-button" />
-      <button type="button" onClick={createEmail}>create email</button>
-      <button type="button" onClick={getEmails}>get email</button>
+    <div className="google-auth-modal">
+      <div className="google-auth-modal-content">
+        <NavLink to="/home" className="close-button">x</NavLink>
+        <div className="content-body">
+          <h1>Connect To Your Google Account</h1>
+          <br />
+          <button type="button" id="edit" onClick={codeForEmail}>
+            <img src="../src/img/google-sign-in.png" alt="google sign in" />
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
