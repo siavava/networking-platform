@@ -156,7 +156,7 @@ export default function CreatePersonModal(props) {
         <br />
 
         <label htmlFor="linkedIn">
-          linkedIn:
+          LinkedIn:
           <input id="linkedIn" type="text" onChange={handleOnChange} value={newlinkedIn} />
         </label>
         <br />

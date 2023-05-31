@@ -74,7 +74,7 @@ export default function PersonProfile() {
                   <ReactMarkdown className="person-notes-content">{selectedItem.content || selectedItem.description || selectedItem.company}</ReactMarkdown>
                 </>
               )
-              : <div className="person-notes-content empty">Click on a Task or Note for more Information.</div>}
+              : <div className="person-notes-content empty">Click on a Task or Note for more information.</div>}
           </div>
         </div>
         <div className="first-row-right">
