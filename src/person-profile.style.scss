@@ -138,8 +138,12 @@ $text: #000000;
   &:hover {
     background-color: rgba(#6e7fc5, 0.3);
 
-    .contact-details-container, .edit-button {
+    .contact-details-container, .action-buttons-container {
       opacity: 1;
+
+      & > button {
+        opacity: 1;
+      }
     }
   }
 }
