@@ -6,18 +6,19 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import debounce from '../modules/debounce';
 import {
-  getCompanies, createCompany,
+  getCompanies,
 } from '../store/actions';
+import CreateCompanyModal from './create-company-modal';
 
 export default function Companies() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [newCompanyName, setNewCompanyName] = useState('');
-  const [newCompanyLocation, setNewCompanyLocation] = useState('');
-  const [newWebsite, setNewWebsite] = useState('');
-  const [newlinkedIn, setNewlinkedIn] = useState('');
-  const [newDescription, setNewDescription] = useState('');
-  const [newImageUrl, setNewImageUrl] = useState('');
+  // const [newCompanyName, setNewCompanyName] = useState('');
+  // const [newCompanyLocation, setNewCompanyLocation] = useState('');
+  // const [newWebsite, setNewWebsite] = useState('');
+  // const [newlinkedIn, setNewlinkedIn] = useState('');
+  // const [newDescription, setNewDescription] = useState('');
+  // const [newImageUrl, setNewImageUrl] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -33,46 +34,47 @@ export default function Companies() {
 
   useEffect(() => {
     getCompanies()(dispatch);
+    console.log(isModalOpen);
   }, []);
 
-  const handleOnChange = (event) => {
-    switch (event.target.id) {
-      case 'company-name':
-        setNewCompanyName(event.target.value);
-        break;
-      case 'company-location':
-        setNewCompanyLocation(event.target.value);
-        break;
-      case 'website-link':
-        setNewWebsite(event.target.value);
-        break;
-      case 'linkedIn':
-        setNewlinkedIn(event.target.value);
-        break;
-      case 'description':
-        setNewDescription(event.target.value);
-        break;
-      case 'imageURL':
-        setNewImageUrl(event.target.value);
-        break;
-      default:
-          // pass
-    }
-  };
+  // const handleOnChange = (event) => {
+  //   switch (event.target.id) {
+  //     case 'company-name':
+  //       setNewCompanyName(event.target.value);
+  //       break;
+  //     case 'company-location':
+  //       setNewCompanyLocation(event.target.value);
+  //       break;
+  //     case 'website-link':
+  //       setNewWebsite(event.target.value);
+  //       break;
+  //     case 'linkedIn':
+  //       setNewlinkedIn(event.target.value);
+  //       break;
+  //     case 'description':
+  //       setNewDescription(event.target.value);
+  //       break;
+  //     case 'imageURL':
+  //       setNewImageUrl(event.target.value);
+  //       break;
+  //     default:
+  //         // pass
+  //   }
+  // };
 
-  const handleSubmit = () => {
-    const fields = {
-      name: newCompanyName,
-      website: newWebsite,
-      location: newCompanyLocation,
-      linkedIn: newlinkedIn,
-      description: newDescription,
-      imageUrl: newImageUrl,
-    };
-    createCompany(fields)(dispatch, navigate);
-    // eslint-disable-next-line no-use-before-define
-    closeModal();
-  };
+  // const handleSubmit = () => {
+  //   const fields = {
+  //     name: newCompanyName,
+  //     website: newWebsite,
+  //     location: newCompanyLocation,
+  //     linkedIn: newlinkedIn,
+  //     description: newDescription,
+  //     imageUrl: newImageUrl,
+  //   };
+  //   createCompany(fields)(dispatch, navigate);
+  //   // eslint-disable-next-line no-use-before-define
+  //   closeModal();
+  // };
 
   const companies = useSelector((state) => state.company.companies) || [];
 
@@ -137,51 +139,57 @@ export default function Companies() {
         </ul>
       </div>
 
-      {isModalOpen && (
-      <div className="modal">
-        <div className="modal-content">
-          {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
-          <span className="close" onClick={closeModal}>x</span>
-          <label htmlFor="company-name">
-            Company Name:
-            <input id="company-name" type="text" onChange={handleOnChange} value={newCompanyName} />
-          </label>
-          <br />
+      { isModalOpen && <CreateCompanyModal closeModal={closeModal} /> }
+      {// (
+      // <div className="modal">
+      //   <div className="modal-content">
+      //     {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+      //     <span className="close" onClick={closeModal}>x</span>
+      //     <label htmlFor="company-name">
+      //       Company Name:
+      //       <input id="company-name" type="text"
+      // onChange={handleOnChange} value={newCompanyName} />
+      //     </label>
+      //     <br />
 
-          <label htmlFor="company-location">
-            Company Location:
-            <input id="company-location" type="text" onChange={handleOnChange} value={newCompanyLocation} />
-          </label>
-          <br />
+        //     <label htmlFor="company-location">
+        //       Company Location:
+        //       <input id="company-location" type="text"
+        // onChange={handleOnChange} value={newCompanyLocation} />
+        //     </label>
+        //     <br />
 
-          <label htmlFor="company-website">
-            Website Link:
-            <input id="website-link" type="text" onChange={handleOnChange} value={newWebsite} />
-          </label>
-          <br />
+        //     <label htmlFor="company-website">
+        //       Website Link:
+        //       <input id="website-link" type="text"
+        // onChange={handleOnChange} value={newWebsite} />
+        //     </label>
+        //     <br />
 
-          <label htmlFor="company-linkedIn">
-            LinkedIn URL:
-            <input id="linkedIn" type="text" onChange={handleOnChange} value={newlinkedIn} />
-          </label>
-          <br />
+        //     <label htmlFor="company-linkedIn">
+        //       LinkedIn URL:
+        //       <input id="linkedIn" type="text" onChange={handleOnChange} value={newlinkedIn} />
+        //     </label>
+        //     <br />
 
-          <label htmlFor="company-description">
-            Company Description:
-            <input id="description" type="text" onChange={handleOnChange} value={newDescription} />
-          </label>
-          <br />
+        //     <label htmlFor="company-description">
+        //       Company Description:
+        //       <input id="description" type="text"
+        // onChange={handleOnChange} value={newDescription} />
+        //     </label>
+        //     <br />
 
-          <label htmlFor="company-description">
-            Company Logo Image URL:
-            <input id="imageURL" type="text" onChange={handleOnChange} value={newImageUrl} />
-          </label>
-          <br />
+        //     <label htmlFor="company-description">
+        //       Company Logo Image URL:
+        //       <input id="imageURL" type="text" onChange={handleOnChange} value={newImageUrl} />
+        //     </label>
+        //     <br />
 
-          <input id="submit" type="button" value="Create" onClick={handleSubmit} />
-        </div>
-      </div>
-      )}
+      //     <input id="submit" type="button" value="Create" onClick={handleSubmit} />
+      //   </div>
+      // </div>
+      // )}
+          }
     </div>
   );
 }

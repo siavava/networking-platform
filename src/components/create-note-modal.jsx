@@ -94,7 +94,6 @@ export default function CreateNoteModal(props) {
     } else {
       createNote(fields)(dispatch);
     }
-    createNote(fields)(dispatch);
     closeModal();
   };
 

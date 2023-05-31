@@ -8,7 +8,7 @@ $text: #000000;
   padding: 20px;
 
   .companies-top-panel {
-    width: 1250px;
+    width: 1200px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -54,7 +54,7 @@ $text: #000000;
   }
 
   .companies-main-panel {
-    width: 1200px;
+    width: 1250px;
 
     .companies-list {
       display: grid;
@@ -70,6 +70,7 @@ $text: #000000;
         padding: 20px;
         gap: 20px;
         border-radius: 12px;
+        max-width: 400px;
 
         // modelled after https://www.w3schools.com/howto/howto_css_flip_card.asp
         .flip-card {
@@ -110,7 +111,7 @@ $text: #000000;
             
             /* Style the back side */
             .flip-card-back {
-              background: linear-gradient(90deg, #3d75e4 0%, #2b3da2 100%);
+              background: linear-gradient(90deg, #5787e6 0%, #6373cd 100%);
               color: white;
               transform: rotateY(180deg);
               overflow: hidden;
@@ -203,21 +204,20 @@ $text: #000000;
     textarea {
       width: 100%;
       padding: 10px;
-      border: 1px solid #A4BCA1;
+      border: 1px solid #8e9bcf;
       border-radius: 5px;
       margin-top: 10px;
       margin-bottom: 10px;
     }
 
     input[type="submit"], input[type="button"] {
-      background-color: #A4BCA1;
+      background-color: #8e9bcf;
       color: #FFFFFF;
       border: none;
       border-radius: 5px;
       padding: 10px 20px;
       font-weight: bold;
       cursor: pointer;
-      margin-left: 120px;
     }
   }
 }

@@ -1,22 +1,30 @@
 $background: linear-gradient(90deg, #68b3d3 0%, #6e7fc5 100%);;
 $text: #000000;
+$header: #A4BCA1;
 
 .company-profile-container {
   width: 100%;
   height: 100%;
   display: flex;
   place-content: center;
-  background: $background;
   padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 
   .company-profile {
-    background: $background;
     width: 100%;
-    max-width: 1250px;
     display: flex;
     flex-direction: row;
     gap: 20px;
     padding: 20px;
+
+    @media screen and (max-width: 960px) {
+      flex-direction: column;
+
+      & > * {
+        width: 100% !important;
+      }
+    }
 
     .company-profile-left-panel {
       width: 50%;
@@ -26,12 +34,40 @@ $text: #000000;
       gap: 20px;
       padding: 20px;
 
+      .company-profile-header {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-between;
+
+        .action-buttons-container {
+          display: flex;
+          flex-direction: row;
+          gap: 10px;
+          align-items: center;
+          justify-content: center;
+
+          & > button {
+            line-height: 2rem;
+            border-radius: 5px;
+            border-style: none;
+            background-color: white;
+            color: black;
+            border: 1px solid;
+            font-weight: bold;
+            cursor: pointer;
+          }
+        }
+      }
+
       .company-profile-name {
         text-transform: capitalize;
+        font-size: 21px;
+        font-weight: 600;
       }
 
       .company-profile-image {
-        width: clamp(100px, 70%, 300px);
+        width: 60%;
         aspect-ratio: 1/1;
         object-fit: cover;
       }
@@ -44,14 +80,13 @@ $text: #000000;
 
       .company-profile-links {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         gap: 1rem;
         margin-bottom: 20px;
       }
 
       .company-profile-extended-bio {
         max-width: 50ch;
-        padding: 10px;
       }
     }
 
@@ -64,11 +99,17 @@ $text: #000000;
       padding: 20px;
       position: relative;
 
-      & > h1 {
-        text-transform: capitalize;
-        text-align: center;
-        font-size: 1.4em;
-        margin-bottom: 40px;
+      .company-profile-header {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-between;
+
+        & > h1 {
+          text-transform: capitalize;
+          font-size: 23px;
+          font-weight: 600;
+        }
       }
 
       .add-people {
@@ -86,32 +127,47 @@ $text: #000000;
         flex-direction: row;
         width: max-content;
         gap: 10px;
+        width: 100%;
 
-        & > img {
-          width: 60px;
-          aspect-ratio: 1/1;
-          border-radius: 50%;
-          margin: auto;
-          margin-left: 20px;
-          margin-right: 15px;
-          object-fit: cover;
-        }
-
+        
         .company-profile-person-information { 
-          width: 420px;
           background: #E5E6E4;
-
-          & > h2 {
-            width: 100%;
-            text-transform: capitalize;
-            font-size: 1.2em;
-            margin-left: 10px;
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+          padding: 20px;
+          gap: 10px;
+          
+          & > img {
+            width: 60px;
+            aspect-ratio: 1/1;
+            border-radius: 50%;
+            margin: auto;
+            margin-left: 20px;
+            margin-right: 15px;
+            object-fit: cover;
           }
-          & > p {
+
+          .bio {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
             width: 100%;
-            text-transform: capitalize;
-            font-size: 1em;
-            margin-left: 10px;
+            & > h2 {
+              // text-transform: capitalize;
+              font-size: 1.2em;
+              margin-left: 10px;
+              color: $text;
+
+              & > a {
+                color: inherit;
+              }
+            }
+            & > p {
+              text-transform: capitalize;
+              font-size: 1em;
+              margin-left: 10px;
+            }
           }
         }
       }

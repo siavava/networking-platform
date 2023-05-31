@@ -1,11 +1,12 @@
 /* eslint-disable jsx-a11y/interactive-supports-focus */
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { useSelector, useDispatch } from 'react-redux';
 import '../person-profile.style.scss';
 import { useNavigate, useLocation, Outlet } from 'react-router-dom';
-import { getPerson, getAssociatedTasks, getAssociatedNotes } from '../store/actions';
+import {
+  getPerson, deletePerson, getAssociatedTasks, getAssociatedNotes,
+} from '../store/actions';
 import CreateTaskModal from './create-task-modal';
 import CreateNoteModal from './create-note-modal';
 import CreatePersonModal from './create-person-modal';
@@ -32,11 +33,15 @@ export default function PersonProfile() {
     navigate(`notes/${event.target.id}`);
   };
 
+  const handleDeletePerson = () => {
+    deletePerson(personId)(dispatch, navigate);
+  };
+
   useEffect(() => {
     dispatch(getPerson(personId));
     dispatch(getAssociatedTasks(personId, 'people'));
     dispatch(getAssociatedNotes(personId, 'people'));
-  }, [dispatch, personId, isTaskModalOpen, isNoteModalOpen]);
+  }, [personId, isTaskModalOpen, isNoteModalOpen]);
 
   const person = useSelector((state) => state.person);
   const tasks = useSelector((state) => state.task.all);
@@ -56,7 +61,10 @@ export default function PersonProfile() {
               {/* show default image (unsplash) if no image is provided */}
               <img src={person.imageUrl || 'https://img.freepik.com/free-icon/user_318-159711.jpg'} alt="profile" />
               <div className="info-text">
-                <button className="edit-button" type="button" onClick={() => setIsEditPersonModal(true)}>Edit</button>
+                <div className="action-buttons-container">
+                  <button className="edit-button" type="button" onClick={() => setIsEditPersonModal(true)}>Edit</button>
+                  <button className="edit-button" onClick={handleDeletePerson} type="button">Delete</button>
+                </div>
                 <div className="contact-details-container">
                   <h1>{`${person.name}`}</h1>
                   <p>{person.title}</p>
@@ -74,7 +82,7 @@ export default function PersonProfile() {
                   <ReactMarkdown className="person-notes-content">{selectedItem.content || selectedItem.description || selectedItem.company}</ReactMarkdown>
                 </>
               )
-              : <div className="person-notes-content empty">Click on a Task or Note for more Information.</div>}
+              : <div className="person-notes-content empty">Click on a Task or Note for more information.</div>}
           </div>
         </div>
         <div className="first-row-right">
