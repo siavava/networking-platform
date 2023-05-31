@@ -9,6 +9,7 @@ const initialState = {
   website: '',
   imageUrl: '',
   linkedin: '',
+  emailDomain: '',
   description: '',
   location: '',
   tags: [],
@@ -27,6 +28,7 @@ const CompanyReducer = produce((draftState, action = {}) => {
       draftState.imageUrl = action.payload.imageUrl;
       draftState.linkedin = action.payload.linkedin;
       draftState.description = action.payload.description;
+      draftState.emailDomain = action.payload.emailDomain;
       draftState.location = action.payload.location;
       draftState.tags = action.payload.tags;
       draftState.notes = action.payload.notes;
@@ -43,6 +45,7 @@ const CompanyReducer = produce((draftState, action = {}) => {
       draftState.website = action.payload.website;
       draftState.imageUrl = action.payload.imageUrl;
       draftState.linkedin = action.payload.linkedin;
+      draftState.emailDomain = action.payload.emailDomain;
       draftState.description = action.payload.description;
       draftState.location = action.payload.location;
       draftState.tags = action.payload.tags;
@@ -56,6 +59,7 @@ const CompanyReducer = produce((draftState, action = {}) => {
       draftState.name = action.payload.name;
       draftState.website = action.payload.website;
       draftState.imageUrl = action.payload.imageUrl;
+      draftState.emailDomain = action.payload.emailDomain;
       draftState.linkedin = action.payload.linkedin;
       draftState.description = action.payload.description;
       draftState.location = action.payload.location;
