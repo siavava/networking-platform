@@ -18,22 +18,26 @@ button, input[type="button"] {
 }
 
 .navbar {
-  font-size: 1.3rem;
+
+  width: 100% !important;
+  max-width: 1200px !important;
+  margin: 0 auto;
+  font-size: clamp(12px, 4vw, 20px);
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  background: $background;
   padding: 10px;
   font-family: "DM Sans", sans-serif;
 }
 
 .navbar .goloco {
-  font-size: 2.5rem;
+  // font-size: 2.5rem;
+  font-size: clamp(25px, 5vw, 40px);
+  line-height: 1;
 }
 
 .navbar li {
   list-style: none;
-  margin-right: 10px;
+  font-size: clamp(12px, 2vw, 20px);
 }
 
 .navbar li img {
@@ -47,29 +51,33 @@ button, input[type="button"] {
   padding: 5px;
 }
 
-.navbar li a:hover {
-  color: #555353;
-}
+// .navbar li a:hover {
+//   color: #555353;
+// }
 
 .inner-navbar {
   display: flex;
   align-items: center;
-  margin: 10px;
+  margin: 10px 0;
+  gap: clamp(10px, 5vw, 30px);
+  place-self: flex-end;
+  width: fit-content;
+  max-width: 75%;
 }
 
 .inner-navbar li {
   list-style: none;
-  margin-left: 80px;
 }
 
 .inner-navbar li a {
   text-decoration: none;
-  color: $text;
-  padding: 10px;
+  border: 1px solid transparent;
+  transition: all 0.3s ease-in-out;
 }
 
 .inner-navbar li a:hover {
-  color: #555353;
+  border: 1px solid;
+  border-radius: 10px;
 }
 
 .inner-navbar li .settingButton {
@@ -89,6 +97,15 @@ button, input[type="button"] {
   padding: 10px;
   border-radius: 25px;
   cursor: pointer;
+  * {
+    border: none !important;
+  }
+
+  &:hover {
+    * {
+      border: none !important;
+    }
+  }
 }
 
 .close-button {
