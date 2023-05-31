@@ -174,10 +174,16 @@ export function getTask(id) {
   };
 }
 
-export function deleteTask(id) {
+export function deleteTask(id, navigate) {
   return async () => {
-    // delete
-    await axios.delete(`${ROOT_URL}/tasks/${id}`, { headers: { authorization: localStorage.getItem('token') } });
+    try {
+      await axios.delete(`${ROOT_URL}/api/tasks/${id}`, { headers: { authorization: localStorage.getItem('token') } });
+
+      // navigate to people page
+      navigate(0);
+    } catch (error) {
+      console.error(error);
+    }
   };
 }
 

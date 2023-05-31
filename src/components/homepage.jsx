@@ -6,8 +6,9 @@ import Tabs from 'react-bootstrap/Tabs';
 import { useSelector, useDispatch } from 'react-redux';
 import '../homepage.style.scss';
 import CreateTaskModal from './create-task-modal';
+import { DeleteTaskModal } from './delete-modal';
 import {
-  getTasks, getPeopleById, deleteTask,
+  getTasks, getPeopleById,
 } from '../store/actions';
 
 export default function HomePage() {
@@ -18,6 +19,8 @@ export default function HomePage() {
   const associatedPeopleList = useSelector((state) => state.person.people) || [];
   const associatedPeopleDict = {};
   const name = localStorage.getItem('name') || 'anonymous user';
+  const [isTaskDeleteModalOpen, setTaskDeleteModal] = useState(false);
+  const [taskId, setTaskId] = useState(null);
 
   useEffect(() => {
     getTasks()(dispatch);
@@ -58,6 +61,15 @@ export default function HomePage() {
     setIsModalOpen(false);
   };
 
+  const openTaskDeleteModal = (task) => {
+    setTaskId(task.id);
+    setTaskDeleteModal(true);
+  };
+
+  const closeTaskDeleteModal = () => {
+    setTaskDeleteModal(false);
+  };
+
   const keyTaskVar = {
     overdue: overDueTasks,
     today: todayTasks,
@@ -93,7 +105,8 @@ export default function HomePage() {
               <tr className="homepage-tasks-table-row table-header">
                 <th className="homepage-tasks-table-cell header"> DUE DATE </th>
                 <th className="homepage-tasks-table-cell header"> TASK </th>
-                <th className="homepage-tasks-table-cell header"> PERSON </th>
+                <th className="homepage-tasks-table-cell header"> CONTACT </th>
+                <th className="homepage-tasks-table-cell header"> STATUS </th>
               </tr>
             </thead>
             <tbody>
@@ -107,17 +120,23 @@ export default function HomePage() {
                     <a href={`people/${task.associatedPerson}`}>{associatedPeopleDict[task.associatedPerson]}</a>
                   </td>
                   <td className="homepage-tasks-table-cell">
-                    <button className="delete-task-button" type="submit" onClick={(event) => deleteTask(task.id, task.associatedPerson)}>Delete</button>
+                    <button className="delete-task-button" type="submit" onClick={() => openTaskDeleteModal(task)}>Delete</button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-          <button className="create-task-button" type="submit" onClick={openModal}>+ Add New Task</button>
+          <button className="create-task-button" type="submit" onClick={openModal}>Add New Task</button>
         </div>
       </div>
 
       { isModalOpen && <CreateTaskModal closeModal={closeModal} /> }
+      {isTaskDeleteModalOpen && (
+      <DeleteTaskModal
+        taskId={taskId}
+        closeModal={closeTaskDeleteModal}
+      />
+      )}
     </div>
   );
 }
