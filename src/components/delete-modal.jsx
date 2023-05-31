@@ -1,9 +1,10 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { deleteCompany } from '../store/actions';
+import { deleteCompany, deletePerson } from '../store/actions';
+import '../delete.style.scss';
 
-export default function DeleteCompanyModal(props) {
+export function DeleteCompanyModal(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -20,10 +21,37 @@ export default function DeleteCompanyModal(props) {
     <div>
       <div className="task-modal">
         <div className="task-modal-content">
-          Are you sure you want to delete?
-          <div className="submit-btn">
-            <button type="button" onClick={handleDeleteCompany}>Yes</button>
-            <button type="button" onClick={() => closeModal()}>No</button>
+          Are you sure you want to delete this company?
+          <div className="delete-options">
+            <button type="button" onClick={handleDeleteCompany} className="delete-options-buttons">Yes</button>
+            <button type="button" onClick={() => closeModal()} className="delete-options-buttons">No</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function DeletePersonModal(props) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const {
+    personId, closeModal,
+  } = props;
+
+  const handleDeletePerson = () => {
+    deletePerson(personId)(dispatch, navigate);
+  };
+
+  return (
+    <div>
+      <div className="task-modal">
+        <div className="task-modal-content">
+          Are you sure you want to delete this contact?
+          <div className="delete-options">
+            <button type="button" onClick={handleDeletePerson} className="delete-options-buttons">Yes</button>
+            <button type="button" onClick={() => closeModal()} className="delete-options-buttons">No</button>
           </div>
         </div>
       </div>
