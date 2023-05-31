@@ -1,7 +1,9 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { deleteCompany, deletePerson, deleteTask } from '../store/actions';
+import {
+  deleteCompany, deletePerson, deleteNote, deleteTask,
+} from '../store/actions';
 import '../delete.style.scss';
 
 export function DeleteCompanyModal(props) {
@@ -58,7 +60,6 @@ export function DeletePersonModal(props) {
     </div>
   );
 }
-
 export function DeleteTaskModal(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -78,6 +79,34 @@ export function DeleteTaskModal(props) {
           Are you sure you want to delete this task?
           <div className="delete-options">
             <button type="button" onClick={handleDelete} className="delete-options-buttons">Yes</button>
+            <button type="button" onClick={() => closeModal()} className="delete-options-buttons">No</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function DeleteNoteModal(props) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const {
+    noteId, closeModal, authorRoute,
+  } = props;
+
+  const handleDeleteNote = () => {
+    deleteNote(noteId)(dispatch);
+    navigate(authorRoute, { state: { replace: true, deleted: true } });
+  };
+
+  return (
+    <div>
+      <div className="task-modal">
+        <div className="task-modal-content">
+          Are you sure you want to delete this note?
+          <div className="delete-options">
+            <button type="button" onClick={handleDeleteNote} className="delete-options-buttons">Yes</button>
             <button type="button" onClick={() => closeModal()} className="delete-options-buttons">No</button>
           </div>
         </div>
