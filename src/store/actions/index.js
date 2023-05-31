@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 import axios from 'axios';
 
@@ -117,7 +118,7 @@ export function updateCompany(updates) {
   };
 }
 
-export function createTask(taskFields) {
+export function createTask(taskFields, navigate) {
   const fields = {
     title: taskFields.title,
     description: taskFields.description,
@@ -127,9 +128,12 @@ export function createTask(taskFields) {
     associatedPerson: taskFields.associatedPerson,
   };
 
-  return async () => {
+  return async (dispatch) => {
     try {
-      await axios.post(`${ROOT_URL}/api/tasks`, fields, { headers: { authorization: localStorage.getItem('token') } });
+      const response = await axios.post(`${ROOT_URL}/api/tasks`, fields, { headers: { authorization: localStorage.getItem('token') } });
+      dispatch({ type: ActionTypes.TASK.CREATE_TASK, payload: response.data });
+
+      // navigate(0);
     } catch (error) {
       console.error(error);
     }
