@@ -8,7 +8,7 @@ import '../company-profile.style.scss';
 import { getCompany, getAssociatedPeople } from '../store/actions';
 import CreateCompanyModal from './create-company-modal';
 import CreatePersonModal from './create-person-modal';
-import DeleteCompanyModal from './delete-modal';
+import { DeleteCompanyModal } from './delete-modal';
 
 export default function CompanyProfile() {
   const dispatch = useDispatch();
