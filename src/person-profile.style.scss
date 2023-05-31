@@ -1,4 +1,3 @@
-$header: #A4BCA1;
 $background: #F6F8F5;
 $text: #000000;
 
@@ -75,11 +74,6 @@ $text: #000000;
     gap: 15px;
   }
 }
-
-
-
-
-
   
 .info-text {
   flex: 1 1 auto;
@@ -92,15 +86,14 @@ $text: #000000;
   place-content: center;
   flex-direction: column;
   text-align: center;
-  background-color: rgba($header, 0.1);
+  background-color: rgba(#6e7fc5, 0.1);
   font-weight: 700;
 
   // show color in contrast with background
   backdrop-filter: grayscale(0.8);
   pointer-events: all;
   opacity: 1;
-  color: $header;
-
+  color: $text;
   transition: all 0.3s ease-in;
 
   .edit-button {
@@ -108,7 +101,7 @@ $text: #000000;
     top: 10px;
     right: 10px;
     font-size: 25px;
-    background: #FFFFFF;
+    background: none;
     border: none;
     cursor: pointer;
     opacity: 0;
@@ -120,21 +113,20 @@ $text: #000000;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    // margin: 10px;
     margin-top: 20px;
+    margin-bottom: 20px;
     background: white;
     width: fit-content;
     place-self: center;
     mix-blend-mode: normal;
-    padding: 10px 20px 0 20px;
-
+    padding: 10px 20px 10px 20px;
     opacity: 0;
     pointer-events: all;
     transition: all 0.3s ease-in;
   }
 
   &:hover {
-    background-color: rgba($header, 0.3);
+    background-color: rgba(#6e7fc5, 0.3);
 
     .contact-details-container, .edit-button {
       opacity: 1;
@@ -152,7 +144,7 @@ $text: #000000;
 
 .info-text a {
   font-size: 13px;
-  color: #89CFF0;
+  color: $text;
 }
 
 .person-notes {
@@ -160,7 +152,7 @@ $text: #000000;
 }
 
 .person-notes {
-  background: $header;
+  background: #dee3f6;
   width: 100%;
   height: 100%;
   padding: 20px;
@@ -248,9 +240,10 @@ $text: #000000;
 }
 
 .email-interaction {
-  background-color: #EBEBEB;
+  background-color: #dee3f6;
   margin: 10px;
   margin-left: 15px;
+  border-radius: 5px;
 }
 
 .email-interaction h2 {
