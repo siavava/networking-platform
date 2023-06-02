@@ -418,9 +418,9 @@ export function signup({
       const response = await axios.post(`${ROOT_URL}/api/signup`, {
         firstName, lastName, email, password,
       });
+      await localStorage.setItem('token', response.data.token);
+      await localStorage.setItem('name', `${response.data.firstName} ${response.data.lastName}`);
       dispatch({ type: ActionTypes.AUTH.AUTH_USER, payload: response.data });
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('name', `${response.data.firstname} ${response.data.lastname}`);
       navigate('/home');
     } catch (error) {
       console.error(error);
@@ -437,8 +437,8 @@ export function signin({
         email, password,
       });
       dispatch({ type: ActionTypes.AUTH.AUTH_USER, payload: response.data });
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('name', `${response.data.firstName} ${response.data.lastName}`);
+      await localStorage.setItem('token', response.data.token);
+      await localStorage.setItem('name', `${response.data.firstName} ${response.data.lastName}`);
       navigate('/home');
     } catch (error) {
       console.error(error);
