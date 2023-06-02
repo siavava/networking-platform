@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ReactMarkdown from 'react-markdown';
 import '../expanded-note-modal.style.scss';
 import CreateNoteModal from './create-note-modal';
+import { DeleteNoteModal } from './delete-modal';
 
 // import actions
 import { getNote } from '../store/actions';
@@ -13,7 +14,10 @@ export default function ExpandNoteView() {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const noteId = pathname.split('/notes/')[1];
+  const authorRoute = pathname.split('/notes/')[0];
+
   const [isNoteModalOpen, setIsNoteModalOpen] = useState(false);
+  const [isDeleteNoteModalOpen, setIsDeleteNoteModalOpen] = useState(false);
 
   const closeNoteModal = () => {
     setIsNoteModalOpen(false);
@@ -25,6 +29,10 @@ export default function ExpandNoteView() {
 
   const note = useSelector((state) => state.note.current);
 
+  const deleteCurrentNote = () => {
+    setIsDeleteNoteModalOpen(true);
+  };
+
   return (
     <div className="expanded-note-modal">
       <div className="expanded-note-modal-content">
@@ -32,6 +40,9 @@ export default function ExpandNoteView() {
           <h1>{note.title}</h1>
           <button type="button" id="edit" onClick={() => setIsNoteModalOpen(true)}>
             <i className="material-icons" id="svg_options">edit</i>
+          </button>
+          <button type="button" id="edit" onClick={deleteCurrentNote}>
+            <i className="material-icons" id="svg_options">delete</i>
           </button>
         </div>
         <NavLink to={pathname.split('notes')[0] || '/home'} className="close-button">x</NavLink>
@@ -44,6 +55,13 @@ export default function ExpandNoteView() {
         <CreateNoteModal closeModal={closeNoteModal}
           noteValue={note}
           isEditing
+        />
+      ) }
+      { isDeleteNoteModalOpen && (
+        <DeleteNoteModal
+          closeModal={() => setIsDeleteNoteModalOpen(false)}
+          noteId={noteId}
+          authorRoute={authorRoute}
         />
       ) }
     </div>
