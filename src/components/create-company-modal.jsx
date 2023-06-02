@@ -13,7 +13,7 @@ export default function CreateCompanyModal(props) {
   const [newCompanyLocation, setNewCompanyLocation] = useState(companyValue ? companyValue.location : '');
   const [newWebsite, setNewWebsite] = useState(companyValue ? companyValue.website : '');
   const [newlinkedIn, setNewlinkedIn] = useState(companyValue ? companyValue.linkedin : '');
-  const [newEmailDomain, setNewEmailDomain] = useState(companyValue ? companyValue.linkedin : '');
+  const [newEmailDomain, setNewEmailDomain] = useState(companyValue ? companyValue.emailDomain : '');
   const [newDescription, setNewDescription] = useState(companyValue ? companyValue.description : '');
   const [newImageUrl, setNewImageUrl] = useState(companyValue ? companyValue.imageUrl : '');
 
@@ -52,6 +52,7 @@ export default function CreateCompanyModal(props) {
     const fields = {
       name: newCompanyName,
       website: newWebsite,
+      emailDomain: newEmailDomain,
       location: newCompanyLocation,
       linkedIn: newlinkedIn,
       description: newDescription,
