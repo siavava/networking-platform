@@ -48,11 +48,13 @@ export default function HomePage() {
     });
   }
 
-  const today = new Date().getDate();
-  const todayTasks = tasks.filter((task) => new Date(task.dueDate).getDate()
-    === today);
-  const overDueTasks = tasks.filter((task) => new Date(task.dueDate).getDate() < today);
-  const upcomingTasks = tasks.filter((task) => new Date(task.dueDate).getDate() > today);
+  const today = new Date(); // Get the current date and time
+  const todayTasks = tasks.filter((task) => new Date(task.dueDate).toDateString() === today.toDateString());
+  const nonTodayTasks = tasks.filter((task) => new Date(task.dueDate).toDateString() !== today.toDateString());
+
+  const overDueTasks = nonTodayTasks.filter((task) => new Date(task.dueDate) < today);
+
+  const upcomingTasks = nonTodayTasks.filter((task) => new Date(task.dueDate) > today);
 
   const openModal = () => {
     setIsModalOpen(true);
