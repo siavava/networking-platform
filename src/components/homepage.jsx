@@ -19,6 +19,7 @@ export default function HomePage() {
   const associatedPeopleList = useSelector((state) => state.person.people) || [];
   const associatedPeopleDict = {};
   const name = localStorage.getItem('name') || 'anonymous user';
+  console.log(name);
   const [isTaskDeleteModalOpen, setTaskDeleteModal] = useState(false);
   const [taskId, setTaskId] = useState(null);
 
