@@ -111,6 +111,7 @@ export function deleteCompany(companyId) {
 export function updateCompany(updates) {
   return async (dispatch) => {
     try {
+      console.log(updates);
       const response = await axios.put(`${ROOT_URL}/api/companies/${updates.id}`, updates, { headers: { authorization: localStorage.getItem('token') } });
       dispatch({ type: ActionTypes.COMPANY.UPDATE_COMPANY, payload: response.data });
     } catch (error) {
@@ -465,13 +466,24 @@ export function updateUser(fields) {
   };
 }
 
-export async function getEmails(idString) {
+export async function getPersonEmails(id) {
   // eslint-disable-next-line no-unused-vars
   try {
-    const res = await axios.get(`${ROOT_URL}/api/emails?person=${idString}`, { headers: { authorization: localStorage.getItem('token') } });
+    const res = await axios.get(`${ROOT_URL}/api/emails?person=${id}`, { headers: { authorization: localStorage.getItem('token') } });
     return res.data;
   } catch (error) {
-    console.error(error);
+    console.log(error.response.data);
+    return [error.response.data];
   }
-  return [];
+}
+
+export async function getCompanyEmails(id) {
+  // eslint-disable-next-line no-unused-vars
+  try {
+    const res = await axios.get(`${ROOT_URL}/api/emails?company=${id}`, { headers: { authorization: localStorage.getItem('token') } });
+    return res.data;
+  } catch (error) {
+    console.log(error.response.data);
+    return [error.response.data];
+  }
 }

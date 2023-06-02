@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import '../person-profile.style.scss';
 import { useNavigate, useLocation, Outlet } from 'react-router-dom';
 import {
-  getPerson, deletePerson, getAssociatedTasks, getAssociatedNotes, getEmails,
+  getPerson, deletePerson, getAssociatedTasks, getAssociatedNotes, getPersonEmails,
 } from '../store/actions';
 import CreateTaskModal from './create-task-modal';
 import CreateNoteModal from './create-note-modal';
@@ -45,23 +45,25 @@ export default function PersonProfile() {
     navigate(`notes/${event.target.id}`);
   };
 
-  useEffect(() => {
-    dispatch(getPerson(personId));
-    dispatch(getAssociatedTasks(personId, 'people'));
-    dispatch(getAssociatedNotes(personId, 'people'));
-  }, [personId, isTaskModalOpen, isNoteModalOpen]);
-
-  const person = useSelector((state) => state.person);
-  const tasks = useSelector((state) => state.task.all);
-  const notes = useSelector((state) => state.note.all);
-
-  const setEmails = async () => {
-    let emails = await getEmails(personId);
+  const callEmailInteractions = async () => {
+    setEmailInteractions([]);
+    let emails = await getPersonEmails(personId);
     if (emails.length > 10) {
       emails = emails.slice(0, 10);
     }
     setEmailInteractions(emails);
   };
+
+  useEffect(() => {
+    dispatch(getPerson(personId));
+    dispatch(getAssociatedTasks(personId, 'people'));
+    dispatch(getAssociatedNotes(personId, 'people'));
+    callEmailInteractions();
+  }, [personId, isTaskModalOpen, isNoteModalOpen]);
+
+  const person = useSelector((state) => state.person);
+  const tasks = useSelector((state) => state.task.all);
+  const notes = useSelector((state) => state.note.all);
 
   return (
     <div className="person-profile">
@@ -117,13 +119,20 @@ export default function PersonProfile() {
       </div>
 
       <div className="email-container">
-        <h1>Email Interactions</h1>
-        <button type="button" onClick={setEmails}>Get Emails</button>
-        {emailInteractions.map((email) => (
+        <div className="email-header">
+          <h1>Email Interactions</h1>
+          <button type="button" onClick={callEmailInteractions}>
+            <i className="material-icons" id="svg_options">refresh</i>
+          </button>
+        </div>
+        { emailInteractions.length !== 0 ? (emailInteractions.map((email) => (
           <div className="email-interaction" key={email.id}>
-            <h3>{email}</h3>
+            { email.emailDate
+              ? (<><h3>{email.emailDate.replace('T', ' ').replace('.000Z', '')}</h3><p>{email.emailSnippet}</p></>)
+              : (<h3>{email.error}</h3>)}
           </div>
-        ))}
+        )))
+          : (<div className="email-interaction">Loading...</div>)}
       </div>
       { isTaskModalOpen && (
         <CreateTaskModal closeModal={closeTaskModal}
