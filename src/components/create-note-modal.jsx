@@ -75,7 +75,7 @@ export default function CreateNoteModal(props) {
     }
   }, []);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const fields = {
       title: newNote,
       content,
@@ -90,9 +90,9 @@ export default function CreateNoteModal(props) {
     }
 
     if (isEditing) {
-      updateNote(noteId, fields)(dispatch);
+      await updateNote(noteId, fields)(dispatch);
     } else {
-      createNote(fields)(dispatch);
+      await createNote(fields)(dispatch);
     }
     closeModal();
   };

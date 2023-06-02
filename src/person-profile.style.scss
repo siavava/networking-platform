@@ -250,21 +250,24 @@ $text: #000000;
   padding: 20px;
 }
 
+.email-container .email-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+}
 .email-container h1 {
   color: $text;
   font-size: 30px;
 }
 
 .email-container button {
-  background-color: #8e9bcf;
-  color: #FFFFFF;
+  background: none;
+  color: black;
   border: none;
   border-radius: 5px;
   margin-bottom: 15px;
-  padding: 10px 20px;
   font-weight: bold;
-  width: 10%;
-  min-width: 200px;
   cursor: pointer;
 }
 
