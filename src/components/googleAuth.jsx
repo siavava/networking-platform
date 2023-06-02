@@ -3,19 +3,41 @@
 /* eslint-disable no-console */
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { ROOT_URL, getEmails } from '../store/actions';
+import { ROOT_URL, updateUser } from '../store/actions';
 import '../settings.style.scss';
 
 export default function GoogleAuth() {
-  const [tokenClient, setTokenClient] = useState({}); // eslint-disable-line no-unused-vars
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [tokenClient, setTokenClient] = useState({}); // eslint-disable-line no-unused-vars
+  const [googleEmail, setGoogleEmail] = useState(
+    '',
+  );
+  const [codeSet, setCodeSet] = useState(false);
 
   const CLIENT_ID = '365906657849-9plkk1n06f756aq12eo0e7vclopb26c3.apps.googleusercontent.com';
   const SCOPE = 'https://mail.google.com/';
 
   const codeForEmail = () => {
     tokenClient.requestCode();
+  };
+
+  const infoFilled = () => {
+    if (googleEmail !== '' && codeSet) {
+      return false;
+    }
+    return true;
+  };
+
+  const handleSubmit = () => {
+    const fields = {
+      googleEmail,
+    };
+
+    dispatch(updateUser(fields, navigate));
+    navigate('/home');
   };
 
   useEffect(() => {
@@ -37,6 +59,7 @@ export default function GoogleAuth() {
           console.log(`Auth code response: ${xhr.responseText}`);
         };
         xhr.send(`code=${response.code}`);
+        setCodeSet(true);
       },
     }));
   }, []);
@@ -47,10 +70,15 @@ export default function GoogleAuth() {
         <NavLink to="/home" className="close-button">x</NavLink>
         <div className="content-body">
           <h1>Connect To Your Google Account</h1>
+          <label htmlFor="google-email">
+            Google Email:
+            <input id="description" type="text" onChange={(e) => setGoogleEmail(e.target.value)} value={googleEmail} />
+          </label>
           <br />
-          <button type="button" id="edit" onClick={codeForEmail}>
+          <button type="button" className="signInButton" onClick={codeForEmail}>
             <img src="../src/img/google-sign-in.png" alt="google sign in" />
           </button>
+          <button className="save-button" type="button" disabled={infoFilled()} onClick={handleSubmit}>Save</button>
         </div>
       </div>
     </div>

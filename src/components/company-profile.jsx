@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 // import { useParams } from 'react-router-dom';
 import '../company-profile.style.scss';
-import { getCompany, getAssociatedPeople } from '../store/actions';
+import { getCompany, getAssociatedPeople, getCompanyEmails } from '../store/actions';
 import CreateCompanyModal from './create-company-modal';
 import CreatePersonModal from './create-person-modal';
 import { DeleteCompanyModal } from './delete-modal';
@@ -17,6 +17,8 @@ export default function CompanyProfile() {
   const [isCreateCompanyModalOpen, setIsCreateCompanyModalOpen] = useState(false);
   const [isDeleteCompanyModalOpen, setIsDeleteCompanyModalOpen] = useState(false);
   const [isCreatePersonModalOpen, setIsCreatePersonModalOpen] = useState(false);
+  const [emailInteractions, setEmailInteractions] = useState([]);
+
   const openModal = (type) => {
     if (type === 'company') setIsCreateCompanyModalOpen(true);
     else if (type === 'person') setIsCreatePersonModalOpen(true);
@@ -29,12 +31,22 @@ export default function CompanyProfile() {
     else if (type === 'delete-company') setIsDeleteCompanyModalOpen(false);
   };
 
+  const callEmailInteractions = async () => {
+    setEmailInteractions([]);
+    let emails = await getCompanyEmails(companyId);
+    if (emails.length > 10) {
+      emails = emails.slice(0, 10);
+    }
+    setEmailInteractions(emails);
+  };
+
   const company = useSelector((state) => state.company);
   const people = useSelector((state) => state.person.people);
 
   useEffect(() => {
     dispatch(getCompany(companyId));
     dispatch(getAssociatedPeople(companyId));
+    callEmailInteractions();
   }, [companyId, dispatch]);
 
   if (company.name !== '') {
@@ -83,6 +95,23 @@ export default function CompanyProfile() {
               ))
               )}
           </div>
+        </div>
+
+        <div className="email-container">
+          <div className="email-header">
+            <h1>Email Interactions</h1>
+            <button type="button" onClick={callEmailInteractions}>
+              <i className="material-icons" id="svg_options">refresh</i>
+            </button>
+          </div>
+          { emailInteractions.length !== 0 ? (emailInteractions.map((email) => (
+            <div className="email-interaction" key={email.id}>
+              { email.emailDate
+                ? (<><h3>{email.emailDate.replace('T', ' ').replace('.000Z', '')}</h3><p>{email.emailSnippet}</p></>)
+                : (<h3>{email.error}</h3>)}
+            </div>
+          )))
+            : (<div className="email-interaction">Loading...</div>)}
         </div>
         {isCreateCompanyModalOpen && (
           <CreateCompanyModal

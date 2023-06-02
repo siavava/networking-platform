@@ -55,7 +55,7 @@ export default function CreateTaskModal(props) {
     }
   }, []);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const fields = {
       title: newTask,
       dueDate,
@@ -69,7 +69,7 @@ export default function CreateTaskModal(props) {
       fields.associatedCompany = selectedCompany.value;
     }
 
-    dispatch(createTask(fields, navigate));
+    await dispatch(createTask(fields, navigate));
     closeModal();
   };
 

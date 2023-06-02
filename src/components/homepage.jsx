@@ -19,6 +19,7 @@ export default function HomePage() {
   const associatedPeopleList = useSelector((state) => state.person.people) || [];
   const associatedPeopleDict = {};
   const name = localStorage.getItem('name') || 'anonymous user';
+  console.log(name);
   const [isTaskDeleteModalOpen, setTaskDeleteModal] = useState(false);
   const [taskId, setTaskId] = useState(null);
 
@@ -47,11 +48,13 @@ export default function HomePage() {
     });
   }
 
-  const today = new Date().getDate();
-  const todayTasks = tasks.filter((task) => new Date(task.dueDate).getDate()
-    === today);
-  const overDueTasks = tasks.filter((task) => new Date(task.dueDate).getDate() < today);
-  const upcomingTasks = tasks.filter((task) => new Date(task.dueDate).getDate() > today);
+  const today = new Date(); // Get the current date and time
+  const todayTasks = tasks.filter((task) => new Date(task.dueDate).toDateString() === today.toDateString());
+  const nonTodayTasks = tasks.filter((task) => new Date(task.dueDate).toDateString() !== today.toDateString());
+
+  const overDueTasks = nonTodayTasks.filter((task) => new Date(task.dueDate) < today);
+
+  const upcomingTasks = nonTodayTasks.filter((task) => new Date(task.dueDate) > today);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -120,7 +123,9 @@ export default function HomePage() {
                     <a href={`people/${task.associatedPerson}`}>{associatedPeopleDict[task.associatedPerson]}</a>
                   </td>
                   <td className="homepage-tasks-table-cell">
-                    <button className="delete-task-button" type="submit" onClick={() => openTaskDeleteModal(task)}>Delete</button>
+                    <button className="delete-task-button" type="submit" onClick={() => openTaskDeleteModal(task)}>
+                      <i className="material-icons" id="svg_options">delete</i>
+                    </button>
                   </td>
                 </tr>
               ))}
