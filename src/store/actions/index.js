@@ -176,7 +176,7 @@ export function getTask(id) {
   return async (dispatch) => {
     // get
     try {
-      const result = await axios.get(`${ROOT_URL}/tasks/${id}`, { headers: { authorization: localStorage.getItem('token') } });
+      const result = await axios.get(`${ROOT_URL}/api/tasks/${id}`, { headers: { authorization: localStorage.getItem('token') } });
       dispatch({
         type: ActionTypes.TASK.GET_TASK,
         payload: result.data,
@@ -200,7 +200,7 @@ export function deleteTask(id, navigate) {
   };
 }
 
-export function updateTask(taskFields, id) {
+export function updateTask(id, taskFields) {
   const fields = {
     title: taskFields.title,
     description: taskFields.description,
@@ -212,10 +212,10 @@ export function updateTask(taskFields, id) {
 
   return async (dispatch) => {
     try {
-      await axios.put(`${ROOT_URL}/tasks/${id}`, fields, { headers: { authorization: localStorage.getItem('token') } });
+      const result = await axios.put(`${ROOT_URL}/api/tasks/${id}`, fields, { headers: { authorization: localStorage.getItem('token') } });
       dispatch({
         type: ActionTypes.TASK.UPDATE_TASK,
-        payload: fields,
+        payload: result.data,
       });
     } catch (error) {
       console.error(error);
