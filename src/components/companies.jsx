@@ -16,6 +16,7 @@ export default function Companies() {
   const dispatch = useDispatch();
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isGridView, setIsGridView] = useState(true);
 
   const search = (term) => {
     if (term) {
@@ -106,88 +107,62 @@ export default function Companies() {
         {/* list vs. grid view toggle */}
         <div className="companies-list-grid-toggle">
           <button type="button" onClick={openModal}>Create</button>
-          <button type="button"> List </button>
-          <button type="button"> Grid </button>
+          <button type="button" onClick={() => setIsGridView(false)}> List </button>
+          <button type="button" onClick={() => setIsGridView(true)}> Grid </button>
         </div>
       </div>
 
       {/* main panel -- contains list of people */}
       <div className="companies-main-panel">
-        <ul className="companies-list">
-          { companies.map((company) => (
-            <li key={company.id} className="companies-list-item">
-              <div className="flip-card">
-                <div className="flip-card-inner">
-                  <div className="flip-card-front">
-                    <img src={company.imageUrl} alt="profile" />
+        { isGridView
+          ? (
+            <ul className="companies-grid-view">
+              { companies.map((company) => (
+                <li key={company.id} className="companies-list-item">
+                  <div className="flip-card">
+                    <div className="flip-card-inner">
+                      <div className="flip-card-front">
+                        <img src={company.imageUrl} alt="profile" />
+                      </div>
+                      <div className="flip-card-back">
+                        <h1 className="companies-list-item-name">{company.name}</h1>
+                        <p className="companies-list-item-website">{company.website}</p>
+                        <p className="companies-list-item-location">{company.location}</p>
+                        <p className="companies-list-item-info">{company.description}</p>
+                      </div>
+                    </div>
                   </div>
-                  <div className="flip-card-back">
-                    <h1 className="companies-list-item-name">{company.name}</h1>
-                    <p className="companies-list-item-website">{company.website}</p>
-                    <p className="companies-list-item-location">{company.location}</p>
-                    <p className="companies-list-item-info">{company.description}</p>
+                  <button className="companies-list-item-button" type="button" onClick={() => handleShowCompany(company.id)}>
+                    to see full page
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )
+          : (
+            <ul className="companies-list-view">
+              { companies.map((company) => (
+                <li key={company.id} className="companies-list-item">
+                  <div className="company-list-card">
+                    <div className="company-image">
+                      <img src={company.imageUrl} alt="profile" />
+                    </div>
+                    <div className="company-info">
+                      <h1 className="company-name">{company.name}</h1>
+                      <a className="company-url" href={company.website}>{company.website}</a>
+                      <p className="company-location">{company.location}</p>
+                      <p className="company-description">{company.description}</p>
+                    </div>
                   </div>
-                </div>
-              </div>
-              <button className="companies-list-item-button" type="button" onClick={() => handleShowCompany(company.id)}>
-                to see full page
-              </button>
-            </li>
-          ))}
-        </ul>
+                  <button className="company-more-info-button" type="button" onClick={() => handleShowCompany(company.id)}>
+                    to see full page
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
       </div>
-
       { isModalOpen && <CreateCompanyModal closeModal={closeModal} /> }
-      {// (
-      // <div className="modal">
-      //   <div className="modal-content">
-      //     {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
-      //     <span className="close" onClick={closeModal}>x</span>
-      //     <label htmlFor="company-name">
-      //       Company Name:
-      //       <input id="company-name" type="text"
-      // onChange={handleOnChange} value={newCompanyName} />
-      //     </label>
-      //     <br />
-
-        //     <label htmlFor="company-location">
-        //       Company Location:
-        //       <input id="company-location" type="text"
-        // onChange={handleOnChange} value={newCompanyLocation} />
-        //     </label>
-        //     <br />
-
-        //     <label htmlFor="company-website">
-        //       Website Link:
-        //       <input id="website-link" type="text"
-        // onChange={handleOnChange} value={newWebsite} />
-        //     </label>
-        //     <br />
-
-        //     <label htmlFor="company-linkedIn">
-        //       LinkedIn URL:
-        //       <input id="linkedIn" type="text" onChange={handleOnChange} value={newlinkedIn} />
-        //     </label>
-        //     <br />
-
-        //     <label htmlFor="company-description">
-        //       Company Description:
-        //       <input id="description" type="text"
-        // onChange={handleOnChange} value={newDescription} />
-        //     </label>
-        //     <br />
-
-        //     <label htmlFor="company-description">
-        //       Company Logo Image URL:
-        //       <input id="imageURL" type="text" onChange={handleOnChange} value={newImageUrl} />
-        //     </label>
-        //     <br />
-
-      //     <input id="submit" type="button" value="Create" onClick={handleSubmit} />
-      //   </div>
-      // </div>
-      // )}
-          }
     </div>
   );
 }
