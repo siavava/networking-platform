@@ -81,6 +81,7 @@ export default function CreatePersonModal(props) {
   useEffect(() => {
     getCompanies()(dispatch);
     if (companyValue) {
+      console.log(companyValue);
       setSelectedCompany(companyValue);
     }
     if (personValue) {

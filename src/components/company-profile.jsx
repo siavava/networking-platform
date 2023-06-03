@@ -123,7 +123,7 @@ export default function CompanyProfile() {
         )}
         {isCreatePersonModalOpen && (
           <CreatePersonModal
-            companyId={companyId}
+            companyValue={{ value: companyId, label: company.name }}
             closeModal={() => closeModal('person')}
             // isEditing
           />

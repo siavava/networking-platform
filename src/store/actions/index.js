@@ -95,6 +95,17 @@ export function getCompanies() {
   };
 }
 
+export function searchCompanies(query) {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`${ROOT_URL}/api/companies?q=${query}`, { headers: { authorization: localStorage.getItem('token') } });
+      dispatch({ type: ActionTypes.COMPANY.GET_COMPANIES, payload: response.data });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+}
+
 export function deleteCompany(companyId) {
   return async (dispatch, navigate) => {
     try {
@@ -360,6 +371,17 @@ export function getPeople() {
   return async (dispatch) => {
     try {
       const response = await axios.get(`${ROOT_URL}/api/people`, { headers: { authorization: localStorage.getItem('token') } });
+      dispatch({ type: ActionTypes.PERSON.GET_PEOPLE, payload: response.data });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+}
+
+export function searchPeople(query) {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`${ROOT_URL}/api/people?q=${query}`, { headers: { authorization: localStorage.getItem('token') } });
       dispatch({ type: ActionTypes.PERSON.GET_PEOPLE, payload: response.data });
     } catch (error) {
       console.error(error);
