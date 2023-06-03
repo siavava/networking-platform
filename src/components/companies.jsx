@@ -7,23 +7,22 @@ import { useSelector, useDispatch } from 'react-redux';
 import debounce from '../modules/debounce';
 import {
   getCompanies,
+  searchCompanies,
 } from '../store/actions';
 import CreateCompanyModal from './create-company-modal';
 
 export default function Companies() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const [newCompanyName, setNewCompanyName] = useState('');
-  // const [newCompanyLocation, setNewCompanyLocation] = useState('');
-  // const [newWebsite, setNewWebsite] = useState('');
-  // const [newlinkedIn, setNewlinkedIn] = useState('');
-  // const [newDescription, setNewDescription] = useState('');
-  // const [newImageUrl, setNewImageUrl] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const search = (term) => {
-    console.log(term);
+    if (term) {
+      searchCompanies(term)(dispatch);
+    } else {
+      getCompanies()(dispatch);
+    }
   };
 
   const debouncedSearch = useCallback(debounce(search, 500), []);
@@ -34,7 +33,6 @@ export default function Companies() {
 
   useEffect(() => {
     getCompanies()(dispatch);
-    console.log(isModalOpen);
   }, []);
 
   // const handleOnChange = (event) => {

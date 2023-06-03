@@ -5,7 +5,7 @@ import '../people.style.scss';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import debounce from '../modules/debounce';
-import { getPeople } from '../store/actions';
+import { getPeople, searchPeople } from '../store/actions';
 import CreatePersonModal from './create-person-modal';
 
 export default function People() {
@@ -15,7 +15,11 @@ export default function People() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const search = (term) => {
-    console.log(term);
+    if (term) {
+      searchPeople(term)(dispatch);
+    } else {
+      getPeople()(dispatch);
+    }
   };
 
   const debouncedSearch = useCallback(debounce(search, 500), []);
