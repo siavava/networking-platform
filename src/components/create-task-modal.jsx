@@ -5,7 +5,12 @@ import { useNavigate } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
 import DatePicker from 'react-datepicker';
 import Select from 'react-select';
-import { createTask, getCompanies, getPeople } from '../store/actions';
+import {
+  createTask,
+  updateTask,
+  getCompanies,
+  getPeople,
+} from '../store/actions';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../create-task-modal.style.scss';
 
@@ -14,7 +19,7 @@ export default function CreateTaskModal(props) {
   const [newTask, setNewTask] = useState('');
   const [dueDate, setDueDate] = useState(new Date());
   const {
-    closeModal, personValue, companyValue, toggleRefresh,
+    taskValue, closeModal, personValue, companyValue, isEditing,
   } = props;
   const [selectedPerson, setSelectedPerson] = useState(null);
   const [selectedCompany, setSelectedCompany] = useState(null);
@@ -53,6 +58,14 @@ export default function CreateTaskModal(props) {
     if (personValue) {
       setSelectedPerson(props.personValue);
     }
+    if (taskValue) {
+      if (taskValue.title) {
+        setNewTask(taskValue.title);
+      }
+      if (taskValue.dueDate) {
+        setDueDate(new Date(taskValue.dueDate));
+      }
+    }
   }, []);
 
   const handleSubmit = async () => {
@@ -69,7 +82,12 @@ export default function CreateTaskModal(props) {
       fields.associatedCompany = selectedCompany.value;
     }
 
-    await dispatch(createTask(fields, navigate));
+    if (isEditing && taskValue.id) {
+      console.log(taskValue.id);
+      await updateTask(taskValue.id, fields)(dispatch);
+    } else {
+      await createTask(fields)(dispatch);
+    }
     closeModal();
   };
 

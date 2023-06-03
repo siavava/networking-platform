@@ -13,19 +13,20 @@ import {
 
 export default function HomePage() {
   const dispatch = useDispatch();
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
   const [tabKey, setTabKey] = useState('today');
   const tasks = useSelector((state) => state.task.all) || [];
   const associatedPeopleList = useSelector((state) => state.person.people) || [];
   const associatedPeopleDict = {};
   const name = localStorage.getItem('name') || 'anonymous user';
-  console.log(name);
+  const [isEditTaskModal, setIsEditTaskModal] = useState(false);
   const [isTaskDeleteModalOpen, setTaskDeleteModal] = useState(false);
   const [taskId, setTaskId] = useState(null);
+  const [currTask, setCurrTask] = useState(null);
 
   useEffect(() => {
     getTasks()(dispatch);
-  }, [isModalOpen]);
+  }, [isTaskModalOpen, isTaskDeleteModalOpen, isEditTaskModal]);
 
   useEffect(() => {
     const idStr = '';
@@ -56,12 +57,12 @@ export default function HomePage() {
 
   const upcomingTasks = nonTodayTasks.filter((task) => new Date(task.dueDate) > today);
 
-  const openModal = () => {
-    setIsModalOpen(true);
+  const openTaskModal = () => {
+    setIsTaskModalOpen(true);
   };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
+  const closeTaskModal = () => {
+    setIsTaskModalOpen(false);
   };
 
   const openTaskDeleteModal = (task) => {
@@ -71,6 +72,15 @@ export default function HomePage() {
 
   const closeTaskDeleteModal = () => {
     setTaskDeleteModal(false);
+  };
+
+  const openEditTaskModal = (task) => {
+    setCurrTask(task);
+    setIsEditTaskModal(true);
+  };
+
+  const closeEditTaskModal = () => {
+    setIsEditTaskModal(false);
   };
 
   const keyTaskVar = {
@@ -126,16 +136,29 @@ export default function HomePage() {
                     <button className="delete-task-button" type="submit" onClick={() => openTaskDeleteModal(task)}>
                       <i className="material-icons" id="svg_options">delete</i>
                     </button>
+                    <button className="edit-task-button" type="submit" onClick={() => openEditTaskModal(task)}>
+                      <i className="material-icons" id="svg_options">edit</i>
+                    </button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-          <button className="create-task-button" type="submit" onClick={openModal}>Add New Task</button>
+          <button className="create-task-button" type="submit" onClick={openTaskModal}>Add New Task</button>
         </div>
       </div>
 
-      { isModalOpen && <CreateTaskModal closeModal={closeModal} /> }
+      { isTaskModalOpen && <CreateTaskModal closeModal={closeTaskModal} /> }
+      { isEditTaskModal && (
+      <CreateTaskModal closeModal={closeEditTaskModal}
+        taskValue={currTask}
+        personValue={{
+          value: currTask.associatedPerson,
+          label: associatedPeopleDict[currTask.associatedPerson],
+        }}
+        isEditing
+      />
+      )}
       {isTaskDeleteModalOpen && (
       <DeleteTaskModal
         taskId={taskId}
