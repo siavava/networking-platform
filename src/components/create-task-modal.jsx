@@ -83,7 +83,6 @@ export default function CreateTaskModal(props) {
     }
 
     if (isEditing && taskValue.id) {
-      console.log(taskValue.id);
       await updateTask(taskValue.id, fields)(dispatch);
     } else {
       await createTask(fields)(dispatch);

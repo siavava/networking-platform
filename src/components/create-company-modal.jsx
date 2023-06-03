@@ -61,10 +61,8 @@ export default function CreateCompanyModal(props) {
 
     if (isEditing) {
       fields.id = companyId;
-      console.log('updating....');
       updateCompany(fields)(dispatch, navigate);
     } else {
-      console.log('creating....');
       createCompany(fields)(dispatch, navigate);
     }
     closeModal();

@@ -51,7 +51,6 @@ export default function PersonProfile() {
   // for task delete modal
   const openTaskDeleteModal = (id) => {
     setTaskId(id);
-    console.log(id);
     setTaskDeleteModal(true);
   };
 

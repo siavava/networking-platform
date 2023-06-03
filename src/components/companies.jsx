@@ -36,45 +36,6 @@ export default function Companies() {
     getCompanies()(dispatch);
   }, []);
 
-  // const handleOnChange = (event) => {
-  //   switch (event.target.id) {
-  //     case 'company-name':
-  //       setNewCompanyName(event.target.value);
-  //       break;
-  //     case 'company-location':
-  //       setNewCompanyLocation(event.target.value);
-  //       break;
-  //     case 'website-link':
-  //       setNewWebsite(event.target.value);
-  //       break;
-  //     case 'linkedIn':
-  //       setNewlinkedIn(event.target.value);
-  //       break;
-  //     case 'description':
-  //       setNewDescription(event.target.value);
-  //       break;
-  //     case 'imageURL':
-  //       setNewImageUrl(event.target.value);
-  //       break;
-  //     default:
-  //         // pass
-  //   }
-  // };
-
-  // const handleSubmit = () => {
-  //   const fields = {
-  //     name: newCompanyName,
-  //     website: newWebsite,
-  //     location: newCompanyLocation,
-  //     linkedIn: newlinkedIn,
-  //     description: newDescription,
-  //     imageUrl: newImageUrl,
-  //   };
-  //   createCompany(fields)(dispatch, navigate);
-  //   // eslint-disable-next-line no-use-before-define
-  //   closeModal();
-  // };
-
   const companies = useSelector((state) => state.company.companies) || [];
 
   const openModal = () => {

@@ -122,7 +122,6 @@ export function deleteCompany(companyId) {
 export function updateCompany(updates) {
   return async (dispatch) => {
     try {
-      console.log(updates);
       const response = await axios.put(`${ROOT_URL}/api/companies/${updates.id}`, updates, { headers: { authorization: localStorage.getItem('token') } });
       dispatch({ type: ActionTypes.COMPANY.UPDATE_COMPANY, payload: response.data });
     } catch (error) {
@@ -247,7 +246,6 @@ export function createNote(noteFields) {
   return async (dispatch) => {
     try {
       const response = await axios.post(`${ROOT_URL}/api/notes`, fields, { headers: { authorization: localStorage.getItem('token') } });
-      console.log(response);
       dispatch({ type: ActionTypes.NOTE.CREATE_NOTE, payload: fields });
     } catch (error) {
       console.error(error);
@@ -406,7 +404,6 @@ export function updatePerson(personId, updatedFields) {
   return async (dispatch) => {
     try {
       const response = await axios.put(`${ROOT_URL}/api/people/${personId}`, updatedFields, { headers: { authorization: localStorage.getItem('token') } });
-      console.log(response);
       dispatch({ type: ActionTypes.PERSON.UPDATE_PERSON, payload: response.data });
     } catch (error) {
       console.error(error);
@@ -481,7 +478,6 @@ export function updateUser(fields) {
   return async (dispatch, navigate) => {
     try {
       const response = await axios.put(`${ROOT_URL}/api/users`, fields, { headers: { authorization: localStorage.getItem('token') } });
-      console.log(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -494,7 +490,7 @@ export async function getPersonEmails(id) {
     const res = await axios.get(`${ROOT_URL}/api/emails?person=${id}`, { headers: { authorization: localStorage.getItem('token') } });
     return res.data;
   } catch (error) {
-    console.log(error.response.data);
+    console.error(error.response.data);
     return [error.response.data];
   }
 }
@@ -505,7 +501,7 @@ export async function getCompanyEmails(id) {
     const res = await axios.get(`${ROOT_URL}/api/emails?company=${id}`, { headers: { authorization: localStorage.getItem('token') } });
     return res.data;
   } catch (error) {
-    console.log(error.response.data);
+    console.error(error.response.data);
     return [error.response.data];
   }
 }
