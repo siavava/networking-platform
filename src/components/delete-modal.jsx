@@ -65,11 +65,13 @@ export function DeleteTaskModal(props) {
   const navigate = useNavigate();
 
   const {
-    taskId, closeModal,
+    taskId, closeModal, authorRoute,
   } = props;
 
-  const handleDelete = () => {
-    dispatch(deleteTask(taskId, navigate));
+  const handleDeleteTask = async () => {
+    await deleteTask(taskId)(dispatch);
+    await closeModal();
+    navigate(authorRoute, { state: { replace: true, deleted: true } });
   };
 
   return (
@@ -78,7 +80,7 @@ export function DeleteTaskModal(props) {
         <div className="task-modal-content">
           Are you sure you want to delete this task?
           <div className="delete-options">
-            <button type="button" onClick={handleDelete} className="delete-options-buttons">Yes</button>
+            <button type="button" onClick={handleDeleteTask} className="delete-options-buttons">Yes</button>
             <button type="button" onClick={() => closeModal()} className="delete-options-buttons">No</button>
           </div>
         </div>

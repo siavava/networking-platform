@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import { useSelector, useDispatch } from 'react-redux';
@@ -23,6 +24,9 @@ export default function HomePage() {
   const [isTaskDeleteModalOpen, setTaskDeleteModal] = useState(false);
   const [taskId, setTaskId] = useState(null);
   const [currTask, setCurrTask] = useState(null);
+
+  const { pathname } = useLocation();
+  const authorRoute = pathname;
 
   useEffect(() => {
     getTasks()(dispatch);
@@ -163,6 +167,7 @@ export default function HomePage() {
       <DeleteTaskModal
         taskId={taskId}
         closeModal={closeTaskDeleteModal}
+        authorRoute={authorRoute}
       />
       )}
     </div>

@@ -16,6 +16,7 @@ import Signout from './signout';
 import RestrictedPage from './restricted_pages';
 import ExpandNoteView from './expanded-note-modal';
 import GoogleAuth from './googleAuth';
+import ExpandTaskView from './expanded-task-modal';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path="/people" element={<RestrictedPage restrictedPage={People} />} />
           <Route path="/people/:id/" element={<RestrictedPage restrictedPage={PersonProfile} />}>
             <Route path="notes/:id" element={<RestrictedPage restrictedPage={ExpandNoteView} />} />
+            <Route path="tasks/:id" element={<RestrictedPage restrictedPage={ExpandTaskView} />} />
           </Route>
           <Route path="/signout" element={<Signout />} />
           <Route path="/settings" element={<RestrictedPage restrictedPage={GoogleAuth} />} />

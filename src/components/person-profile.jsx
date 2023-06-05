@@ -81,6 +81,11 @@ export default function PersonProfile() {
     navigate(`notes/${event.target.id}`);
   };
 
+  const openExpandedTaskView = (event) => {
+    setSelectedItem(event);
+    navigate(`tasks/${event.target.id}`);
+  };
+
   const callEmailInteractions = async () => {
     setEmailInteractions([]);
     let emails = await getPersonEmails(personId);
@@ -143,19 +148,12 @@ export default function PersonProfile() {
         </div>
         <div className="first-row-right">
 
-          <div className="todos">
+          <div className="notes">
             <h1>Tasks/To Dos</h1>
             <button type="submit" className="add-tasks" onClick={() => setIsTaskModalOpen(true)}>+</button>
             {tasks && (tasks.map((e) => (
-              <div className="task">
-                <div key={e.id} onClick={() => setSelectedItem(e)} role="button">{e.dueDate.split('T')[0]} - {e.title}</div>
-                <button className="edit-task-button" type="submit" onClick={() => openEditTaskModal(e)}>
-                  <i className="material-icons" id="svg_options">edit</i>
-                </button>
-                <button className="delete-task-button" type="submit" onClick={() => openTaskDeleteModal(e.id)}>
-                  <i className="material-icons" id="svg_options">delete</i>
-                </button>
-              </div>
+              <div className="note" id={e.id} key={e.id} onClick={openExpandedTaskView} role="button">{e.dueDate.split('T')[0]} - {e.title}</div>
+
             )))}
           </div>
           <div className="notes">
