@@ -20,7 +20,7 @@ import GoogleAuth from './googleAuth';
 function App() {
   return (
     <BrowserRouter>
-      <div>
+      <div className="app-container">
         <NavigationBar />
         <Routes>
           <Route path="/home" element={<RestrictedPage restrictedPage={HomePage} />} />
