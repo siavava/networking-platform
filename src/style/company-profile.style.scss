@@ -76,17 +76,6 @@ $header: #A4BCA1;
         flex-direction: column;
         background: #FFFFFF;
       }
-
-      .company-profile-links {
-        display: flex;
-        flex-direction: row;
-        gap: 1rem;
-        margin-bottom: 20px;
-      }
-
-      .company-profile-extended-bio {
-        max-width: 50ch;
-      }
     }
 
     .company-profile-right-panel {
@@ -108,66 +97,6 @@ $header: #A4BCA1;
           text-transform: capitalize;
           font-size: 23px;
           font-weight: 600;
-        }
-      }
-
-      .add-people {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        font-size: 25px;
-        background: #FFFFFF;
-        border: none;
-        cursor: pointer;
-      }
-
-      .company-profile-person {
-        display: flex;
-        flex-direction: row;
-        width: max-content;
-        gap: 10px;
-        width: 100%;
-
-        
-        .company-profile-person-information { 
-          background: #E5E6E4;
-          width: 100%;
-          display: flex;
-          flex-direction: row;
-          padding: 20px;
-          gap: 10px;
-          
-          & > img {
-            width: 60px;
-            aspect-ratio: 1/1;
-            border-radius: 50%;
-            margin: auto;
-            margin-left: 20px;
-            margin-right: 15px;
-            object-fit: cover;
-          }
-
-          .bio {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            width: 100%;
-            & > h2 {
-              // text-transform: capitalize;
-              font-size: 1.2em;
-              margin-left: 10px;
-              color: $text;
-
-              & > a {
-                color: inherit;
-              }
-            }
-            & > p {
-              text-transform: capitalize;
-              font-size: 1em;
-              margin-left: 10px;
-            }
-          }
         }
       }
     }
@@ -225,3 +154,91 @@ $header: #A4BCA1;
   padding: 5px;
 }
 
+.associated-people {
+  background-color: #FFFFFF;
+  width: 100%;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+
+    h1 {
+      padding: 10px;
+      font-size: 30px;
+      margin-top: 10px;
+    }
+
+    .add-people {
+      top: 5px;
+      right: 10px;
+      position: absolute;
+      padding: 10px;
+      font-size: 25px;
+      background: #FFFFFF;
+      border: none;
+      cursor: pointer;
+    }
+  }
+
+
+  .company-profile-person {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+
+    .company-profile-person-information { 
+      background: #E5E6E4;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      padding: 0.5em;
+      margin-bottom: 1em;
+      margin-left: 1em;
+      margin-right: 1em;
+      
+      & > img {
+        width: 60px;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        margin: auto;
+        margin-left: 20px;
+        margin-right: 15px;
+        object-fit: cover;
+      }
+
+      .bio {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        width: 100%;
+        & > h2 {
+          // text-transform: capitalize;
+          font-size: 1.2em;
+          margin-left: 10px;
+          color: $text;
+
+          & > a {
+            color: inherit;
+          }
+        }
+        & > p {
+          text-transform: capitalize;
+          font-size: 1em;
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+  
+}
+
+.company-profile-links {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.company-profile-extended-bio {
+  max-width: 50ch;
+}

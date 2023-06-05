@@ -51,33 +51,40 @@ export default function CompanyProfile() {
 
   if (company.name !== '') {
     return (
-      <div className="company-profile-container">
-        <div className="company-profile">
-          <div className="company-profile-left-panel">
-            <div className="company-profile-header">
-              <h1 className="company-profile-name">{`${company.name}: Company Overview`}</h1>
-              <div className="action-buttons-container">
-                <button onClick={() => openModal('company')} type="button" className="edit-company">Edit</button>
-                <button onClick={() => openModal('delete-company')} type="button" className="edit-company">Delete</button>
+      <div className="person-profile">
+        <div className="first-row">
+          <div className="basic-info">
+            <div className="person-bio">
+              <div className="profile-pic">
+                <img src={company.imageUrl || 'https://img.freepik.com/free-icon/user_318-159711.jpg'} alt="company logo" />
+                <div className="info-text">
+                  <div className="action-buttons-container">
+                    <button className="edit-button" type="button" onClick={() => openModal('company')}>Edit</button>
+                    <button className="edit-button" onClick={() => openModal('delete-company')} type="button">Delete</button>
+                  </div>
+                  <div className="contact-details-container">
+                    <div className="company-profile-links">
+                      <a href={company.website}>Website</a>
+                      <a href={company.linkedin}>LinkedIn</a>
+                    </div>
+                    <div className="company-profile-extended-bio">
+                      <p>{company.description}</p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            <img className="company-profile-image" src={company.imageUrl} alt="company logo" />
-            <div className="company-profile-bottom">
-              <div className="company-profile-links">
-                <a href={company.website}>Website</a>
-                <a href={company.linkedin}>LinkedIn</a>
-              </div>
-              <div className="company-profile-extended-bio">
-                <p>{company.description}</p>
-              </div>
-            </div>
+
           </div>
-          <div className="company-profile-right-panel">
-            <div className="company-profile-header">
-              <h1>People Associated With Company</h1>
-              <button type="submit" className="add-people" onClick={() => openModal('person')}>+</button>
-            </div>
-            {people
+
+          <div className="first-row-right">
+            <div className="associated-people">
+              <div className="header">
+                <h1>People Associated With Company</h1>
+                <button type="submit" className="add-people" onClick={() => openModal('person')}>+</button>
+              </div>
+
+              {people
               && (people.map((person) => (
                 <div className="company-profile-person" key={person.id}>
                   <div className="company-profile-person-information">
@@ -94,9 +101,33 @@ export default function CompanyProfile() {
                 </div>
               ))
               )}
-          </div>
-        </div>
+            </div>
 
+          </div>
+
+          {isCreateCompanyModalOpen && (
+          <CreateCompanyModal
+            companyId={companyId}
+            companyValue={company}
+            closeModal={() => closeModal('company')}
+            isEditing
+          />
+          )}
+          {isCreatePersonModalOpen && (
+          <CreatePersonModal
+            companyValue={{ value: companyId, label: company.name }}
+            closeModal={() => closeModal('person')}
+            // isEditing
+          />
+          )}
+          {isDeleteCompanyModalOpen && (
+          <DeleteCompanyModal
+            companyId={companyId}
+            closeModal={() => closeModal('delete-company')}
+            // isEditing
+          />
+          )}
+        </div>
         <div className="email-container">
           <div className="email-header">
             <h1>Email Interactions</h1>
@@ -113,28 +144,6 @@ export default function CompanyProfile() {
           )))
             : (<div className="email-interaction">Loading...</div>)}
         </div>
-        {isCreateCompanyModalOpen && (
-          <CreateCompanyModal
-            companyId={companyId}
-            companyValue={company}
-            closeModal={() => closeModal('company')}
-            isEditing
-          />
-        )}
-        {isCreatePersonModalOpen && (
-          <CreatePersonModal
-            companyValue={{ value: companyId, label: company.name }}
-            closeModal={() => closeModal('person')}
-            // isEditing
-          />
-        )}
-        {isDeleteCompanyModalOpen && (
-          <DeleteCompanyModal
-            companyId={companyId}
-            closeModal={() => closeModal('delete-company')}
-            // isEditing
-          />
-        )}
       </div>
     );
   }
