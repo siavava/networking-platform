@@ -32,6 +32,7 @@ $text: #000000;
 
       .todos, .notes {
         width: 100% !important;
+        
       }
     }
   }
@@ -293,4 +294,8 @@ $text: #000000;
   color: $text;
   font-size: 15px;
   padding: 5px;
+}
+
+.edit-task-button, .delete-task-button {
+  border: none;
 }

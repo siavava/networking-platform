@@ -28,7 +28,9 @@ export default function PersonProfile() {
   const [emailInteractions, setEmailInteractions] = useState([]);
 
   const [isTaskDeleteModalOpen, setTaskDeleteModal] = useState(false);
+  const [isEditTaskModalOpen, setIsEditTaskModalOpen] = useState(false);
   const [taskId, setTaskId] = useState(null);
+  const [currTask, setCurrTask] = useState(null);
 
   // for person delete modal
   const { deleted } = useLocation().state || { deleted: false };
@@ -58,6 +60,15 @@ export default function PersonProfile() {
     setTaskDeleteModal(false);
   };
 
+  const openEditTaskModal = (task) => {
+    setCurrTask(task);
+    setIsEditTaskModalOpen(true);
+  };
+
+  const closeEditTaskModal = () => {
+    setIsEditTaskModalOpen(false);
+  };
+
   const closeTaskModal = () => {
     setIsTaskModalOpen(false);
   };
@@ -84,7 +95,14 @@ export default function PersonProfile() {
     dispatch(getAssociatedTasks(personId, 'people'));
     dispatch(getAssociatedNotes(personId, 'people'));
     callEmailInteractions();
-  }, [personId, isTaskModalOpen, isNoteModalOpen, isEditPersonModal, isDeletePersonModalOpen]);
+  }, [personId,
+    isTaskModalOpen,
+    isNoteModalOpen,
+    isEditPersonModal,
+    isDeletePersonModalOpen,
+    isTaskDeleteModalOpen,
+    isEditTaskModalOpen,
+  ]);
 
   const person = useSelector((state) => state.person);
   const tasks = useSelector((state) => state.task.all);
@@ -131,7 +149,12 @@ export default function PersonProfile() {
             {tasks && (tasks.map((e) => (
               <div className="task">
                 <div key={e.id} onClick={() => setSelectedItem(e)} role="button">{e.dueDate.split('T')[0]} - {e.title}</div>
-                <button className="delete-task-button" type="submit" onClick={() => openTaskDeleteModal(e.id)}>Delete</button>
+                <button className="edit-task-button" type="submit" onClick={() => openEditTaskModal(e)}>
+                  <i className="material-icons" id="svg_options">edit</i>
+                </button>
+                <button className="delete-task-button" type="submit" onClick={() => openTaskDeleteModal(e.id)}>
+                  <i className="material-icons" id="svg_options">delete</i>
+                </button>
               </div>
             )))}
           </div>
@@ -165,6 +188,13 @@ export default function PersonProfile() {
       { isTaskModalOpen && (
         <CreateTaskModal closeModal={closeTaskModal}
           personValue={{ value: personId, label: person.name }}
+        />
+      ) }
+      { isEditTaskModalOpen && (
+        <CreateTaskModal closeModal={closeEditTaskModal}
+          personValue={{ value: personId, label: person.name }}
+          taskValue={currTask}
+          isEditing
         />
       ) }
       { isNoteModalOpen && (

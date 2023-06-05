@@ -26,7 +26,7 @@ export default function Companies() {
     }
   };
 
-  const debouncedSearch = useCallback(debounce(search, 500), []);
+  const debouncedSearch = useCallback(debounce(search, 200), []);
 
   useEffect(() => {
     debouncedSearch(searchTerm);

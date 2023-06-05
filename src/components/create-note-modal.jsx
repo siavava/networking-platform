@@ -140,7 +140,7 @@ export default function CreateNoteModal(props) {
           </div>
 
           <div className="submit-btn">
-            <button type="button" onClick={handleSubmit} disabled={infoFilled()}>Create</button>
+            <button type="button" onClick={handleSubmit} disabled={infoFilled()}>{isEditing ? 'Save' : 'Create'}</button>
           </div>
         </div>
       </div>
