@@ -97,8 +97,8 @@ export function DeleteNoteModal(props) {
     noteId, closeModal, authorRoute,
   } = props;
 
-  const handleDeleteNote = () => {
-    deleteNote(noteId)(dispatch);
+  const handleDeleteNote = async () => {
+    await deleteNote(noteId)(dispatch);
     navigate(authorRoute, { state: { replace: true, deleted: true } });
   };
 
