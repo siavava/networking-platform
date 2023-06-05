@@ -13,11 +13,11 @@ import AuthErrorModal from './auth-error-modal';
 export default function SignUp() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [firstName, setFirstName] = useState('Amittai');
-  const [lastName, setLastName] = useState('Siavava');
-  const [email, setEmail] = useState('amittai.j.wekesa.24@dartmouth.edu');
-  const [confirm, setConfirm] = useState('kJDXDYk*3');
-  const [password, setPassword] = useState('kJDXDYk*3');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [confirm, setConfirm] = useState('');
+  const [password, setPassword] = useState('');
   const [showError, setShowError] = useState(false);
   const [errorCode, setErrorCode] = useState(0);
 

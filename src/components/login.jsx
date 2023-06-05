@@ -12,8 +12,8 @@ import AuthErrorModal from './auth-error-modal';
 export default function LogIn() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [email, setEmail] = useState('amittai.j.wekesa.24@dartmouth.edu');
-  const [password, setPassword] = useState('kJDXDYk*3');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [showError, setShowError] = useState(false);
   const [errorCode, setErrorCode] = useState(0);
 
