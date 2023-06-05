@@ -5,7 +5,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { useSelector, useDispatch } from 'react-redux';
-import '../person-profile.style.scss';
+import '../style/person-profile.style.scss';
 import { useNavigate, useLocation, Outlet } from 'react-router-dom';
 import {
   getPerson, deletePerson, getAssociatedTasks, getAssociatedNotes, getPersonEmails,

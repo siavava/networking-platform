@@ -12,7 +12,7 @@ import {
   getPeople,
 } from '../store/actions';
 import 'react-datepicker/dist/react-datepicker.css';
-import '../create-task-modal.style.scss';
+import '../style/create-task-modal.style.scss';
 
 export default function CreateTaskModal(props) {
   // const [isModalOpen, setIsModalOpen] = useState(false);

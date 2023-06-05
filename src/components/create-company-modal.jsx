@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { createCompany, updateCompany } from '../store/actions';
-import '../create-company-modal.style.scss';
+import '../style/create-company-modal.style.scss';
 
 export default function CreateCompanyModal(props) {
   const {

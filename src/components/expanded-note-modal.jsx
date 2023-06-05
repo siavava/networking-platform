@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import ReactMarkdown from 'react-markdown';
-import '../expanded-note-modal.style.scss';
+import '../style/expanded-note-modal.style.scss';
 import CreateNoteModal from './create-note-modal';
 import { DeleteNoteModal } from './delete-modal';
 

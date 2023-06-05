@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import '../signup.style.scss';
+import '../style/signup.style.scss';
 
 // import actions
 import { signup } from '../store/actions';
@@ -70,12 +70,8 @@ export default function SignUp() {
         email,
         password,
       })(dispatch, navigate).then((response) => {
-        if (response.code === 200) {
-          console.log('Sign up successful');
-        } else {
-          console.log('Sign up failed');
-          // console.log(`response: ${response.response.status}`);
-          console.log(`response: ${Object.keys(response)}`);
+        if (response.code !== 200) {
+          console.error('Sign up failed');
           try {
             setErrorCode(response.response.status || 0);
           } catch (error) {
@@ -87,7 +83,6 @@ export default function SignUp() {
         showErrorModal();
       });
     } else {
-      console.log('Invalid input');
       setErrorCode(999);
       showErrorModal();
     }

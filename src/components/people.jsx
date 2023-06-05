@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 import React, { useCallback, useState, useEffect } from 'react';
-import '../people.style.scss';
+import '../style/people.style.scss';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import debounce from '../modules/debounce';

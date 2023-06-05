@@ -1,5 +1,5 @@
 import React from 'react';
-import '../auth-error-modal.style.scss';
+import '../style/auth-error-modal.style.scss';
 import ReactMarkdown from 'react-markdown';
 
 export default function AuthErrorModal(props) {

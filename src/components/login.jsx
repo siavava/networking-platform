@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 
 import { signin } from '../store/actions';
 
-import '../signup.style.scss';
+import '../style/signup.style.scss';
 import { validateEmail, validatePassword } from '../modules/validate';
 import AuthErrorModal from './auth-error-modal';
 
@@ -49,11 +49,8 @@ export default function LogIn() {
     );
     if (validate()) {
       signin({ email, password })(dispatch, navigate).then((response) => {
-        if (response.code === 200) {
-          console.log('Sign in successful');
-        } else {
-          console.log('Sign in failed');
-          console.log(`response: ${response.message}`);
+        if (response.code !== 200) {
+          console.error('Sign in failed');
           try {
             setErrorCode(response.response.status || 0);
           } catch (error) {

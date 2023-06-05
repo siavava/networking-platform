@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import {
   deleteCompany, deletePerson, deleteNote, deleteTask,
 } from '../store/actions';
-import '../delete.style.scss';
+import '../style/delete.style.scss';
 
 export function DeleteCompanyModal(props) {
   const dispatch = useDispatch();

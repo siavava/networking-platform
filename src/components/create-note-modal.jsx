@@ -11,7 +11,7 @@ import {
   getCompanies,
   getPeople,
 } from '../store/actions';
-import '../create-note-modal.style.scss';
+import '../style/create-note-modal.style.scss';
 
 export default function CreateNoteModal(props) {
   // const [isModalOpen, setIsModalOpen] = useState(false);

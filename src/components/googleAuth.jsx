@@ -6,7 +6,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { ROOT_URL, updateUser } from '../store/actions';
-import '../settings.style.scss';
+import '../style/settings.style.scss';
 
 export default function GoogleAuth() {
   const dispatch = useDispatch();

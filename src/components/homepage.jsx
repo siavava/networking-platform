@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import { useSelector, useDispatch } from 'react-redux';
-import '../homepage.style.scss';
+import '../style/homepage.style.scss';
 import CreateTaskModal from './create-task-modal';
 import { DeleteTaskModal } from './delete-modal';
 import {

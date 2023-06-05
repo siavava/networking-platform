@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
-import '../create-person-modal.style.scss';
+import '../style/create-person-modal.style.scss';
 import { getCompanies, createPerson, updatePerson } from '../store/actions';
 
 export default function CreatePersonModal(props) {

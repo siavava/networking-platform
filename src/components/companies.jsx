@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-console */
 import React, { useCallback, useState, useEffect } from 'react';
-import '../companies.style.scss';
+import '../style/companies.style.scss';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import debounce from '../modules/debounce';

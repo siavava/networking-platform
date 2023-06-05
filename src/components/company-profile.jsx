@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 // import { useParams } from 'react-router-dom';
-import '../company-profile.style.scss';
+import '../style/company-profile.style.scss';
 import { getCompany, getAssociatedPeople, getCompanyEmails } from '../store/actions';
 import CreateCompanyModal from './create-company-modal';
 import CreatePersonModal from './create-person-modal';
