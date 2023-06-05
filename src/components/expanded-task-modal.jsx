@@ -12,60 +12,51 @@ import CreateTaskModal from './create-task-modal';
 export default function ExpandTaskView() {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
-  const noteId = pathname.split('/tasks/')[1];
+  const taskId = pathname.split('/tasks/')[1];
   const authorRoute = pathname.split('/tasks/')[0];
 
-  const [isNoteModalOpen, setIsNoteModalOpen] = useState(false);
-  const [isDeleteNoteModalOpen, setIsDeleteNoteModalOpen] = useState(false);
+  const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
+  const [isDeleteTaskModalOpen, setIsDeleteTaskModalOpen] = useState(false);
 
-  const closeNoteModal = () => {
-    setIsNoteModalOpen(false);
+  const closeTaskModal = () => {
+    setIsTaskModalOpen(false);
   };
 
   useEffect(() => {
-    getTask(noteId)(dispatch);
+    getTask(taskId)(dispatch);
   }, []);
 
-  const note = useSelector((state) => state.task.current);
-  console.log(note);
+  const task = useSelector((state) => state.task.current);
 
-  const deleteCurrentNote = () => {
-    setIsDeleteNoteModalOpen(true);
+  const deleteCurrentTask = () => {
+    setIsDeleteTaskModalOpen(true);
   };
 
   return (
     <div className="expanded-note-modal">
       <div className="expanded-note-modal-content">
         <div className="content-header">
-          <h1>{note.title}</h1>
-          <button type="button" id="edit" onClick={() => setIsNoteModalOpen(true)}>
+          <h1>{task.title}</h1>
+          <button type="button" id="edit" onClick={() => setIsTaskModalOpen(true)}>
             <i className="material-icons" id="svg_options">edit</i>
           </button>
-          <button type="button" id="edit" onClick={deleteCurrentNote}>
+          <button type="button" id="edit" onClick={deleteCurrentTask}>
             <i className="material-icons" id="svg_options">delete</i>
           </button>
         </div>
         <NavLink to={pathname.split('tasks')[0] || '/home'} className="close-button">x</NavLink>
-        {/* <button className="edit-task-button" type="submit" onClick={() =>
-                openEditTaskModal(e)}>
-                  <i className="material-icons" id="svg_options">edit</i>
-                </button>
-                <button className="delete-task-button" type="submit" onClick={() =>
-                  openTaskDeleteModal(e.id)}>
-                  <i className="material-icons" id="svg_options">delete</i>
-                </button> */}
         <br />
       </div>
-      { isNoteModalOpen && (
-        <CreateTaskModal closeModal={closeNoteModal}
-          taskValue={note}
+      { isTaskModalOpen && (
+        <CreateTaskModal closeModal={closeTaskModal}
+          taskValue={task}
           isEditing
         />
       ) }
-      { isDeleteNoteModalOpen && (
+      { isDeleteTaskModalOpen && (
         <DeleteTaskModal
-          closeModal={() => setIsDeleteNoteModalOpen(false)}
-          taskId={noteId}
+          closeModal={() => setIsDeleteTaskModalOpen(false)}
+          taskId={taskId}
           authorRoute={authorRoute}
         />
       ) }
