@@ -10,7 +10,7 @@ export default function AuthErrorModal(props) {
 
   invalidFields += '- Email must be a valid email address.\n';
   invalidFields += '- Password must be at least 8 characters long.\n';
-  invalidFields += '- Password must contain at least one uppercase letter, one lowercase letter, and one number.\n';
+  invalidFields += '- Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.\n';
 
   if (signup) invalidFields += '- Password and confirm password must match.\n';
 
