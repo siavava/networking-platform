@@ -104,7 +104,7 @@ export default function CreateNoteModal(props) {
           <button className="close" type="submit" onClick={closeModal}>x</button>
           <div className="note-selects">
             <label htmlFor="task-item">
-              Task Title:
+              Note Title:
               <input id="task-item" type="text" onChange={handleOnChange} value={newNote} />
             </label>
 

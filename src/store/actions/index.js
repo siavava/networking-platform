@@ -186,13 +186,10 @@ export function getTask(id) {
   };
 }
 
-export function deleteTask(id, navigate) {
+export function deleteTask(id) {
   return async () => {
     try {
       await axios.delete(`${ROOT_URL}/api/tasks/${id}`, { headers: { authorization: localStorage.getItem('token') } });
-
-      // navigate to people page
-      navigate(0);
     } catch (error) {
       console.error(error);
     }
