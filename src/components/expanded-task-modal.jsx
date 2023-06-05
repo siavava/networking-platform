@@ -36,7 +36,7 @@ export default function ExpandTaskView() {
     <div className="expanded-note-modal">
       <div className="expanded-note-modal-content">
         <div className="content-header">
-          <h1>{task.title}</h1>
+          <h1>{task.dueDate ? `${task.dueDate.split('T')[0]} - ${task.title}` : task.title}</h1>
           <button type="button" id="edit" onClick={() => setIsTaskModalOpen(true)}>
             <i className="material-icons" id="svg_options">edit</i>
           </button>
