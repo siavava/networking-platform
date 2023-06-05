@@ -23,7 +23,6 @@ export default function PersonProfile() {
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
   const [isDeletePersonModalOpen, setIsDeletePersonModalOpen] = useState(false);
   const [isNoteModalOpen, setIsNoteModalOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(null);
   const [isEditPersonModal, setIsEditPersonModal] = useState(false);
   const [emailInteractions, setEmailInteractions] = useState([]);
 
@@ -82,7 +81,6 @@ export default function PersonProfile() {
   };
 
   const openExpandedTaskView = (event) => {
-    setSelectedItem(event);
     navigate(`tasks/${event.target.id}`);
   };
 
@@ -135,15 +133,8 @@ export default function PersonProfile() {
               </div>
             </div>
           </div>
-          <div className="person-notes">
-            { selectedItem
-              ? (
-                <>
-                  <h1 className="person-notes-title">{selectedItem.title}</h1>
-                  <ReactMarkdown className="person-notes-content">{selectedItem.content || selectedItem.description || selectedItem.company}</ReactMarkdown>
-                </>
-              )
-              : <div className="person-notes-content empty">Click on a Task or Note for more information.</div>}
+          <div className="person-description">
+            {person.description}
           </div>
         </div>
         <div className="first-row-right">
