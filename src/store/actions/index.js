@@ -441,8 +441,10 @@ export function signup({
       await localStorage.setItem('name', `${response.data.firstName} ${response.data.lastName}`);
       dispatch({ type: ActionTypes.AUTH.AUTH_USER, payload: response.data });
       navigate('/home');
+      return response;
     } catch (error) {
       console.error(error);
+      return error;
     }
   };
 }
@@ -459,8 +461,10 @@ export function signin({
       await localStorage.setItem('token', response.data.token);
       await localStorage.setItem('name', `${response.data.firstName} ${response.data.lastName}`);
       navigate('/home');
+      return response;
     } catch (error) {
       console.error(error);
+      return error;
     }
   };
 }
