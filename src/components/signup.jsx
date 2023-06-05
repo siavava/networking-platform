@@ -171,6 +171,7 @@ export default function SignUp() {
       <AuthErrorModal
         errorCode={errorCode}
         closeErrorModal={closeErrorModal}
+        signup
       />
       ) }
     </div>

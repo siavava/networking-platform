@@ -26,12 +26,11 @@
     font-weight: 600;
     margin-bottom: 10px;
     opacity: 0.2;
+    position: absolute;
+    top: 35%;
   }
 
   .error-message {
-    position: absolute;
-    top: 25%;
-    left: 20%;
     opacity: 1;
     margin: 20px;
 
