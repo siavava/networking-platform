@@ -3,6 +3,8 @@ $text: white;
 
 .signup-modal {
   background-color: #6D8CC9;
+  border-color: white;
+  border-style: solid;
   color: $text;
   width: clamp(500px, 60%, 800px);
   display: flex;
