@@ -4,7 +4,7 @@ import axios from 'axios';
 
 // const ROOT_URL = 'https://plushiedexapi.onrender.com/api';
 
-const ROOT_URL = 'https://api-goloco.onrender.com';
+export const ROOT_URL = 'https://api-goloco.onrender.com';
 // export const ROOT_URL = 'http://localhost:9090';
 
 // keys for actiontypes

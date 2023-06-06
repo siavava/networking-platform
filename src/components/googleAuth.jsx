@@ -76,7 +76,7 @@ export default function GoogleAuth() {
           </label>
           <br />
           <button type="button" className="signInButton" onClick={codeForEmail}>
-            <img src="../src/img/google-sign-in.png" alt="google sign in" />
+            <img src="https://i.imgur.com/QX6Twi6.png" alt="google sign in" />
           </button>
           <button className="save-button" type="button" disabled={infoFilled()} onClick={handleSubmit}>Save</button>
         </div>
