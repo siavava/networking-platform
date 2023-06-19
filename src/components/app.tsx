@@ -18,6 +18,10 @@ import ExpandNoteView from './expanded-note-modal';
 import GoogleAuth from './googleAuth';
 import ExpandTaskView from './expanded-task-modal';
 
+function FallBack() {
+  return <div>Not Found</div>;
+}
+
 function App() {
   return (
     <BrowserRouter>
@@ -42,10 +46,6 @@ function App() {
       </div>
     </BrowserRouter>
   );
-}
-
-function FallBack() {
-  return <div>Not Found</div>;
 }
 
 export default App;

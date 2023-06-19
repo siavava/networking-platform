@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 import '../style/auth-error-modal.style.scss';
 import ReactMarkdown from 'react-markdown';
 
-export default function AuthErrorModal(props) {
+interface Props {
+  errorCode: number,
+  closeErrorModal: MouseEventHandler<HTMLButtonElement>,
+  signup: boolean
+}
+export default function AuthErrorModal(props: Props) {
   const { errorCode, closeErrorModal, signup } = props;
 
   let invalidFields = '# Invalid field entries. Please try again.\n';
@@ -20,7 +25,7 @@ export default function AuthErrorModal(props) {
     422: '# The email is already in use, please try another email.',
     500: '# Internal server error.',
     999: invalidFields,
-  };
+  } as Record<number, string>;
 
   return (
     <div className="error-modal">

@@ -18,9 +18,9 @@ export default function Companies() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isGridView, setIsGridView] = useState(true);
 
-  const search = (term) => {
-    if (term) {
-      searchCompanies(term)(dispatch);
+  const search = (query?: string) => {
+    if (query) {
+      searchCompanies(query)(dispatch);
     } else {
       getCompanies()(dispatch);
     }
@@ -36,7 +36,7 @@ export default function Companies() {
     getCompanies()(dispatch);
   }, []);
 
-  const companies = useSelector((state) => state.company.companies) || [];
+  const companies = useSelector((state: any) => state.company.companies) || [];
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -46,7 +46,7 @@ export default function Companies() {
     setIsModalOpen(false);
   };
 
-  const handleShowCompany = (id) => {
+  const handleShowCompany = (id: string) => {
     navigate(`/companies/${id}`);
   };
 
@@ -78,7 +78,7 @@ export default function Companies() {
         { isGridView
           ? (
             <ul className="companies-grid-view">
-              { companies.map((company) => (
+              { companies.map((company: any) => (
                 <li key={company.id} className="companies-list-item">
                   <div className="flip-card">
                     <div className="flip-card-inner">
@@ -102,7 +102,7 @@ export default function Companies() {
           )
           : (
             <ul className="companies-list-view">
-              { companies.map((company) => (
+              { companies.map((company: any) => (
                 <li key={company.id} className="companies-list-item">
                   <div className="company-list-card">
                     <div className="company-image">

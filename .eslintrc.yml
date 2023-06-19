@@ -1,0 +1,72 @@
+extends:
+  - 'airbnb'
+
+env:
+  browser: true
+  es6: true
+
+parser: '@typescript-eslint/parser'
+
+rules:
+  react/jsx-uses-react: 2
+  react/jsx-uses-vars: 2
+  react/react-in-jsx-scope: 2
+  react/prop-types: 0
+  react/destructuring-assignment: 0
+  react/jsx-first-prop-new-line: 0
+  react/jsx-filename-extension: 0
+  jsx-a11y/click-events-have-key-events: 0
+  jsx-a11y/no-noninteractive-element-interactions: 0
+  react/jsx-one-expression-per-line: 0
+  linebreak-style: 0
+  import/extensions:
+    - 0
+    - 'ignorePackages'
+    # -
+    #   '': 'never'
+    #   "js": "never"
+    #   "jsx": "never"
+    #   "ts": "never"
+    #   "tsx": "never"
+
+plugins:
+  - 'react'
+  - '@typescript-eslint'
+
+root: true
+
+settings:
+  import/resolver:
+    typescript: true
+    node: true
+
+
+# {
+#   "extends": [
+#     // "eslint:recommended",
+#     // "plugin:@typescript-eslint/recommended"
+#   ],
+#   "env": {
+#     "browser": true,
+#     "es6": true
+#   },
+#   "parser": "@typescript-eslint/parser",
+#   "rules": {
+#     "react/jsx-uses-react": 2,
+#     "react/jsx-uses-vars": 2,
+#     "react/react-in-jsx-scope": 2,
+#     "react/prop-types": 0,
+#     "react/destructuring-assignment": 0,
+#     "react/jsx-first-prop-new-line": 0,
+#     "react/jsx-filename-extension": 0,
+#     "jsx-a11y/click-events-have-key-events": 0,
+#     "jsx-a11y/no-noninteractive-element-interactions": 0,
+#     "react/jsx-one-expression-per-line":0,
+#     "linebreak-style": 0
+#   },
+#   "plugins": [
+#     "react",
+#     "@typescript-eslint"
+#   ],
+#   "root": true
+# }

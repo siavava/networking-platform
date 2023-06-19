@@ -11,7 +11,9 @@ const store = configureStore({
   reducer: rootReducer,
 });
 
-const root = createRoot(document.getElementById('main'));
+const main: HTMLElement | null = document.getElementById('main');
+if (!main) throw new Error('Could not find main element.');
+const root = createRoot(main);
 root.render(
   <Provider store={store}>
     <App />

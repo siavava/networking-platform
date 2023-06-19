@@ -13,7 +13,7 @@
  * validateName('Jo*hn') // false
  * validateName('') // false
  */
-const validateName = (name) => {
+const validateName = (name: string): boolean => {
   const nameRegex = /^[a-zA-Z]+$/;
   return name.length > 1 && nameRegex.test(name);
 };
@@ -22,7 +22,7 @@ const validateName = (name) => {
  * Validate email
  * @returns {boolean}
  */
-const validateEmail = (email) => {
+const validateEmail = (email: string): boolean => {
   // allow only letters, numbers, and the following characters: . _ -
   const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
   return emailRegex.test(email);
@@ -51,7 +51,7 @@ const validateEmail = (email) => {
  * validatePassword('password 123!@#') // false
  *
  */
-const validatePassword = (password) => {
+const validatePassword = (password: string): boolean => {
   // check it has at least 8 characters and has no whitespace
   const lengthCheck = password.length >= 8 && !/\s/.test(password);
 

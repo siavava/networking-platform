@@ -2,7 +2,12 @@
 import { produce } from 'immer';
 import { ActionTypes } from '../actions';
 
-const initialState = {
+export interface TasksState {
+  all: any[];
+  current: any;
+}
+
+const initialState: TasksState = {
   all: [],
   current: {},
 };

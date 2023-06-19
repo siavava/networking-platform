@@ -21,6 +21,7 @@ export default function GoogleAuth() {
   const SCOPE = 'https://mail.google.com/';
 
   const codeForEmail = () => {
+    // @ts-ignore
     tokenClient.requestCode();
   };
 
@@ -36,26 +37,27 @@ export default function GoogleAuth() {
       googleEmail,
     };
 
-    dispatch(updateUser(fields, navigate));
+    updateUser(fields)(dispatch, navigate);
     navigate('/home');
   };
 
   useEffect(() => {
     /* global google */
 
+    // @ts-ignore
     setTokenClient(google.accounts.oauth2.initCodeClient({
       access_type: 'offline',
       client_id: CLIENT_ID,
       scope: SCOPE,
       ux_mode: 'popup',
-      callback: (response) => {
+      callback: (response: any) => {
         const xhr = new XMLHttpRequest();
         xhr.open('POST', `${ROOT_URL}/api/googleauth`, true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         // Set custom header for CRSF
         xhr.setRequestHeader('X-Requested-With', 'XmlHttpRequest');
-        xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
-        xhr.onload = function () {
+        xhr.setRequestHeader('Authorization', localStorage.getItem('token') || '');
+        xhr.onload = () => {
           console.log(`Auth code response: ${xhr.responseText}`);
         };
         xhr.send(`code=${response.code}`);

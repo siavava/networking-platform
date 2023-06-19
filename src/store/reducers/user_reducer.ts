@@ -2,6 +2,10 @@
 import { produce } from 'immer';
 import { ActionTypes } from '../actions';
 
+export interface UserState {
+  firstName: string;
+}
+
 const initialState = {
   firstName: '',
   lastName: '',

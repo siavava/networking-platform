@@ -4,8 +4,25 @@
 import { produce } from 'immer';
 import { ActionTypes } from '../actions';
 
-const initialState = {
-  id: null,
+export interface PersonState {
+  id?: string;
+  name?: string;
+  title?: string;
+  imageUrl?: string;
+  email?: string;
+  linkedin?: string;
+  description?: string;
+  location?: string;
+  associatedCompany?: any;
+  notes: any[];
+  tags: string[];
+  tasks: any[];
+  people: any[];
+  emails: any[];
+}
+
+const initialState: PersonState = {
+  id: '',
   name: '',
   title: '',
   imageUrl: '',
